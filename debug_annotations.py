@@ -199,7 +199,18 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
         frame = draw_boxes(frame, pred_players, (0, 0, 255), "Pred_Player")
 
         ball_results = ball_model(clean_for_pred, verbose=False)[0]
-        pred_ball = [box.xyxy[0].tolist() for box in ball_results.boxes]
+        # Filtra la classe 'ball' se presente nel modello
+        try:
+            ball_class_id = next(
+                k for k, v in ball_model.names.items() if v.lower() == "ball"
+            )
+        except StopIteration:
+            ball_class_id = 0
+        pred_ball = [
+            box.xyxy[0].tolist()
+            for box in ball_results.boxes
+            if int(box.cls) == ball_class_id
+        ]
         frame = draw_boxes(frame, pred_ball, (0, 0, 255), "Pred_Ball")
 
         output_path = os.path.join(output_dir, f"frame_{frame_idx:04d}.jpg")
