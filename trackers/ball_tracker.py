@@ -9,14 +9,25 @@ from utils.kalman_filter import DetectionsToTracksKalmanFilter
 class BallTracker:
     def __init__(self, model):
         self.model = model
-        # Ora il nome della classe corrisponde a quello che abbiamo aggiunto
+        # Identifica dinamicamente l'ID della classe "ball" dal modello
+        try:
+            self.ball_class_id = next(
+                k for k, v in self.model.names.items() if v.lower() == "ball"
+            )
+        except StopIteration:
+            # Fallback: se il modello è single-class, di solito 'ball' è id 0
+            self.ball_class_id = 0
+
         self.tracker = DetectionsToTracksKalmanFilter()
         self.tracks = {}
 
     def detect_frames(self, frames):
         detections = []
         for frame in frames:
-            ball_detections = self.model.predict(frame, conf=0.15, classes=[0])
+            # Filtra direttamente per la classe 'ball'
+            ball_detections = self.model.predict(
+                frame, conf=0.15, classes=[self.ball_class_id]
+            )
             ball_detections_bbox = []
             if len(ball_detections[0].boxes) > 0:
                 highest_conf_detection = max(
@@ -37,7 +48,10 @@ class BallTracker:
             tracked_bbox = self.tracker.process_detections(bbox, conf)
 
             if tracked_bbox:
-                self.tracks[frame_num] = {1: {"bbox": tracked_bbox, "score": conf}}
+                # Aggiungiamo anche la class_id per la valutazione
+                self.tracks[frame_num] = {
+                    1: {"bbox": tracked_bbox, "score": conf, "class_id": self.ball_class_id}
+                }
             else:
                 self.tracks[frame_num] = {}
 
