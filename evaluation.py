@@ -186,7 +186,15 @@ def calculate_average_precision(detection_scores, total_gt):
     return ap / 11
 
 
-def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
+def main(
+    input_video_path,
+    ground_truth_path,
+    gt_resize_mode="stretch",
+    pred_imgsz=960,
+    ball_conf_min=0.05,
+    ball_search_radius=0.10,
+    ball_max_misses=5,
+):
     video_filename = os.path.basename(input_video_path)
     print(f"1. Analisi del video: {video_filename}")
 
@@ -249,12 +257,18 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
 
     # Esecuzione del tracking della palla 
     ball_model = YOLO(BALL_DETECTOR_PATH) 
-    ball_tracker = BallTracker(ball_model) 
+    ball_tracker = BallTracker(
+        ball_model,
+        imgsz=pred_imgsz,
+        min_conf=ball_conf_min,
+        max_search_radius=ball_search_radius,
+    ) 
+    ball_tracker.tracker.max_misses = ball_max_misses
     all_ball_tracks = ball_tracker.track_frames(all_frames) 
 
     # Esecuzione del tracking dei giocatori 
     player_model = YOLO(PLAYER_DETECTOR_PATH) 
-    player_tracker = PlayerTracker(player_model) 
+    player_tracker = PlayerTracker(player_model, imgsz=pred_imgsz) 
     all_player_tracks = player_tracker.get_object_tracks(all_frames) 
 
     # Le funzioni di valutazione confronteranno le predizioni (per tutti i frame)
@@ -318,5 +332,37 @@ if __name__ == "__main__":
         choices=["stretch", "letterbox"],
         help="Preprocess delle immagini GT in Roboflow: 'stretch' (default) oppure 'letterbox'",
     )
+    parser.add_argument(
+        "--pred_imgsz",
+        type=int,
+        default=960,
+        help="Dimensione di inferenza YOLO (maggiore migliora recall su oggetti piccoli)",
+    )
+    parser.add_argument(
+        "--ball_conf_min",
+        type=float,
+        default=0.05,
+        help="Soglia conf minima per la palla",
+    )
+    parser.add_argument(
+        "--ball_search_radius",
+        type=float,
+        default=0.10,
+        help="Raggio di ricerca relativo per associare detections fra frame (0-0.5)",
+    )
+    parser.add_argument(
+        "--ball_max_misses",
+        type=int,
+        default=5,
+        help="Quanti frame mantenere la traccia senza detection (Kalman)",
+    )
     args = parser.parse_args()
-    main(args.input_video, args.ground_truth_file, args.gt_resize_mode)
+    main(
+        args.input_video,
+        args.ground_truth_file,
+        args.gt_resize_mode,
+        args.pred_imgsz,
+        args.ball_conf_min,
+        args.ball_search_radius,
+        args.ball_max_misses,
+    )
