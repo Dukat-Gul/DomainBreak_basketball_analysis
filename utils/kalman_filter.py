@@ -62,6 +62,7 @@ class DetectionsToTracksKalmanFilter:
         self.kf = KalmanFilter()
         self.max_misses = max_misses
         self.misses = 0
+        self.last_bbox = None
 
     def _get_center(self, bbox):
         return [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2]
@@ -77,12 +78,62 @@ class DetectionsToTracksKalmanFilter:
         ]
 
     def process_detections(self, bbox, conf):
+        """
+        Aggiorna la traccia dato un bbox di detection (o nessuna) e ritorna
+        il bbox stimato/corretto. Mantiene la traccia viva fino a max_misses
+        usando la sola predizione del filtro di Kalman.
+        """
         if not bbox:
-            if self.kf.initialized:
+            if self.kf.initialized and self.last_bbox is not None:
                 self.misses += 1
                 if self.misses > self.max_misses:
                     self.kf.initialized = False
                     self.misses = 0
+                    self.last_bbox = None
                     return None
 
                 # Prevedi la prossima posizione se la detection è mancata
+                pred_center = self.kf.predict()
+                # Ricostruisci bbox mantenendo dimensioni precedenti
+                new_bbox = self._reconstruct_bbox(pred_center, self.last_bbox)
+                self.last_bbox = new_bbox
+                return new_bbox
+            else:
+                return None
+
+        # C'è una detection
+        meas_center = self._get_center(bbox)
+
+        if not self.kf.initialized:
+            self.kf.initialize_state(meas_center)
+            self.misses = 0
+            self.last_bbox = bbox
+            return bbox
+
+        # Predizione + correzione
+        self.kf.predict()
+        corrected_center = self.kf.correct(meas_center)
+
+        # Smussa le dimensioni per evitare salti improvvisi
+        if self.last_bbox is not None:
+            prev_w = self.last_bbox[2] - self.last_bbox[0]
+            prev_h = self.last_bbox[3] - self.last_bbox[1]
+        else:
+            prev_w = bbox[2] - bbox[0]
+            prev_h = bbox[3] - bbox[1]
+
+        meas_w = bbox[2] - bbox[0]
+        meas_h = bbox[3] - bbox[1]
+        new_w = 0.7 * prev_w + 0.3 * meas_w
+        new_h = 0.7 * prev_h + 0.3 * meas_h
+
+        new_bbox = [
+            float(corrected_center[0] - new_w / 2.0),
+            float(corrected_center[1] - new_h / 2.0),
+            float(corrected_center[0] + new_w / 2.0),
+            float(corrected_center[1] + new_h / 2.0),
+        ]
+
+        self.last_bbox = new_bbox
+        self.misses = 0
+        return new_bbox
