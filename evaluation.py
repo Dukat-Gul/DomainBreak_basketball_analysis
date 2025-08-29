@@ -262,9 +262,9 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
 
     print("\n--- INIZIO REPORT DI VALUTAZIONE ---") 
 
-    print("\n4. Valutazione del rilevamento della PALLA:") 
-    # Il modello della palla rileva solo 'ball', che è la sua classe 0 
-    ball_model_map = {0: "ball"} 
+    print("\n4. Valutazione del rilevamento della PALLA:")
+    # Usa la mappa classi reale del modello palla (single o multi-classe)
+    ball_model_map = ball_model.names
     ball_metrics = evaluate_detections(gt_converted, all_ball_tracks, "ball", ball_model_map)
     ball_ap = calculate_average_precision(
         ball_metrics["detection_scores"], ball_metrics["total_ground_truth"]
