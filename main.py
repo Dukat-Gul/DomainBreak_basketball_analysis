@@ -1,4 +1,5 @@
 import os
+import json
 import argparse
 import pandas as pd
 from utils import read_video, save_video, save_stub
@@ -81,11 +82,17 @@ def main(input_video_path, output_video_path, read_stubs=False):
     ball_drawer = BallTracksDrawer()
     court_drawer = CourtKeypointDrawer()
     shot_detector = ShotDetector(basket_area=None)
-    shot_classifier = ShotClassifier(court_dimensions=None)  # Per ora non passiamo le dimensioni reali
+    shot_classifier = ShotClassifier(
+        court_dimensions=None
+    )  # Per ora non passiamo le dimensioni reali
     shot_visualizer = ShotVisualizer()
     tactical_converter = TacticalViewConverter()
     shot_outcome_info = {"text": "", "display_frames": 0}
     output_frames = []
+
+    # NUOVO: Dizionario per raccogliere i dati di analisi
+    analysis_data = {}
+
     print("Inizio elaborazione e disegno frame per frame...")
     for frame_num, frame in enumerate(video_frames):
         player_tracks_for_frame = player_tracks[frame_num]
@@ -93,6 +100,31 @@ def main(input_video_path, output_video_path, read_stubs=False):
         court_keypoints_for_frame = court_keypoints[frame_num]
         player_assignments_for_frame = player_assignments[frame_num]
         player_with_ball_id = ball_acquisition[frame_num]
+
+        # NUOVO: Raccogliamo i dati per il JSON
+        frame_analysis = {
+            "frame_number": frame_num,
+            "player_with_ball": player_with_ball_id,
+            "players": [],
+            "ball": [],
+            "events": [],
+        }
+
+        # Aggiungi dati giocatori
+        for player_id, track_info in player_tracks_for_frame.items():
+            team_id = player_assignments_for_frame.get(player_id)
+            player_data = {
+                "id": player_id,
+                "team_id": team_id if team_id is not None else -1,
+                "position_2d": track_info.get("bbox", []),
+            }
+            frame_analysis["players"].append(player_data)
+
+        # Aggiungi dati palla
+        for ball_id, track_info in ball_tracks_for_frame.items():
+            ball_data = {"id": ball_id, "position_2d": track_info.get("bbox", [])}
+            frame_analysis["ball"].append(ball_data)
+
         basket_2d_coords = tactical_converter.transform_3d_to_2d(
             tactical_converter.basket_3d_coordinates, court_keypoints_for_frame
         )
@@ -104,6 +136,11 @@ def main(input_video_path, output_video_path, read_stubs=False):
             player_with_ball_id,
             frame_num,
         )
+
+        # NUOVO: Aggiungi eventi al JSON
+        if shot_event:
+            frame_analysis["events"].append(shot_event)
+
         if shot_event and shot_event.get("shot_event") == "shot_ended":
             # Classifichiamo il tiro solo se è andato a segno
             shot_type = ""
@@ -116,7 +153,12 @@ def main(input_video_path, output_video_path, read_stubs=False):
             # Aggiorniamo il testo da visualizzare
             outcome = "Bucket!" if shot_event.get("successful") else "Miss!"
             shot_outcome_info["text"] = f"{outcome}{shot_type}"
-            shot_outcome_info["display_frames"] = 60  # Mostra il testo per 2 secondi (a 30fps)
+            shot_outcome_info["display_frames"] = (
+                60  # Mostra il testo per 2 secondi (a 30fps)
+            )
+
+        analysis_data[frame_num] = frame_analysis
+
         annotated_frame = frame.copy()
         annotated_frame = court_drawer.draw_frame(
             annotated_frame, court_keypoints_for_frame
@@ -136,10 +178,19 @@ def main(input_video_path, output_video_path, read_stubs=False):
             annotated_frame, shot_detector, outcome_text_to_draw
         )
         output_frames.append(annotated_frame)
-    print("Elaborazione completata. Salvataggio del video...")
+
+    print("Elaborazione completata. Salvataggio del video e dei dati di analisi...")
+
+    # Salvataggio video
     os.makedirs(os.path.dirname(output_video_path), exist_ok=True)
     save_video(output_frames, output_video_path)
     print(f"✅ Video finale salvato in '{output_video_path}'")
+
+    # NUOVO: Salvataggio dati JSON
+    output_json_path = os.path.splitext(output_video_path)[0] + ".json"
+    with open(output_json_path, "w") as f:
+        json.dump(analysis_data, f, indent=4)
+    print(f"✅ Dati di analisi salvati in '{output_json_path}'")
 
 
 if __name__ == "__main__":
