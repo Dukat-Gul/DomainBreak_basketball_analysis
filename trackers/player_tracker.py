@@ -1,84 +1,53 @@
+# FILE: trackers/player_tracker.py
+
+import pickle
+import os
 from ultralytics import YOLO
-import supervision as sv
-import sys 
-sys.path.append('../')
-from utils import read_stub, save_stub
+
 
 class PlayerTracker:
-    """
-    A class that handles player detection and tracking using YOLO and ByteTrack.
-
-    This class combines YOLO object detection with ByteTrack tracking to maintain consistent
-    player identities across frames while processing detections in batches.
-    """
-    def __init__(self, model_path):
-        """
-        Initialize the PlayerTracker with YOLO model and ByteTrack tracker.
-
-        Args:
-            model_path (str): Path to the YOLO model weights.
-        """
-        self.model = YOLO(model_path) 
-        self.tracker = sv.ByteTrack()
+    def __init__(self, model):
+        self.model = model
 
     def detect_frames(self, frames):
-        """
-        Detect players in a sequence of frames using batch processing.
-
-        Args:
-            frames (list): List of video frames to process.
-
-        Returns:
-            list: YOLO detection results for each frame.
-        """
-        batch_size=20 
-        detections = [] 
-        for i in range(0,len(frames),batch_size):
-            detections_batch = self.model.predict(frames[i:i+batch_size],conf=0.5)
-            detections += detections_batch
+        detections = []
+        for frame in frames:
+            # MODIFICA: Rimuovere 'classes=[0]' per rilevare tutte le classi
+            player_detections = self.model.track(frame, persist=True, conf=0.15)[0]
+            detections.append(player_detections)
         return detections
 
     def get_object_tracks(self, frames, read_from_stub=False, stub_path=None):
-        """
-        Get player tracking results for a sequence of frames with optional caching.
+        if read_from_stub and stub_path and os.path.exists(stub_path):
+            print(f"Caricamento tracce dei giocatori da stub: {stub_path}")
+            with open(stub_path, "rb") as f:
+                return pickle.load(f)
 
-        Args:
-            frames (list): List of video frames to process.
-            read_from_stub (bool): Whether to attempt reading cached results.
-            stub_path (str): Path to the cache file.
-
-        Returns:
-            list: List of dictionaries containing player tracking information for each frame,
-                where each dictionary maps player IDs to their bounding box coordinates.
-        """
-        tracks = read_stub(read_from_stub,stub_path)
-        if tracks is not None:
-            if len(tracks) == len(frames):
-                return tracks
-
+        print(
+            "Esecuzione del tracking dei giocatori (nessuno stub trovato o richiesto)..."
+        )
         detections = self.detect_frames(frames)
 
-        tracks=[]
-
+        tracks = {}
         for frame_num, detection in enumerate(detections):
-            cls_names = detection.names
-            cls_names_inv = {v:k for k,v in cls_names.items()}
+            tracks[frame_num] = {}
+            if detection.boxes.id is not None:
+                for box in detection.boxes:
+                    track_id = int(box.id.item())
+                    bbox = box.xyxy.squeeze().tolist()
+                    score = float(box.conf.item())
+                    # Aggiungiamo anche la classe rilevata per un filtraggio futuro
+                    class_id = int(box.cls.item())
+                    tracks[frame_num][track_id] = {
+                        "bbox": bbox,
+                        "score": score,
+                        "class_id": class_id,
+                    }
 
-            # Covert to supervision Detection format
-            detection_supervision = sv.Detections.from_ultralytics(detection)
+        if stub_path:
+            print(f"Salvataggio tracce dei giocatori in stub: {stub_path}")
+            os.makedirs(os.path.dirname(stub_path), exist_ok=True)
+            with open(stub_path, "wb") as f:
+                pickle.dump(tracks, f)
 
-            # Track Objects
-            detection_with_tracks = self.tracker.update_with_detections(detection_supervision)
-
-            tracks.append({})
-
-            for frame_detection in detection_with_tracks:
-                bbox = frame_detection[0].tolist()
-                cls_id = frame_detection[3]
-                track_id = frame_detection[4]
-
-                if cls_id == cls_names_inv['Player']:
-                    tracks[frame_num][track_id] = {"bbox":bbox}
-        
-        save_stub(stub_path,tracks)
         return tracks
