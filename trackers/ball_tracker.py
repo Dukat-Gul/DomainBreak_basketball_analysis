@@ -1,89 +1,62 @@
-import pandas as pd
+import pickle
+import os
 from ultralytics import YOLO
-from utils.bbox_utils import get_center_of_bbox
-from utils.kalman_filter import KalmanFilter
+
+# Corretto il nome della classe importata
+from utils.kalman_filter import DetectionsToTracksKalmanFilter
 
 
 class BallTracker:
     def __init__(self, model):
         self.model = model
-        self.kalman_filter = KalmanFilter()
-        self.filter_initialized = False
+        # Ora il nome della classe corrisponde a quello che abbiamo aggiunto
+        self.tracker = DetectionsToTracksKalmanFilter()
+        self.tracks = {}
 
-    def track_frames(self, frames):
-        """
-        Metodo principale che rileva la palla e applica il filtro di Kalman
-        per ottenere una traiettoria pulita e completa.
-        """
-        raw_detections = self._detect_frames_raw(frames)
-        return self._get_kalman_filtered_tracks(raw_detections)
-
-    def _get_kalman_filtered_tracks(self, detections):
-        tracks = []
-
-        for frame_num, detection_bbox in enumerate(detections):
-            frame_tracks = {}
-            predicted_position = self.kalman_filter.predict()
-
-            if detection_bbox:  # Se il detector ha trovato la palla
-                center_point = get_center_of_bbox(detection_bbox)
-
-                if not self.filter_initialized:
-                    self.kalman_filter.initialize_state(center_point)
-                    self.filter_initialized = True
-
-                corrected_position = self.kalman_filter.correct(center_point)
-                corrected_bbox = self._create_bbox_from_center(
-                    corrected_position, detection_bbox
+    def detect_frames(self, frames):
+        detections = []
+        for frame in frames:
+            ball_detections = self.model.predict(frame, conf=0.15, classes=[0])
+            ball_detections_bbox = []
+            if len(ball_detections[0].boxes) > 0:
+                highest_conf_detection = max(
+                    ball_detections[0].boxes, key=lambda x: x.conf
                 )
-                frame_tracks[1] = {"bbox": corrected_bbox}
+                ball_detections_bbox.append(highest_conf_detection)
+            detections.append(ball_detections_bbox)
+        return detections
 
-            elif self.filter_initialized:
-                predicted_bbox = self._create_bbox_from_center(predicted_position)
-                frame_tracks[1] = {"bbox": predicted_bbox}
+    def update_tracks(self, detections):
+        for frame_num, detection in enumerate(detections):
+            if not detection:
+                self.tracks[frame_num] = {}
+                continue
 
-            tracks.append(frame_tracks)
+            bbox = detection[0].xyxy.squeeze().tolist()
+            conf = detection[0].conf.squeeze().tolist()
+            tracked_bbox = self.tracker.process_detections(bbox, conf)
 
-        return tracks
+            if tracked_bbox:
+                self.tracks[frame_num] = {1: {"bbox": tracked_bbox, "score": conf}}
+            else:
+                self.tracks[frame_num] = {}
 
-    def _create_bbox_from_center(self, center, reference_bbox=None):
-        width = reference_bbox[2] - reference_bbox[0] if reference_bbox else 20
-        height = reference_bbox[3] - reference_bbox[1] if reference_bbox else 20
-        x1 = center[0] - width / 2
-        y1 = center[1] - height / 2
-        x2 = center[0] + width / 2
-        y2 = center[1] + height / 2
-        return [x1, y1, x2, y2]
+    def track_frames(self, frames, read_from_stub=False, stub_path=None):
+        if read_from_stub and stub_path and os.path.exists(stub_path):
+            print(f"Caricamento tracce della palla da stub: {stub_path}")
+            with open(stub_path, "rb") as f:
+                return pickle.load(f)
 
-    def _detect_frames_raw(self, frames):
-        """
-        Esegue il rilevamento YOLO e restituisce solo il BBox della palla con la confidenza più alta per ogni frame.
-        """
-        batch_size = 20
-        raw_detections = []
-        for i in range(0, len(frames), batch_size):
-            detections_batch = self.model.predict(frames[i : i + batch_size], conf=0.2)
-            for detection in detections_batch:
-                ball_bbox = None
-                max_confidence = 0
+        print(
+            "Esecuzione del tracking della palla (nessuno stub trovato o richiesto)..."
+        )
+        detections = self.detect_frames(frames)
+        self.update_tracks(detections)
 
-                # Cerca dinamicamente l'ID della classe "Ball"
-                try:
-                    ball_class_id = [
-                        k for k, v in detection.names.items() if v == "Ball"
-                    ][0]
-                except IndexError:
-                    # Se il modello non ha la classe 'Ball', non possiamo fare nulla
-                    raw_detections.append(ball_bbox)
-                    continue
+        if stub_path:
+            print(f"Salvataggio tracce della palla in stub: {stub_path}")
+            os.makedirs(os.path.dirname(stub_path), exist_ok=True)
+            with open(stub_path, "wb") as f:
+                pickle.dump(self.tracks, f)
 
-                for box in detection.boxes:
-                    class_id = int(box.cls[0])
-                    confidence = float(box.conf[0])
-                    if class_id == ball_class_id:
-                        if confidence > max_confidence:
-                            ball_bbox = box.xyxy[0].tolist()
-                            max_confidence = confidence
-
-                raw_detections.append(ball_bbox)
-        return raw_detections
+        return self.tracks
