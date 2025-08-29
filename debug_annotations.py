@@ -69,7 +69,7 @@ def load_ground_truth(file_path, video_filename):
 
         frame_num = int(frame_num_match.group(1))
         if frame_num not in ground_truth:
-            ground_truth[frame_num] = {"ball": [], "player": []}
+            ground_truth[frame_num] = {"ball": [], "player": [], "referee": [], "rim": []}
 
         category_name = category_map.get(ann["category_id"])
 
@@ -83,12 +83,26 @@ def load_ground_truth(file_path, video_filename):
             x1, y1, w, h = ann["bbox"]
             bbox = [x1, y1, x1 + w, y1 + h]
             ground_truth[frame_num][unified_category].append(bbox)
+        # Aggiungi GT per arbitro e canestro
+        elif category_name == "referee":
+            x1, y1, w, h = ann["bbox"]
+            bbox = [x1, y1, x1 + w, y1 + h]
+            # crea struttura se non presente
+            if frame_num not in ground_truth:
+                ground_truth[frame_num] = {"ball": [], "player": [], "referee": [], "rim": []}
+            ground_truth[frame_num].setdefault("referee", []).append(bbox)
+        elif category_name == "rim":
+            x1, y1, w, h = ann["bbox"]
+            bbox = [x1, y1, x1 + w, y1 + h]
+            if frame_num not in ground_truth:
+                ground_truth[frame_num] = {"ball": [], "player": [], "referee": [], "rim": []}
+            ground_truth[frame_num].setdefault("rim", []).append(bbox)
 
     print(f"Ground truth per '{video_name_base}' processato.")
     return ground_truth, gt_width, gt_height
 
 
-def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
+def main(input_video_path, ground_truth_path, gt_resize_mode="stretch", pred_imgsz=960):
     video_filename = os.path.basename(input_video_path)
     print(f"1. Avvio debug visivo per: {video_filename}")
 
@@ -177,17 +191,23 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
         gt_annotations = ground_truth_data.get(frame_idx, {})
         gt_players = gt_annotations.get("player", [])
         gt_ball = gt_annotations.get("ball", [])
+        gt_ref = gt_annotations.get("referee", [])
+        gt_rim = gt_annotations.get("rim", [])
 
         # Applica la conversione corretta delle coordinate
         converted_gt_players = [convert_bbox(b) for b in gt_players]
         converted_gt_ball = [convert_bbox(b) for b in gt_ball]
+        converted_gt_ref = [convert_bbox(b) for b in gt_ref]
+        converted_gt_rim = [convert_bbox(b) for b in gt_rim]
 
         frame = draw_boxes(frame, converted_gt_players, (0, 255, 0), "GT_Player")
         frame = draw_boxes(frame, converted_gt_ball, (0, 255, 0), "GT_Ball")
+        frame = draw_boxes(frame, converted_gt_ref, (255, 165, 0), "GT_Referee")
+        frame = draw_boxes(frame, converted_gt_rim, (255, 0, 255), "GT_Rim")
 
         # --- Predizioni del Modello (ROSSO) ---
         clean_for_pred = all_frames[frame_idx]  # usa frame pulito per le predizioni
-        player_results = player_model(clean_for_pred, verbose=False)[0]
+        player_results = player_model(clean_for_pred, verbose=False, imgsz=pred_imgsz)[0]
         player_classes_ids = [
             k for k, v in player_model.names.items() if "player" in v.lower()
         ]
@@ -198,7 +218,7 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
         ]
         frame = draw_boxes(frame, pred_players, (0, 0, 255), "Pred_Player")
 
-        ball_results = ball_model(clean_for_pred, verbose=False)[0]
+        ball_results = ball_model(clean_for_pred, verbose=False, imgsz=pred_imgsz)[0]
         # Filtra la classe 'ball' se presente nel modello
         try:
             ball_class_id = next(
@@ -212,6 +232,24 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch"):
             if int(box.cls) == ball_class_id
         ]
         frame = draw_boxes(frame, pred_ball, (0, 0, 255), "Pred_Ball")
+
+        # Rileva anche arbitri e canestro (se presenti nel modello dei giocatori)
+        ref_ids = [k for k, v in player_model.names.items() if v.lower() == "referee"]
+        rim_ids = [k for k, v in player_model.names.items() if v.lower() == "rim"]
+        if ref_ids:
+            pred_ref = [
+                box.xyxy[0].tolist()
+                for box in player_results.boxes
+                if int(box.cls) in ref_ids
+            ]
+            frame = draw_boxes(frame, pred_ref, (255, 165, 0), "Pred_Referee")
+        if rim_ids:
+            pred_rim = [
+                box.xyxy[0].tolist()
+                for box in player_results.boxes
+                if int(box.cls) in rim_ids
+            ]
+            frame = draw_boxes(frame, pred_rim, (255, 0, 255), "Pred_Rim")
 
         output_path = os.path.join(output_dir, f"frame_{frame_idx:04d}.jpg")
         cv2.imwrite(output_path, frame)
@@ -239,5 +277,11 @@ if __name__ == "__main__":
         choices=["stretch", "letterbox"],
         help="Preprocess delle immagini GT in Roboflow: 'stretch' (default) oppure 'letterbox'",
     )
+    parser.add_argument(
+        "--pred_imgsz",
+        type=int,
+        default=960,
+        help="Dimensione di inferenza YOLO per le predizioni (utile per oggetti piccoli)",
+    )
     args = parser.parse_args()
-    main(args.input_video, args.ground_truth_file, args.gt_resize_mode)
+    main(args.input_video, args.ground_truth_file, args.gt_resize_mode, args.pred_imgsz)
