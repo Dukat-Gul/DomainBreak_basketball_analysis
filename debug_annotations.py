@@ -7,6 +7,7 @@ import numpy as np
 from ultralytics import YOLO
 from utils import read_video
 from configs import PLAYER_DETECTOR_PATH, BALL_DETECTOR_PATH
+from trackers import BallTracker
 
 
 # Funzione per disegnare i bounding box
@@ -102,7 +103,21 @@ def load_ground_truth(file_path, video_filename):
     return ground_truth, gt_width, gt_height
 
 
-def main(input_video_path, ground_truth_path, gt_resize_mode="stretch", pred_imgsz=960):
+def main(
+    input_video_path,
+    ground_truth_path,
+    gt_resize_mode="stretch",
+    pred_imgsz=960,
+    ball_conf_min=0.03,
+    ball_search_radius=0.06,
+    ball_max_misses=8,
+    area_ratio_min=2e-5,
+    area_ratio_max=5e-3,
+    w_conf=1.0,
+    w_orange=0.35,
+    w_dist=0.2,
+    use_tta=False,
+):
     video_filename = os.path.basename(input_video_path)
     print(f"1. Avvio debug visivo per: {video_filename}")
 
@@ -172,6 +187,21 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch", pred_img
 
     ball_model = YOLO(BALL_DETECTOR_PATH)
     player_model = YOLO(PLAYER_DETECTOR_PATH)
+    # Esegui tracking palla su tutti i frame per mostrare anche predizione Kalman
+    ball_tracker = BallTracker(
+        ball_model,
+        imgsz=pred_imgsz,
+        min_conf=ball_conf_min,
+        max_search_radius=ball_search_radius,
+        area_ratio_min=area_ratio_min,
+        area_ratio_max=area_ratio_max,
+        use_tta=use_tta,
+        w_conf=w_conf,
+        w_orange=w_orange,
+        w_dist=w_dist,
+    )
+    ball_tracker.tracker.max_misses = ball_max_misses
+    all_ball_tracks = ball_tracker.track_frames(all_frames)
 
     frames_to_process_indices = sorted(
         [fn for fn in ground_truth_data.keys() if fn < len(all_frames)]
@@ -233,6 +263,12 @@ def main(input_video_path, ground_truth_path, gt_resize_mode="stretch", pred_img
         ]
         frame = draw_boxes(frame, pred_ball, (0, 0, 255), "Pred_Ball")
 
+        # Disegna anche la traccia stabilizzata (Kalman)
+        track_frame = all_ball_tracks.get(frame_idx, {})
+        track_boxes = [info["bbox"] for info in track_frame.values()]
+        if track_boxes:
+            frame = draw_boxes(frame, track_boxes, (0, 255, 255), "Track_Ball")
+
         # Rileva anche arbitri e canestro (se presenti nel modello dei giocatori)
         ref_ids = [k for k, v in player_model.names.items() if v.lower() == "referee"]
         rim_ids = [k for k, v in player_model.names.items() if v.lower() == "rim"]
@@ -283,5 +319,28 @@ if __name__ == "__main__":
         default=960,
         help="Dimensione di inferenza YOLO per le predizioni (utile per oggetti piccoli)",
     )
+    parser.add_argument("--ball_conf_min", type=float, default=0.03)
+    parser.add_argument("--ball_search_radius", type=float, default=0.06)
+    parser.add_argument("--ball_max_misses", type=int, default=8)
+    parser.add_argument("--area_ratio_min", type=float, default=2e-5)
+    parser.add_argument("--area_ratio_max", type=float, default=5e-3)
+    parser.add_argument("--w_conf", type=float, default=1.0)
+    parser.add_argument("--w_orange", type=float, default=0.35)
+    parser.add_argument("--w_dist", type=float, default=0.2)
+    parser.add_argument("--use_tta", action="store_true")
     args = parser.parse_args()
-    main(args.input_video, args.ground_truth_file, args.gt_resize_mode, args.pred_imgsz)
+    main(
+        args.input_video,
+        args.ground_truth_file,
+        args.gt_resize_mode,
+        args.pred_imgsz,
+        args.ball_conf_min,
+        args.ball_search_radius,
+        args.ball_max_misses,
+        args.area_ratio_min,
+        args.area_ratio_max,
+        args.w_conf,
+        args.w_orange,
+        args.w_dist,
+        args.use_tta,
+    )

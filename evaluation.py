@@ -68,7 +68,7 @@ def load_ground_truth(file_path, video_filename):
         frame_num = int(frame_num_match.group(1))
 
         if frame_num not in ground_truth:
-            ground_truth[frame_num] = {"ball": [], "player": []}
+            ground_truth[frame_num] = {"ball": [], "player": [], "referee": [], "rim": []}
 
         category_name = category_map.get(ann["category_id"])
 
@@ -80,6 +80,10 @@ def load_ground_truth(file_path, video_filename):
             unified_category = "ball"
         elif "player" in category_name:  # Cattura 'player', 'players', 'player-dribble', etc.
             unified_category = "player"
+        elif category_name == "referee":
+            unified_category = "referee"
+        elif category_name == "rim":
+            unified_category = "rim"
 
         if unified_category:
             x1, y1, w, h = ann["bbox"]
@@ -194,6 +198,12 @@ def main(
     ball_conf_min=0.05,
     ball_search_radius=0.10,
     ball_max_misses=5,
+    area_ratio_min=2e-5,
+    area_ratio_max=5e-3,
+    w_conf=1.0,
+    w_orange=0.35,
+    w_dist=0.2,
+    use_tta=False,
 ):
     video_filename = os.path.basename(input_video_path)
     print(f"1. Analisi del video: {video_filename}")
@@ -253,6 +263,8 @@ def main(
         gt_converted[fn] = {
             "ball": [convert_bbox(b) for b in classes.get("ball", [])],
             "player": [convert_bbox(b) for b in classes.get("player", [])],
+            "referee": [convert_bbox(b) for b in classes.get("referee", [])],
+            "rim": [convert_bbox(b) for b in classes.get("rim", [])],
         }
 
     # Esecuzione del tracking della palla 
@@ -262,6 +274,12 @@ def main(
         imgsz=pred_imgsz,
         min_conf=ball_conf_min,
         max_search_radius=ball_search_radius,
+        area_ratio_min=area_ratio_min,
+        area_ratio_max=area_ratio_max,
+        use_tta=use_tta,
+        w_conf=w_conf,
+        w_orange=w_orange,
+        w_dist=w_dist,
     ) 
     ball_tracker.tracker.max_misses = ball_max_misses
     all_ball_tracks = ball_tracker.track_frames(all_frames) 
@@ -307,6 +325,38 @@ def main(
     )
     print(
         f"  - TP: {player_metrics['true_positives']}, FP: {player_metrics['false_positives']}, FN: {player_metrics['false_negatives']}"
+    )
+
+    # Valutazione ARBITRO
+    print("\n6. Valutazione rilevamento ARBITRO:")
+    referee_metrics = evaluate_detections(
+        gt_converted, all_player_tracks, "referee", player_model_map
+    )
+    referee_ap = calculate_average_precision(
+        referee_metrics["detection_scores"], referee_metrics["total_ground_truth"]
+    )
+    print(
+        f"  - Precision: {referee_metrics['precision']:.4f}, Recall: {referee_metrics['recall']:.4f}, F1-Score: {referee_metrics['f1_score']:.4f}"
+    )
+    print(f"  - Average Precision (AP): {referee_ap:.4f}")
+    print(
+        f"  - TP: {referee_metrics['true_positives']}, FP: {referee_metrics['false_positives']}, FN: {referee_metrics['false_negatives']}"
+    )
+
+    # Valutazione CANESTRO
+    print("\n7. Valutazione rilevamento CANESTRO:")
+    rim_metrics = evaluate_detections(
+        gt_converted, all_player_tracks, "rim", player_model_map
+    )
+    rim_ap = calculate_average_precision(
+        rim_metrics["detection_scores"], rim_metrics["total_ground_truth"]
+    )
+    print(
+        f"  - Precision: {rim_metrics['precision']:.4f}, Recall: {rim_metrics['recall']:.4f}, F1-Score: {rim_metrics['f1_score']:.4f}"
+    )
+    print(f"  - Average Precision (AP): {rim_ap:.4f}")
+    print(
+        f"  - TP: {rim_metrics['true_positives']}, FP: {rim_metrics['false_positives']}, FN: {rim_metrics['false_negatives']}"
     )
 
     print("\n--- FINE REPORT ---")
@@ -356,6 +406,41 @@ if __name__ == "__main__":
         default=5,
         help="Quanti frame mantenere la traccia senza detection (Kalman)",
     )
+    parser.add_argument(
+        "--area_ratio_min",
+        type=float,
+        default=2e-5,
+        help="Area bbox palla minima come frazione dell'area del frame",
+    )
+    parser.add_argument(
+        "--area_ratio_max",
+        type=float,
+        default=5e-3,
+        help="Area bbox palla massima come frazione dell'area del frame",
+    )
+    parser.add_argument(
+        "--w_conf",
+        type=float,
+        default=1.0,
+        help="Peso della confidenza del detector nello scoring",
+    )
+    parser.add_argument(
+        "--w_orange",
+        type=float,
+        default=0.35,
+        help="Peso della componente cromatica arancione nello scoring",
+    )
+    parser.add_argument(
+        "--w_dist",
+        type=float,
+        default=0.2,
+        help="Peso della vicinanza alla posizione precedente nello scoring",
+    )
+    parser.add_argument(
+        "--use_tta",
+        action="store_true",
+        help="Abilita test-time augmentation per la palla",
+    )
     args = parser.parse_args()
     main(
         args.input_video,
@@ -365,4 +450,10 @@ if __name__ == "__main__":
         args.ball_conf_min,
         args.ball_search_radius,
         args.ball_max_misses,
+        args.area_ratio_min,
+        args.area_ratio_max,
+        args.w_conf,
+        args.w_orange,
+        args.w_dist,
+        args.use_tta,
     )
