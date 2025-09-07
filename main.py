@@ -2,6 +2,8 @@ import os
 import json
 import argparse
 import pandas as pd
+import numpy as np
+from typing import Optional
 from utils import read_video, save_video, save_stub
 from trackers import PlayerTracker, BallTracker
 
@@ -27,8 +29,46 @@ from configs import (
 )
 
 
+# Add this function to convert NumPy types to Python native types
+def convert_numpy_types(obj):
+    """Recursively convert NumPy types to Python native types for JSON serialization."""
+    if isinstance(obj, dict):
+        return {key: convert_numpy_types(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_numpy_types(item) for item in obj]
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return convert_numpy_types(obj.tolist())
+    elif isinstance(obj, np.bool_):
+        return bool(obj)
+    else:
+        return obj
+
+
+def resolve_device(user_device: Optional[str] = None) -> str:
+    """Resolve device string from user input, defaulting to best available.
+
+    - 'auto' or None -> 'cuda' if available else 'cpu'
+    - otherwise returns the provided value (e.g., 'cuda', 'cuda:0', 'cpu')
+    """
+    if user_device and user_device.lower() != "auto":
+        return user_device
+    try:
+        import torch  # local import to avoid hard dependency if not installed yet
+
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    except Exception:
+        return "cpu"
+
+
 def main(input_video_path, output_video_path, read_stubs=False):
     video_frames = read_video(input_video_path)
+    # Determina il device per i modelli YOLO
+    device = resolve_device(getattr(args, "device", "auto"))
+    print(f"[Device] Inference device: {device}")
 
     # --- Analisi dei Giocatori e del Campo (invariata) ---
     stubs_dir = "stubs"
@@ -39,12 +79,20 @@ def main(input_video_path, output_video_path, read_stubs=False):
     player_assignment_stub = os.path.join(stubs_dir, "player_assignment_stub.pkl")
     ball_acquisition_stub = os.path.join(stubs_dir, "ball_acquisition.pkl")
 
-    player_tracker = PlayerTracker(PLAYER_DETECTOR_PATH)
+    # Load model object first, then create tracker
+    player_model = YOLO(PLAYER_DETECTOR_PATH)
+    try:
+        player_model.to(device)
+    except Exception:
+        pass
+    player_tracker = PlayerTracker(player_model)
     player_tracks = player_tracker.get_object_tracks(
         video_frames, read_from_stub=read_stubs, stub_path=player_tracks_stub
     )
 
-    court_keypoint_detector = CourtKeypointDetector(COURT_KEYPOINT_DETECTOR_PATH)
+    court_keypoint_detector = CourtKeypointDetector(
+        COURT_KEYPOINT_DETECTOR_PATH, device=device
+    )
     court_keypoints = court_keypoint_detector.get_court_keypoints(
         video_frames, read_from_stub=read_stubs, stub_path=court_keypoints_stub
     )
@@ -59,13 +107,33 @@ def main(input_video_path, output_video_path, read_stubs=False):
 
     # --- Rilevamento della Palla (con il nuovo metodo pulito) ---
     ball_model = YOLO(BALL_DETECTOR_PATH)
-    ball_tracker = BallTracker(ball_model)
+    try:
+        ball_model.to(device)
+    except Exception:
+        pass
+    ball_tracker = BallTracker(
+        ball_model,
+        imgsz=args.ball_pred_imgsz,
+        min_conf=args.ball_min_conf,
+        use_tta=args.ball_use_tta,
+        select_by_conf=args.ball_select_by_conf,
+        max_search_radius=args.ball_search_radius,
+        kalman_max_misses=args.ball_kf_max_misses,
+    )
+    # Soglia minima del punteggio fuso per accettare un candidato
+    ball_tracker.min_fused_select = float(args.ball_min_fused_select)
+    ball_tracker.w_iou = args.ball_w_iou
     # MODIFICA: Chiamiamo il nuovo metodo 'track_frames' se non leggiamo da stub
     if read_stubs:
         with open(os.path.join(stubs_dir, "ball_track_stubs.pkl"), "rb") as f:
             ball_tracks = pd.read_pickle(f)
     else:
-        ball_tracks = ball_tracker.track_frames(video_frames)
+        frame_indices = list(range(len(video_frames)))
+        ball_tracks = ball_tracker.track_frames(
+            video_frames,
+            frame_indices=frame_indices,
+            players_by_frame=player_tracks,
+        )
         save_stub(os.path.join(stubs_dir, "ball_track_stubs.pkl"), ball_tracks)
 
     # --- Rilevamento Possesso Palla (invariato) ---
@@ -186,10 +254,11 @@ def main(input_video_path, output_video_path, read_stubs=False):
     save_video(output_frames, output_video_path)
     print(f"✅ Video finale salvato in '{output_video_path}'")
 
-    # NUOVO: Salvataggio dati JSON
     output_json_path = os.path.splitext(output_video_path)[0] + ".json"
     with open(output_json_path, "w") as f:
-        json.dump(analysis_data, f, indent=4)
+        # Convert NumPy types before serialization
+        serializable_data = convert_numpy_types(analysis_data)
+        json.dump(serializable_data, f, indent=4)
     print(f"✅ Dati di analisi salvati in '{output_json_path}'")
 
 
@@ -207,9 +276,62 @@ if __name__ == "__main__":
         help="Percorso dove salvare il video analizzato.",
     )
     parser.add_argument(
+        "--device",
+        type=str,
+        default="auto",
+        help="Device per l'inferenza YOLO: 'auto', 'cpu', 'cuda', 'cuda:0', ecc.",
+    )
+    parser.add_argument(
         "--no_stubs",
         action="store_true",
         help="Forza la ri-analisi ignorando i file stub.",
+    )
+    # Parametri BallTracker per allineare a evaluation.py
+    parser.add_argument(
+        "--ball_pred_imgsz",
+        type=int,
+        default=960,
+        help="Dimensione di inferenza YOLO per la palla",
+    )
+    parser.add_argument(
+        "--ball_min_conf",
+        type=float,
+        default=0.05,
+        help="Soglia conf minima per la palla",
+    )
+    parser.add_argument(
+        "--ball_use_tta",
+        action="store_true",
+        help="Abilita test-time augmentation per la palla",
+    )
+    parser.add_argument(
+        "--ball_w_iou",
+        type=float,
+        default=0.20,
+        help="Peso del termine IoU con la bbox precedente nello scoring",
+    )
+    parser.add_argument(
+        "--ball_min_fused_select",
+        type=float,
+        default=0.0,
+        help="Soglia minima del punteggio fuso per accettare un candidato (0=disabled)",
+    )
+    parser.add_argument(
+        "--ball_select_by_conf",
+        action="store_true",
+        help="Se impostato, seleziona la bbox in base alla sola confidenza (post-gating)",
+    )
+    parser.add_argument(
+        "--ball_search_radius",
+        type=float,
+        default=0.10,
+        help="Raggio di ricerca euclideo massimo per frame (frazione di max(lato))",
+    )
+    parser.add_argument(
+        "--ball_kf_max_misses",
+        type=int,
+        default=8,
+        help="Quanti frame mantenere la traccia senza detection (predizione KF)",
     )
     args = parser.parse_args()
     main(
