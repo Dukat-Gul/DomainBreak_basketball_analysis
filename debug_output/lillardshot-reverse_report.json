@@ -1,0 +1,49 @@
+{
+  "video": "LillardShot.mp4",
+  "eval": {
+    "ball": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "average_localization_error": 0.0,
+      "true_positives": 0.0,
+      "false_positives": 1.0,
+      "false_negatives": 1.0,
+      "total_ground_truth": 1.0,
+      "ap": 0.0,
+      "continuity": {
+        "coverage": 0.0,
+        "avg_miss_run": 1.0,
+        "max_miss_run": 1,
+        "avg_hit_run": 0.0,
+        "first_detection_delay": null
+      }
+    }
+  },
+  "tracker_src_breakdown": {
+    "TILE": 5,
+    "null": 6,
+    "FULL": 10
+  },
+  "args": {
+    "pred_imgsz": 960,
+    "ball_conf_min": 0.03,
+    "ball_search_radius": 0.06,
+    "ball_max_misses": 8,
+    "area_ratio_min": 2e-05,
+    "area_ratio_max": 0.005,
+    "w_conf": 1.0,
+    "w_orange": 0.35,
+    "w_dist": 0.2,
+    "w_shape": 0.2,
+    "w_maha": 0.4,
+    "chi2_gating": 9.21,
+    "use_tta": true,
+    "ball_iou_eval": 0.5,
+    "fast_dev": false,
+    "fast_dev_ball_only": true,
+    "window": 10,
+    "frame_stride": 2,
+    "skip_players": true
+  }
+}
