@@ -14,7 +14,12 @@ class BallAcquisitionDetector:
     box with containment ratios of the ball within a player's bounding box.
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        possession_threshold: int = 50,
+        min_frames: int = 11,
+        containment_threshold: float = 0.8,
+    ):
         """
         Initialize the BallAcquisitionDetector with default thresholds.
 
@@ -26,9 +31,9 @@ class BallAcquisitionDetector:
             containment_threshold (float): Containment ratio above which a player
                 is considered to hold the ball without requiring distance checking.
         """
-        self.possession_threshold = 50
-        self.min_frames = 11
-        self.containment_threshold = 0.8
+        self.possession_threshold = int(possession_threshold)
+        self.min_frames = int(min_frames)
+        self.containment_threshold = float(containment_threshold)
 
     def get_key_basketball_player_assignment_points(self, player_bbox, ball_center):
         """
@@ -192,12 +197,28 @@ class BallAcquisitionDetector:
             list: A list of length num_frames with the player_id who has possession,
             or -1 if no one is determined to have possession in that frame.
         """
-        num_frames = len(ball_tracks)
-        possession_list = [-1] * num_frames
+        # Support both dict-based (frame_index -> dict) and list-based tracks
+        def get_frame(tracks, idx):
+            if isinstance(tracks, dict):
+                return tracks.get(idx, {})
+            try:
+                return tracks[idx]
+            except Exception:
+                return {}
+
+        if isinstance(ball_tracks, dict) or isinstance(player_tracks, dict):
+            max_bt = max(ball_tracks.keys(), default=-1) if isinstance(ball_tracks, dict) else len(ball_tracks) - 1
+            max_pt = max(player_tracks.keys(), default=-1) if isinstance(player_tracks, dict) else len(player_tracks) - 1
+            num_frames = max(max_bt, max_pt) + 1
+        else:
+            num_frames = min(len(ball_tracks), len(player_tracks))
+
+        possession_list = [-1] * max(0, num_frames)
         consecutive_possession_count = {}
 
         for frame_num in range(num_frames):
-            ball_info = ball_tracks[frame_num].get(1, {})
+            bt = get_frame(ball_tracks, frame_num)
+            ball_info = bt.get(1, {}) if isinstance(bt, dict) else {}
             if not ball_info:
                 continue
 
@@ -208,7 +229,7 @@ class BallAcquisitionDetector:
             ball_center = get_center_of_bbox(ball_bbox)
 
             best_player_id = self.find_best_candidate_for_possession(
-                ball_center, player_tracks[frame_num], ball_bbox
+                ball_center, get_frame(player_tracks, frame_num), ball_bbox
             )
 
             if best_player_id != -1:

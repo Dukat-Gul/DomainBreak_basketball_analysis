@@ -6,23 +6,24 @@ from ultralytics import YOLO
 
 
 class PlayerTracker:
-    def __init__(self, model, imgsz=None):
+    def __init__(self, model, imgsz=None, conf: float = 0.15):
         self.model = model
         self.imgsz = imgsz
+        self.conf = float(conf)
 
     def detect_frames(self, frames):
         detections = []
         for frame in frames:
-            # MODIFICA: Rimuovere 'classes=[0]' per rilevare tutte le classi
+            # Rileva/traccia tutte le classi; filtraggio avviene downstream via class_id
             if self.imgsz is not None:
                 player_detections = self.model.track(
-                    frame, persist=True, conf=0.15, imgsz=self.imgsz
+                    frame, persist=True, conf=self.conf, imgsz=self.imgsz
                 )[0]
             else:
                 player_detections = self.model.track(
-                    frame, persist=True, conf=0.15
+                    frame, persist=True, conf=self.conf
                 )[0]
-            detections.append(player_detections)
+        detections.append(player_detections)
         return detections
 
     def get_object_tracks(self, frames, read_from_stub=False, stub_path=None):

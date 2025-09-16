@@ -1,0 +1,3322 @@
+\documentclass[12pt,a4paper,openright,twoside]{book}
+
+
+% input e lingua
+\usepackage[utf8]{inputenc}
+\usepackage[english,italian]{babel} % italiano come lingua principale
+
+% Template e pacchetti del tamplate
+\usepackage{disi-thesis}
+\usepackage{code-lstlistings}
+\usepackage{notes}
+\usepackage{shortcuts}
+
+% Per le note:
+% Possibili utilizzi: 
+% (1) Nota testuale: \ldots\todo{Finire la frase}
+% (2) Quando manca immagine: \missingfigure{Questo è semplicemente un promemoria per inserire un'immagine}
+% (3) IMPORTANTE: per generare una lista delle note TODO, basta fare \listoftodos
+% (4) Alcune opzioni avanzate: \todo[options]{text}
+%     - backgroundcolor, textcolor, linecolor, bordercolor -> passati dentro "options"
+\usepackage{todonotes}
+
+% Acronomi: usa 'acro' (NON 'acronym')
+\usepackage{acro}
+
+% Per spezzare parole lunghe (es. URL, nomi di file, ecc.)
+\usepackage{seqsplit}
+
+
+% --- Pacchetti consigliati (decommenta se necessario) ---
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{subcaption}
+% \usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{array}
+\sisetup{detect-all,round-mode=places,round-precision=2}
+
+% Per tabelle con larghezza automatica
+\usepackage{tabularx,threeparttable}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{ragged2e} % Per un migliore allineamento del testo a capo
+
+% --- Valori inseriti direttamente nel testo/tabelle (nessuna macro numerica) ---
+
+% Per i box
+\usepackage[many]{tcolorbox}
+
+% Definiamo un nuovo ambiente per i box "Rischi & Mitigazioni" (versione corretta)
+\newtcolorbox{riskbox}[2][]{
+  colback=black!5!white,
+  colframe=black!75!black,
+  fonttitle=\bfseries,
+  % --- QUESTA E' LA LINEA MODIFICATA ---
+  title=Box~\thetcbcounter: #2, % Costruisce il titolo con il contatore automatico
+  #1
+}
+
+% Opzioni utili (facoltative):
+\acsetup{
+  make-links = true,              % link dalla lista alle occorrenze
+  first-style = long-short,       % prima volta: "long (SHORT)" (oppure short-long)
+  list/name = {Elenco degli acronimi}
+}
+
+% macro per produrre l'abbreviazione "e.g." -> exempli gratia - "per esempio"
+\newcommand{\eg}{\emph{e.g.}\space}
+
+% Bibliografia: usa biblatex+biber per \parencite
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  % style=alphabetic,   % cambia se preferisci
+  style=authoryear,
+  sorting=ynt
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+\school{\unibo}
+\programme{Corso di Laurea in Ingegneria e Scienze Informatiche}
+\title{Sviluppo di un Sistema di Visione Artificiale per l'Analisi di Video di Pallacanestro}
+\author{Nome Cognome}
+\date{\today}
+\subject{Visione Artificiale}
+\supervisor{Prof. Nome Cognome}
+\session{II}
+\academicyear{2024-2025}
+
+% Definition of acronyms
+% Acronyms (acro)
+\DeclareAcronym{iot}{ short = IoT , long = Internet of Things }
+\DeclareAcronym{vm}{ short = VM , long = Virtual Machine , short-plural = VMs , long-plural = Virtual Machines }
+\DeclareAcronym{od}{ short = OD , long = Object Detection }
+\DeclareAcronym{ot}{ short = OT , long = Object Tracking }
+\DeclareAcronym{cv}{ short = CV , long = Computer Vision }
+\DeclareAcronym{rgb}{ short = RGB , long = Red Green Blue }
+\DeclareAcronym{yuv}{ short = YUV , long = Luminance (Y) and Chrominance (UV) Color Space }
+\DeclareAcronym{fps}{ short = FPS , long = frames per second }
+\DeclareAcronym{id}{ short = ID , long = identità }
+\DeclareAcronym{kpi}{ short = KPI , long = Key Performance Indicator }
+\DeclareAcronym{kpis}{ short = KPIs , long = Key Performance Indicators }
+\DeclareAcronym{ai}{ short = AI , long = Artificial Intelligence }
+\DeclareAcronym{roi}{ short = ROI , long = Region of Interest }
+\DeclareAcronym{kf}{ short = KF , long = Kalman Filter }
+
+% --- Nuovi (dal tuo blocco glossaries) ---
+\DeclareAcronym{nms}{  short = NMS ,  long = non-maximum suppression }
+\DeclareAcronym{iou}{  short = IoU ,  long = intersection over union }
+\DeclareAcronym{ap}{  short = AP ,  long = average precision }
+\DeclareAcronym{map}{  short = mAP ,  long = mean average precision }
+\DeclareAcronym{mota}{ short = MOTA , long = multiple object tracking accuracy }
+\DeclareAcronym{mot}{ short = MOT , long = multiple object tracking }
+\DeclareAcronym{motp}{ short = MOTP , long = multiple object tracking precision }
+\DeclareAcronym{f1}{ short = F1 , long = F1-score }
+\DeclareAcronym{idf1}{ short = IDF1 , long = ID F1-score }
+\DeclareAcronym{hota}{ short = HOTA , long = higher order tracking accuracy }
+\DeclareAcronym{cpu}{  short = CPU ,  long = central processing unit , short-plural-form = CPUs , long-plural-form = central processing units }
+\DeclareAcronym{gpu}{  short = GPU ,  long = graphics processing unit , short-plural-form = GPUs , long-plural-form = graphics processing units }
+\DeclareAcronym{reid}{ short = Re-ID , long = Re-Identification }
+\DeclareAcronym{rpn}{ short = RPN , long = Region Proposal Network }
+\DeclareAcronym{fpn}{ short = FPN , long = Feature Pyramid Network }
+\DeclareAcronym{detr}{ short = DETR , long = Detection Transformer }
+\DeclareAcronym{cnn}{ short = CNN , long = Convolutional Neural Network }
+\DeclareAcronym{rnn}{ short = RNN , long = Recurrent Neural Network }
+\DeclareAcronym{yolo}{ short = YOLO, long  = You Only Look Once }
+\DeclareAcronym{coco}{ short = COCO, long  = Common Objects in Context }
+\DeclareAcronym{json}{ short = JSON, long  = JavaScript Object Notation }
+\DeclareAcronym{qa}{ short = QA , long  = Quality Assurance }
+\DeclareAcronym{mse}{ short = MSE , long  = Mean Squared Error }
+\DeclareAcronym{ram}{ short = RAM, long  = random-access memory }
+\DeclareAcronym{vram}{ short = VRAM, long  = video random-access memory }
+\DeclareAcronym{onnx}{ short = ONNX, long = Open Neural Network Exchange }
+\DeclareAcronym{mlops}{ short = MLOps, long = Machine Learning Operations }
+\DeclareAcronym{mlflow}{ short = MLflow, long = Machine Learning Flow }
+\DeclareAcronym{io}{ short = I/O, long = Input/Output }
+\DeclareAcronym{cuda}{ short = CUDA, long = Compute Unified Device Architecture }
+\DeclareAcronym{rmse}{ short = RMSE, long = Root Mean Squared Error }
+\DeclareAcronym{idsw}{ short = IDSW , long = identity switch }
+\DeclareAcronym{ml}{ short = ML , long = Mostly Lost }
+\DeclareAcronym{mt}{ short = MT , long = Machine Tracked }
+\DeclareAcronym{mae}{ short = MAE , long = Mean Absolute Error }
+\DeclareAcronym{px}{ short = px , long = pixel }
+\DeclareAcronym{m}{ short = m , long = metri }
+\DeclareAcronym{ade}{ short = ADE , long = Average Displacement Error }
+\DeclareAcronym{fde}{ short = FDE , long = Final Displacement Error }
+\DeclareAcronym{ssd}{ short = SSD , long = Single Shot MultiBox Detector }
+\DeclareAcronym{r-cnn}{ short = R-CNN , long = Region-based Convolutional Neural Network }
+\DeclareAcronym{sort}{ short = SORT , long = Simple Online and Realtime Tracking }
+\DeclareAcronym{oc-sort}{ short = OC-SORT , long = Observation-Centric Simple Online and Realtime Tracking }
+\DeclareAcronym{hr-net}{ short = HR-NET , long = High-Resolution Network }
+\DeclareAcronym{clip}{ short = CLIP , long = Contrastive Language-Image Pre-training }
+\DeclareAcronym{tta}{ short = TTA , long = Test-Time Augmentation }
+\DeclareAcronym{csv}{ short = CSV , long = Comma-Separated Values }
+\DeclareAcronym{fiba}{ short = FIBA , long = Fédération Internationale de Basketball }
+\DeclareAcronym{dlt}{ short = DLT , long = Direct Linear Transformation }
+\DeclareAcronym{ransac}{ short = RANSAC , long = Random Sample Consensus }
+\DeclareAcronym{ema}{ short = EMA , long = Exponential Moving Average }
+\DeclareAcronym{lmeds}{ short = LMEDS , long = Least Median of Squares }
+
+
+
+
+
+
+
+
+% #########################################################################################
+% COME USARLI:
+
+% Prima occorrenza → "long (SHORT)", poi solo "SHORT"
+% Nel campo della \ac{cv} rientrano \ac{od} e \ac{ot}.
+
+% Maiuscola a inizio frase
+% \Ac{od} è spesso valutata con \ac{iou} e \ac{map}.
+
+% Plurale automatico (usa le chiavi *-plural se servono forme speciali)
+% Abbiamo eseguito test su due \acp{vm} con una \ac{gpu}, ottenendo 30 \ac{fps}.
+
+% Forme esplicite quando servono
+% La \aclong{cpu} è diversa dalla \acshort{gpu}.
+% #########################################################################################
+
+
+\mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
+
+\begin{document}
+
+\frontmatter\frontispiece
+
+\begin{abstract}	
+Max 2000 characters, strict.
+\end{abstract}
+
+\begin{dedication} % this is optional
+\begin{quote}
+\emph{``I may not have gone where I intended to go, but I think I have ended up where I needed to be.''} 
+\\[0.5em]
+\guillemotleft \emph{Forse non sono andato dove intendevo andare, ma credo di essere arrivato dove dovevo essere.}\guillemotright 
+\\
+--- Douglas Adams, \emph{The Long Dark Tea-Time of the Soul} (1988)
+\end{quote}
+\end{dedication}
+
+%----------------------------------------------------------------------------------------
+\tableofcontents % Indice
+\printacronyms % Dove vuoi la lista (tipicamente dopo l'indice o prima del corpo)
+\listoffigures     % (optional) comment if empty
+\lstlistoflistings % (optional) comment if empty
+\listoftodos
+
+%----------------------------------------------------------------------------------------
+
+\mainmatter
+
+% THIS WAS INITIALLY INSIDE THE INTRODUCTION CHAPTER - IT MAY BE USEFUL DO NOT DELETE IT - |FOR NOW|
+% You can use acronyms that your defined previously,
+% such as \ac{iot}.
+% %
+% If you use acronyms twice,
+% they will be written in full only once
+% (indeed, you can mention the \ac{iot} now without it being fully explained).
+% %
+% In some cases, you may need a plural form of the acronym.
+% %
+% For instance,
+% that you are discussing \ac{vms},
+% you may need both \ac{vm} and \ac{vms}.
+
+% \paragraph{Structure of the Thesis}
+
+% \note{At the end, describe the structure of the paper}
+%----------------------------------------------------------------------------------------
+\chapter{Introduzione (2-3 pagine)}
+\label{chap:intro}
+%----------------------------------------------------------------------------------------
+L'analisi dei dati ha trasformato radicalmente il mondo dello sport,
+sia professionistico sia amatoriale. Lungi dall'essere un dominio
+affidato esclusivamente all'intuizione di allenatori e atleti, lo
+sport moderno è diventato un terreno fertile per l'applicazione di
+metodologie quantitative mirate a ottenere un vantaggio competitivo.
+In questo scenario, la pallacanestro si distingue per la sua
+natura dinamica, la rapidità delle azioni e l'alta densità di eventi
+significativi, che la rendono al contempo un soggetto ideale e
+complesso per l'analisi automatizzata.
+
+Questo capitolo introduce il lavoro di tesi, partendo dal contesto
+e dalle motivazioni che lo hanno ispirato. Verranno quindi definiti
+in modo formale i problemi affrontati e gli obiettivi specifici
+del progetto. Infine, verrà delineata la struttura del documento
+per guidare il lettore attraverso le diverse fasi del lavoro.
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Iniziare descrivendo la crescente importanza dell'analisi dati e della tecnologia nel mondo dello sport, 
+% con un focus sul basket. Spiegare come l'analisi automatizzata possa fornire insight preziosi a coach, 
+% atleti e analisti, superando i limiti di tempo e costo dell'analisi manuale.
+
+\section{Contesto e Motivazioni}
+\label{sec:contesto-motivazioni}
+Negli ultimi anni, l'analisi dei dati nello sport (talvolta indicata
+come \emph{sports analytics}) ha visto una crescita esponenziale,
+alimentata dalla disponibilità di grandi quantità di dati, 
+in gran parte sotto forma di registrazioni video. L'analisi
+manuale di queste ore di filmati, svolta da video analisti, è un
+processo dispendioso in termini di tempo, costoso e
+intrinsecamente soggettivo. Da qui l'esigenza di sviluppare
+sistemi automatici capaci di estrarre informazioni oggettive e ad
+alto valore aggiunto direttamente dai video.
+
+La visione artificiale (in inglese \ac{cv}) è una branca
+dell'intelligenza artificiale (\ac{ai}) che mira a replicare la capacità
+umana di comprendere e interpretare il mondo visivo, offrendo gli
+strumenti per affrontare questa sfida. Applicata al basket, essa
+promette di automatizzare il rilevamento (\ac{od}) dei giocatori,
+il tracciamento (\ac{ot}) della palla e l'identificazione di eventi di gioco,
+fornendo a coach, atleti e scout dati utili per l'analisi
+tattica, la valutazione delle prestazioni e lo sviluppo tecnico.
+
+Il contesto della pallacanestro indoor presenta tuttavia sfide
+specifiche: la velocità del gioco genera motion blur; le frequenti
+occlusioni, con giocatori che si sovrappongono o nascondono la palla,
+complicano il tracciamento; le condizioni di illuminazione artificiale
+possono creare riflessi sul parquet; le divise delle squadre possono
+avere colori simili, rendendo difficile la distinzione.
+
+Questa tesi si inserisce in tale contesto con l'obiettivo di
+progettare e sviluppare un sistema prototipale che, partendo da un
+video di una partita di basket, sia in grado di eseguire due compiti
+fondamentali per qualsiasi analisi successiva: il conteggio
+dei giocatori presenti in campo e la ricostruzione della
+traiettoria della palla. Il contributo pratico consiste nel fornire
+una pipeline software modulare e documentata che affronta queste sfide
+utilizzando tecniche allo stato dell'arte, aprendo la strada ad analisi
+più complesse.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Definire in modo chiaro e formale i problemi che la tesi affronta:
+% \begin{enumerate}
+%   \item La necessità di un sistema automatico per ricostruire la traiettoria della palla durante un tiro 
+%   a canestro a partire da un video.
+%   \item L'esigenza di contare in modo affidabile il numero di giocatori presenti in una determinata area 
+%   del campo o in un frame video.
+%   \item ?Altri?
+% \end{enumerate}
+\section{Il Problema}
+\label{sec:problema}
+Sulla base del contesto delineato, il problema generale può essere
+scomposto in due sotto-problemi computazionali principali, come
+illustrato schematicamente in Figura~\ref{fig:scenario_e_compiti}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/01_intro/PrimaFiguraAlternativa3-CAP1.png}
+  % \framebox[1.0\textwidth][c]{Schema a blocchi dell'architettura 
+  % concettuale del sistema}
+  \caption{Scenario e compiti della tesi. Il sistema riceve in
+  input un video di una partita e, attraverso moduli di analisi
+  specializzati, produce dati strutturati (conteggio giocatori,
+  traiettoria palla) e visualizzazioni. Le principali sfide sono
+  rappresentate dalle occlusioni, dall'elevata velocità degli 
+  oggetti e dalle condizioni di illuminazione.}
+  \label{fig:scenario_e_compiti}
+\end{figure}
+
+\begin{enumerate}
+  \item \textbf{Rilevamento e conteggio dei giocatori.} Dato un video $V$ composto
+  da una sequenza di frame $\{f_1, f_2, \ldots, f_N\}$, il primo
+  problema consiste nello stimare, per ogni frame $f_t$, il numero
+  totale $c_t$ di giocatori presenti all'interno dell'inquadratura o
+  in una specifica regione di interesse (\ac{roi}).
+  Il sistema deve essere resistente a occlusioni parziali,
+  all'affollamento di giocatori in aree ristrette (ad esempio l'area dei tre secondi) 
+  e alla presenza di non-giocatori dall'aspetto simile (ad esempio arbitri o pubblico 
+  vicino al campo).
+  \item \textbf{Rilevamento e stima della traiettoria della palla.} Il secondo
+  problema consiste nello stimare, per ogni frame $f_t$ in cui la
+  palla è in movimento, la sua posizione $p_t \in \mathbb{R}^2$ sul piano immagine. 
+  L'algoritmo deve gestire sfide intrinseche: le piccole dimensioni della palla, 
+  l'alta velocità (con conseguente motion blur) e, soprattutto, le frequenti 
+  e prolungate occlusioni da parte dei giocatori. 
+  Una stima accurata della traiettoria è prerequisito per il rilevamento di 
+  eventi come tiri, passaggi e rimbalzi.
+\end{enumerate}
+
+Questi problemi pratici sollevano alcuni quesiti di ricerca che
+la tesi si propone di investigare:
+\begin{itemize}
+  \item Qual è il compromesso ottimale tra accuratezza e velocità di
+  inferenza per i modelli di rilevamento di oggetti (\ac{od}) applicati 
+  al dominio specifico del basket?
+  \item In che misura un approccio ibrido, che combini un rilevatore
+  basato su deep learning con un filtro di stato classico (Filtro di
+  Kalman -- \ac{kf}), può migliorare la continuità del tracciamento della palla
+  in presenza di occlusioni?
+  \item Quali strategie di \emph{data augmentation} risultano più efficaci 
+  per migliorare la capacità di generalizzazione dei modelli in un
+  ambiente controllato ma complesso come un campo da basket indoor?
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Elencare gli scopi concreti del progetto:
+% \begin{itemize}
+%   \item Studiare lo stato dell'arte delle tecniche di computer vision per l'analisi del basket.
+%   \item Creare e/o adattare un dataset di video, etichettandolo per creare un ground truth affidabile.
+%   \item Sviluppare e addestrare un modello per il rilevamento dei giocatori.
+%   \item Implementare un algoritmo per il tracciamento della traiettoria della palla.
+%   \item Valutare le performance dei modelli sviluppati tramite metriche quantitative.
+% \end{itemize}
+\section{Obiettivi della Tesi}
+\label{sec:obiettivi-tesi}
+
+Per rispondere ai quesiti di ricerca e affrontare i problemi
+definiti, sono stati stabiliti i seguenti obiettivi concreti, la
+cui mappatura con le metriche di valutazione e i capitoli di
+riferimento è riassunta in Tabella~\ref{tab:obiettivi_metriche_capitoli}.
+
+\paragraph{Revisione critica dello stato dell'arte.}
+Analizzare la letteratura scientifica per identificare 
+le tecniche più promettenti per il rilevamento e il tracciamento 
+di oggetti in contesti sportivi, con un focus specifico sulla 
+pallacanestro.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/01_intro/SecondaFiguraAlternativa-CAP1.png}
+  \caption{Ambito e assunzioni del progetto.}
+  \label{fig:ambito-assunzioni}
+\end{figure}
+
+\paragraph*{Assunzioni operative}
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+  \item \textbf{Scenario:} partite di basket indoor.
+  \item \textbf{Telecamera:} una telecamera fissa (necessaria per l'omografia).
+  \item \textbf{Qualità video:} risoluzione $\geq$\,720p; frame rate 30 \ac{fps}.
+  \item \textbf{Privacy:} nessuna identificazione; i volti non sono processati né salvati.
+  \item \textbf{Limiti funzionali:} nessuna analisi tattica complessa e nessun 
+  riconoscimento individuale.
+\end{itemize}
+
+\begin{table}[h!]
+  \centering
+  \caption{Mappatura degli obiettivi della tesi con le relative metriche di valutazione 
+  e i capitoli di riferimento.}
+  \label{tab:obiettivi_metriche_capitoli}
+  \begin{tabularx}{\textwidth}{l Y l}
+    \toprule
+    \textbf{Obiettivo} & \textbf{Metrica di Valutazione / Output} & \textbf{Capitolo} \\
+    \midrule
+    Revisione dello stato dell'arte & Sintesi critica della letteratura 
+    & Cap.~\ref{chap:stato-dell-arte} \\
+    \addlinespace
+    Creazione e annotazione del dataset & Dataset con \emph{ground truth} 
+    (bounding box di giocatori e palla) & Cap.~\ref{chap:metodologia-sviluppo} \\
+    \addlinespace
+    Sviluppo del modello di rilevamento & Precision, Recall, \ac{map} 
+    & Cap.~\ref{chap:risultati-sperimentali} \\
+    \addlinespace
+    Tracciamento giocatori & \ac{idf1}; \ac{hota}; 
+    (di supporto: \ac{mota}/\ac{motp}, \acf{idsw}, \acf{mt}/\acf{ml}) 
+    & Cap.~\ref{chap:risultati-sperimentali} \\
+    \addlinespace
+    Traiettoria palla & \acf{mae} su piano omografico in \acf{px} o \acf{m}; 
+    \ac{rmse}; \acf{ade}/\acf{fde} & Cap.~\ref{chap:risultati-sperimentali} \\
+    \addlinespace
+    Valutazione complessiva & Analisi quantitativa e qualitativa dei risultati 
+    ottenuti & Cap.~\ref{chap:conclusioni-sviluppi-futuri} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta: 
+% Fornire una breve panoramica dei capitoli successivi, guidando il lettore attraverso il documento.
+\section{Struttura della Tesi}
+\label{sec:struttura-tesi}
+Il presente documento è organizzato come segue.
+
+\paragraph{Capitolo~\ref{chap:stato-dell-arte} -- Stato dell'Arte.} 
+Introduce i concetti fondamentali della visione artificiale e 
+analizza i lavori scientifici e i dataset pubblici più 
+rilevanti per l'analisi del basket.
+
+\paragraph{Capitolo~\ref{chap:metodologia-sviluppo} -- Metodologia e Sviluppo del Progetto.} 
+Descrive in dettaglio l'architettura del sistema, 
+la preparazione dei dati e le scelte implementative 
+per ciascun modulo di analisi.
+
+\paragraph{Capitolo~\ref{chap:risultati-sperimentali} -- Risultati Sperimentali e Valutazione.} 
+Presenta i risultati quantitativi ottenuti, includendo studi 
+di ablazione, e discute criticamente le prestazioni e i limiti 
+del sistema.
+
+\paragraph{Capitolo~\ref{chap:conclusioni-sviluppi-futuri} -- Conclusioni e Sviluppi Futuri.}
+Riassume il lavoro svolto, ne ribadisce i contributi e delinea 
+possibili direzioni per estensioni e miglioramenti futuri.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%----------------------------------------------------------------------------------------
+\chapter{Stato dell'Arte (10--15~pagine)}
+\label{chap:stato-dell-arte}
+%----------------------------------------------------------------------------------------
+\noindent Questo capitolo sintetizza i principali concetti, metodi 
+e risultati della letteratura rilevanti per la progettazione di un 
+sistema di visione artificiale applicato a video di pallacanestro indoor.
+L'obiettivo è fornire un quadro coerente e aggiornato che consenta di 
+motivare le scelte metodologiche del Capitolo~\ref{chap:metodologia-sviluppo} 
+e di definire criteri di valutazione oggettivi per il 
+Capitolo~\ref{chap:risultati-sperimentali}.
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Introduzione alla Visione Artificiale}
+\label{sec:introduzione-vision-artificiale}
+
+La visione artificiale (\ac{cv}) studia algoritmi e sistemi capaci 
+di estrarre informazioni semantiche da dati visivi, tipicamente immagini e video. 
+I compiti più pertinenti a questa tesi comprendono: rilevamento di oggetti
+(\ac{od}: localizzare e classificare istanze con \emph{bounding box});
+tracciamento di oggetti (\ac{ot}: stimare \ac{id} e traiettorie nel tempo);
+stima di posa (\emph{pose estimation}: coordinate articolari 2D/3D del corpo umano); 
+re-identificazione (\ac{reid}: associazione della stessa identità attraverso frame o videocamere); 
+riconoscimento di eventi (\emph{event recognition}: classificare o segmentare azioni 
+complesse nel tempo, ad esempio tiro, rimbalzo, ``pick-and-roll'').
+
+Queste componenti possono essere integrate in una pipeline che, 
+a partire dal video, produce indicatori utili ad allenatori e analisti, 
+come conteggi dei giocatori, traiettorie della palla, mappe di tiro o 
+rilevamento di situazioni tattiche ricorrenti.
+
+Nel contesto della \textbf{pallacanestro indoor}, la letteratura 
+evidenzia vincoli peculiari: occlusioni frequenti dovute alla 
+densità di giocatori in area; illuminazione non uniforme e 
+riflessi del parquet che alterano colori e contrasto; 
+\emph{\emph{camera shake}} e \emph{panning} nelle riprese 
+\emph{handheld} o da tribuna; la palla è piccola e si muove 
+rapidamente, con \emph{motion blur}; uniformi simili e la 
+presenza di arbitri/pubblico possono confondere i modelli. 
+Tali fattori influenzano sia l'accuratezza 
+(\emph{precision}/\emph{recall}, \emph{\ac{map}}, \emph{\ac{idf1}}) 
+sia l'efficienza (\emph{\ac{fps}}, \emph{ms/frame}, memoria), 
+e guidano scelte di \emph{compute budget} 
+(\emph{\ac{cpu}}/\emph{\ac{gpu}}) e di \emph{data strategy} 
+(dataset, annotazioni, \emph{data augmentation}). 
+Nei paragrafi seguenti si presentano gli elementi 
+fondamentali (Sezione~\ref{sec:elementi-visione-artificiale}), 
+le famiglie di \emph{detector} e \emph{tracker} più diffuse 
+(Sezione~\ref{sec:algoritmi-rilevamento-tracciamento}), 
+applicazioni al basket (Sezione~\ref{sec:cv-applicata-basket})
+e dataset pubblici utili (Sezione~\ref{sec:dataset-pubblici}).
+% sezioni e label verificate e allineate
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Fornire una breve introduzione ai concetti fondamentali necessari per comprendere il progetto: elaborazione
+% di immagini, object detection, object tracking.
+\section{Elementi di Visione Artificiale}
+\label{sec:elementi-visione-artificiale}
+
+Questa sezione introduce, con definizioni sintetiche, i costrutti 
+necessari a comprendere le scelte progettuali adottate 
+successivamente.
+
+\paragraph{Rappresentazioni e pre-elaborazione.} Un frame video è una 
+matrice di intensità in uno spazio colore (\emph{\ac{rgb}}; 
+\emph{\ac{yuv}}). Operazioni comuni includono ridimensionamento, 
+normalizzazione, bilanciamento del bianco, riduzione del rumore 
+e \emph{deblurring}. La frequenza dei fotogrammi (\ac{fps}) 
+e la risoluzione (ad esempio $1920\times1080$) influenzano 
+latenza e accuratezza.
+
+\paragraph{Rilevamento di oggetti (\ac{od}).} Dato un frame, l'\ac{od} 
+produce un insieme di \emph{bounding box} con etichette (ad esempio 
+\texttt{giocatore} e \texttt{palla}). Le metriche standard sono \emph{\ac{iou}},
+sovrapposizione \emph{box--ground truth} e \ac{map}, media delle 
+\ac{ap} su soglie di \ac{iou}. La \emph{\ac{nms}} rimuove box ridondanti.
+
+\paragraph{Tracciamento di oggetti (\ac{ot}).} 
+L'\ac{ot} associa le detezioni nel tempo per stimare 
+\ac{id} persistenti e traiettorie. Si distingue tra 
+\emph{tracking-by-detection} (associazione 
+tra detezioni \emph{frame-to-frame}) e 
+\emph{joint detection/tracking} 
+(rilevamento e associazione unificati). 
+Metriche: \emph{\ac{mota}} e \emph{\ac{motp}} 
+(CLEAR \emph{\ac{mot}} \cite{Bernardin2008CLEAR}), 
+\ac{idf1} \cite{Ristani2016Performance}, \emph{\ac{hota}} 
+\cite{Luiten2020HOTA}.
+
+\paragraph{Stima di posa e \ac{reid}.} La stima di posa (\emph{pose}) 
+fornisce punti chiave (\emph{keypoints}) scheletrici; utile per 
+distinguere posture (tiro, sottomano, rimbalzo).
+Esempi: \emph{OpenPose} \cite{8765346}, \emph{HRNet} \cite{Sun2019Deep}.
+La re-identificazione (\ac{reid}) apprende descrittori di aspetto 
+per riassociare la stessa persona; è spesso addestrata su dataset 
+come \emph{Market-1501} \cite{7410490}.
+
+\paragraph{Efficienza e \emph{compute budget}.} La latenza
+(ms/frame), il \emph{throughput} (\ac{fps}) e la memoria
+determinano la praticabilità in tempo reale. Il tempo
+dipende da: modello (profondità, risoluzione di input, 
+\emph{backbone}), hardware (solo \ac{cpu} vs \ac{gpu}; 
+ad esempio \ac{gpu} \emph{consumer} o \emph{embedded}), 
+\emph{batch size}. In ambienti indoor con \emph{camera shake} 
+e \emph{motion blur}, \emph{temporal smoothing} 
+(filtri di Kalman, medie esponenziali) e strategie di 
+\emph{debouncing} possono stabilizzare \ac{id} e traiettorie.
+
+\paragraph{Vincoli specifici del basket indoor.} 
+Occlusioni: frequenti in area; richiedono stabilità nell' 
+\emph{\ac{idsw}}. Illuminazione/riflessi: il parquet lucido introduce 
+aberrazioni; la palla arancione può confondersi con toni caldi. 
+Palla piccola/veloce: serve risoluzione sufficiente e/o 
+\emph{temporal cues}. Uniformi simili e arbitri/pubblico: 
+necessarie strategie di \emph{class imbalance handling} e 
+\emph{data augmentation} mirata.
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item \ac{od}, \ac{ot}, \emph{pose} e \ac{reid} sono i mattoni 
+  principali; metriche chiave: \ac{iou}, \ac{map}, \ac{idf1}, \ac{hota}.
+  \item Latenza e memoria dipendono da risoluzione, \ac{fps} e hardware; 
+  la qualità video influenza direttamente le prestazioni.
+  \item I vincoli del basket (occlusioni, riflessi, palla veloce) 
+  richiedono strategie specifiche di acquisizione e \emph{pre-processing}.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:metodologia-sviluppo}.}
+Giustificare scelte di risoluzione (ad esempio $1280\times720$ vs 
+$1920\times1080$), un target di 30~\ac{fps}, e del \emph{compute budget} 
+(solo \ac{cpu} vs \ac{gpu}). Prevedere un modulo di stabilizzazione temporale 
+e \emph{data augmentation} specifica per parquet/uniformi.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Algoritmi di rilevamento e tracciamento di oggetti}
+\label{sec:algoritmi-rilevamento-tracciamento}
+Presentiamo le famiglie di metodi più adottate, con particolare 
+enfasi sulla stabilità in ambienti indoor e sul rapporto costo/efficacia.
+
+\subsection{Rilevamento: due-stadi, uno-stadio e transformer}
+
+\paragraph{Due-stadi (two-stage).} I detector \emph{two-stage} 
+generano \emph{region proposals} e raffinano classificazione/localizzazione.
+\emph{Faster \ac{r-cnn}} riduce il collo di bottiglia tramite una 
+\emph{Region Proposal Network} \cite{Ren2015FasterRCNN}.
+\textbf{Vantaggi}: alta accuratezza su oggetti medi/grandi e a \ac{iou} elevate; 
+\textbf{Svantaggi}: latenza superiore e sensibilità alla risoluzione.
+
+\paragraph{Uno-stadio (one-stage).} I detector \emph{one-stage} 
+apprendono predizioni dense: \emph{\ac{ssd}} \cite{Liu2016SSD} e le famiglie
+\emph{\ac{yolo}} \cite{Redmon2018YOLOv3}. \textbf{Vantaggi}: 
+\emph{throughput} elevato, buone prestazioni su \emph{hardware commodity}; 
+\textbf{Svantaggi}: potenziale calo su oggetti piccoli ad \emph{iou} alte. 
+Varianti recenti (ad esempio architetture \emph{anchor-free} 
+\cite{Ultralytics2025AnchorFree} e \emph{decoupled head} 
+\cite{Meng2023YOLOv5sFog}) hanno migliorato il compromesso 
+\emph{accuracy/latency}. Nel presente progetto si adotta un detector 
+\emph{one-stage} (\emph{Ultralytics \ac{yolo}} 
+\cite{Ge2021YOLOX}) per giocatori e palla. 
+% \todo{aggiungere citazioni puntuali per anchor-free 
+% (ad esempio FCOS/ATSS) e decoupled head (ad esempio YOLOX).}
+
+\paragraph{Basati su transformer.} \emph{\ac{detr}} riformula 
+il rilevamento come \emph{set prediction} con meccanismi di 
+attenzione \cite{Ye2022OSTrack}. Versioni successive 
+(\emph{Deformable \ac{detr}} \cite{Zhu2020DeformableDETR}) accelerano
+la convergenza e migliorano il rilevamento di oggetti piccoli. 
+\textbf{Vantaggi}: qualità stabile e associazione naturale tra box e oggetti; 
+\textbf{Svantaggi}: addestramento più complesso e possibile costo computazionale maggiore.
+
+\paragraph{Pratiche per oggetti piccoli/veloci.} Per la palla: 
+input ad alta risoluzione; \emph{feature pyramid} (\ac{fpn})~\cite{Lin2017Feature, Liu2018Path};
+\emph{focal loss} per classi rare; \emph{temporal priors} 
+(propagazione delle detezioni). Per i giocatori: \emph{soft-\ac{nms}} e
+\emph{\ac{iou}-aware heads} per mitigare \emph{crowding} e sovrapposizioni. 
+Nel progetto si adottano inferenze localizzate su \emph{\ac{roi}} e su 
+tasselli (\emph{tiles}) ad alta risoluzione per incrementare il 
+\emph{recall} della palla, con selezione dei candidati tramite fusione 
+di punteggi visivi e coerenza dinamica (\emph{gating} basato su filtro di Kalman).
+
+\subsection{Tracciamento multi-oggetto (\ac{mot})}
+
+\paragraph{Tracking-by-detection.} \emph{\ac{sort}} utilizza un filtro di 
+Kalman e l'assegnazione dei costi con l'algoritmo Hungarian \cite{Kuhn1955HungarianMethod, 
+Munkres1957Assignment}, offrendo velocità molto alta ma sensibilità alle occlusioni. 
+% \todo{aggiungere citazione per SORT (Bewley et al., 2016) e, se desiderato, 
+% per Hungarian (Kuhn 1955/Munkres 1957).}
+\emph{DeepSORT} aggiunge \ac{reid} per stabilizzare le identità in presenza 
+di \emph{occlusions} \cite{Wojke2017DeepSort}. 
+\emph{ByteTrack} enfatizza l'uso di detezioni a bassa confidenza per mantenere le 
+tracce durante cali temporanei \cite{Wang2021TransformerTracker}.
+\emph{\ac{oc-sort}} sfrutta l'\emph{order consistency} per gestire in modo efficace il 
+\emph{camera motion} \cite{Ye2022OSTrack}. 
+\emph{CenterTrack} integra rilevamento e spostamento centrato sul keypoint 
+dell'oggetto \cite{Zhou2020TrackingObjects}.
+
+\paragraph{Joint detection/tracking e transformer.} Metodi recenti unificano le 
+due fasi: \emph{TrackFormer} sfrutta query persistenti per le tracce 
+\cite{Meinhardt2021TrackFormer}. Questi approcci possono ridurre i 
+\emph{cambi di \ac{id}} (\emph{ID switches}) in \emph{crowded scenes}, 
+al prezzo di addestramenti più onerosi e maggiore domanda di dati annotati.
+
+\paragraph{Metriche per \ac{mot}.} \ac{mota} (errori globali: 
+falsi positivi/negativi e cambi di \ac{id})~\cite{Braso2020Learning}, \ac{motp} (precisione 
+media di localizzazione), \ac{idf1} (F1 sulle identità corrette) e 
+\ac{hota} (bilancia accuratezza di localizzazione e associazione) sono 
+standard \cite{Bernardin2008CLEAR, Ristani2016Performance, Luiten2020HOTA}. 
+In fase di progettazione è utile riportare anche la latenza 
+(ms/frame), gli \ac{fps} su hardware specifico (\ac{cpu}/\ac{gpu}, ad esempio 
+\ac{gpu} mobile vs \emph{desktop}), la memoria e la risoluzione. 
+Ogni numero va accompagnato da \emph{dataset} e \emph{split} 
+(ad esempio \texttt{MOT17 test}) per confronti riproducibili.
+
+\subsection{Pose e \ac{reid} nel contesto sportivo}
+
+\paragraph{Pose.} \emph{OpenPose} (multi-persona, parti del corpo come 
+mappe di confidenza) \cite{Cao2016Realtime} e \emph{\ac{hr-net}} (rappresentazioni 
+ad alta risoluzione) \cite{Sun2019Deep} sono riferimenti consolidati. 
+Nella pallacanestro, la posa fornisce indizi per rimbalzi, \emph{close-out} 
+e preparazione al tiro; tuttavia occlusioni e \emph{motion blur} possono ridurre 
+la qualità dei \emph{keypoint}.
+
+\paragraph{\ac{reid}.} \emph{DeepSORT} è un esempio di integrazione leggera. 
+Una \ac{reid} specifica per team può sfruttare le informazioni cromatiche 
+della divisa, \emph{texture} delle maglie e numeri, ma richiede annotazioni 
+curate; modelli generici addestrati su \emph{Market-1501} \cite{Zheng2015Scalable} 
+possono necessitare di \emph{fine-tuning} per ambienti indoor.
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item \emph{Two-stage} (accuratezza) vs \emph{one-stage} (latenza): 
+  scegliere in funzione del \emph{compute budget} e della dimensione 
+  degli oggetti.
+  \item Nel \ac{mot}, l'aggiunta di \ac{reid} (DeepSORT) o l'associazione 
+  a bassa soglia (ByteTrack) migliora la stabilità in scenari affollati.
+  \item Pose e \ac{reid} aggiungono segnali utili ma introducono costo 
+  computazionale e richiedono dati annotati.
+\end{itemize}
+
+\paragraph{Implicazioni per il Cap.~\ref{chap:metodologia-sviluppo}.}
+Se l'obiettivo è il \emph{real-time} su \ac{gpu} \emph{consumer}, adottare 
+un \emph{detector one-stage} (Ultralytics \ac{yolo}) e il tracciamento integrato 
+con identità persistenti per i giocatori; per la palla, combinare un \emph{detector} 
+specializzato con ricerca localizzata (\ac{roi}/\emph{tile}) e filtro di Kalman per 
+la coerenza temporale. Prevedere opzionalmente la \emph{Pose} per analisi di eventi, 
+con \emph{fallback} disattivabile su hardware limitato. 
+
+
+\todo{da scaletta - valutare se lasciare o rimuovere}
+\subsection{Approcci Tradizionali (cenni):}
+\label{sec:approcci-tradizionali}
+Menzionare brevemente tecniche classiche (ad esempio \emph{background subtraction}) 
+e i loro limiti in contesti dinamici come lo sport.
+
+\todo{da scaletta - valutare se lasciare o rimuovere}
+\subsection{Approcci basati su Deep Learning:}
+\label{sec:approcci-deep-learning}
+Concentrarsi sulle Reti Neurali Convoluzionali (\ac{cnn}). Descrivere architetture 
+moderne per l'\emph{object detection} come \ac{yolo}, \ac{ssd} o Faster \ac{r-cnn}, 
+spiegando perché sono particolarmente adatte al contesto sportivo. 
+Per il tracking, introdurre concetti come i filtri di Kalman o \emph{tracker} più moderni 
+come DeepSORT.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Analizzare la letteratura scientifica esistente. Esaminare cosa è già stato fatto in questo campo, cercando
+% studi su:
+% \begin{itemize}
+%   \item Tracciamento dei giocatori (player tracking).
+%   \item Rilevamento di eventi (tiro, palleggio, passaggio).
+%   \item Tracciamento della palla.
+%   \item Analisi tattica automatizzata.
+% \end{itemize}
+\section{Visione artificiale applicata alla pallacanestro}
+\label{sec:cv-applicata-basket}
+
+La letteratura sulla pallacanestro combina rilevamento/tracciamento 
+di giocatori e palla, stima di eventi e analisi tattica.
+Rispetto ad altri sport, il basket presenta \emph{crowding} elevato 
+e spazi ridotti. Si distinguono lavori su (i) \emph{player tracking}, 
+(ii) \emph{ball tracking}, (iii) \emph{event detection}, 
+(iv) analisi tattica multi-agente.
+
+\subsection{Player tracking}
+Approcci \emph{tracking-by-detection} con \emph{detector} rapidi e associazione 
+robusta sono prevalenti: combinazioni di \emph{detector} tipo 
+\ac{yolo} e/o \ac{ssd} con DeepSORT/ByteTrack sono comuni in scenari indoor grazie 
+al buon compromesso accuratezza/latenza. In presenza di uniformi simili e 
+\emph{camera motion}, l'aggiunta di \ac{reid} e vincoli spaziali (modelli di 
+moto con filtro di Kalman) riduce i \emph{cambi di \ac{id}}. L'uso della
+\emph{pose} aiuta a stabilizzare il \emph{matching} durante \emph{partial occlusions}.
+% \todo{aggiungere citazioni specifiche su player tracking nel basket, 
+% ad esempio studi su dataset indoor e sistemi \ac{mot} per basket.}
+% \todo{Esempio placeholder (mantieni le citazioni per 
+% compatibilità se non usi biblatex): 
+% \cite{todo-player-tracking-basket}}
+
+\paragraph{Collegamento al progetto.} Nel progetto, il tracciamento dei giocatori 
+è ottenuto con Ultralytics \ac{yolo} tramite la funzione di \emph{tracking} con identità 
+persistenti; le identità fornite sono mantenute \emph{frame-to-frame} e utilizzate 
+per l'assegnazione della squadra con un classificatore visuale basato su \ac{clip} 
+\cite{Chen2024ContrastiveLocalized} che opera sui ritagli dei giocatori e mantiene 
+coerenza temporale.
+
+\subsection{Ball detection/tracking}
+La palla è piccola (pochi pixel a risoluzioni standard), veloce e soggetta 
+a occlusioni. Metodi efficaci combinano: (i) detector specializzati per 
+oggetti piccoli (\ac{fpn}, input ad alta risoluzione) \cite{Chen2009Physics}, 
+(ii) \emph{temporal priors} con filtri di Kalman o particellari, 
+(iii) \emph{motion cues} (flusso ottico) per distinguere \emph{motion blur} 
+da falsi positivi. Alcuni lavori sfruttano \emph{multi-view} con omografie 
+del campo per triangolazione quando sono disponibili più camere.
+% \todo{aggiungere citazioni specifiche su ball tracking nel basket: \cite{todo-ball-tracking-basket}}
+
+\paragraph{Collegamento al progetto.} Il tracciamento della palla combina 
+un detector dedicato con: (i) ricerca localizzata su \ac{roi} attorno 
+all'ultima posizione nota e su tasselli ad alta risoluzione, (ii) fusione 
+di punteggi visivi (confidenza del detector, indizi di colore e forma) e 
+spaziali (prossimità ai giocatori, coerenza con posizione/velocità previste),
+(iii) filtro di Kalman per continuità e recupero durante le occlusioni; 
+soglie e parametri si adattano dinamicamente quando la palla è persa. 
+E' disponibile, opzionalmente, la \emph{\ac{tta}} \cite{Kimura2024Understanding}.
+
+
+\subsection{Rilevamento di eventi}
+Gli eventi (tiro, rimbalzo, assist, palla persa) richiedono modellazione 
+temporale oltre il singolo frame. Architetture \emph{\ac{cnn}+\ac{rnn}} 
+o \emph{transformer} temporali sono impiegate per \emph{action recognition} 
+\cite{Xiao2023Basketball} in ambito sportivo; nel basket si combinano 
+traiettorie di palla/giocatori, pose e, quando disponibile, segnali audio. 
+La disponibilità di annotazioni temporali fini limita l'addestramento 
+supervisionato; strategie \emph{weakly supervised} \cite{Zhu2023Weaker} 
+e \emph{self-supervised} \cite{Gui2023Survey} sono state esplorate.
+% \todo{aggiungere citazioni su event detection nel basket (supervisioni 
+% deboli/auto-supervisionate): \cite{todo-event-detection-basket}}
+
+\paragraph{Collegamento al progetto.} Il rilevamento del tiro è 
+realizzato con regole deterministiche: \emph{trigger} quando la palla
+sale rapidamente e non è in possesso; conclusione quando scende sotto 
+l'altezza del canestro; l'esito deriva dalla distanza minima della 
+traiettoria rispetto all'area del canestro. La classificazione 
+2/3 punti usa la distanza del tiratore dal canestro in vista tattica o, 
+in assenza, un \emph{fallback} 2D~\cite{White2020Analysis}.
+
+
+\subsection{Analisi tattica}
+Una volta acquisite traiettorie e identità, si derivano 
+\emph{\ac{kpis}} come spaziature, velocità medie, \emph{heatmap} 
+di presenza e sequenze ricorrenti (\emph{set plays})~\cite{Mikolajec2013Game}. 
+L'inferenza di ruoli e schemi è facilitata dalla \emph{pose} 
+e dalle posizioni relative con vincoli di geometria del campo
+(omografia del campo)~\cite{Lingrui2025TacticExpert}.
+% \todo{aggiungere citazioni su analisi tattica automatica nel basket: 
+% \cite{todo-analisi-tattica-basket}}
+
+\paragraph{Collegamento al progetto.} Le posizioni dei giocatori 
+sono mappate su una vista tattica 2D mediante omografia del campo;
+si proiettano i canestri nel frame, si validano i \emph{keypoint} del 
+campo e si ottengono coordinate normalizzate per metriche come
+spaziature, velocità e distanze, oltre a \emph{overlay} dedicati.
+
+
+\subsection{Vincoli pratici indoor e mitigazioni}
+\begin{itemize}
+  \item \textbf{Occlusioni prolungate}: usare \emph{tracklet stitching} 
+  e \ac{reid}; sfruttare \emph{camera elevation} quando possibile.
+  \item \textbf{Illuminazione/riflessi}: \emph{color constancy} e 
+  \emph{data augmentation} (variazioni di luminanza/saturazione); 
+  \emph{polarizing filter} in acquisizione quando consentito.
+  \item \textbf{Palla piccola/veloce}: input a maggiore risoluzione 
+  su \emph{crop} dinamici attorno a zone salienti; \emph{temporal votes}.
+  \item \textbf{Uniformi simili/arbitri/pubblico}: classificatori di 
+  ruolo/squadra basati su \emph{color histograms} stabilizzati e numeri 
+  di maglia quando leggibili.
+  \item \textbf{Camera shake}: stima del \emph{global motion} e 
+  stabilizzazione video; \emph{debouncing} sulle \acp{id}.
+\end{itemize}
+
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item Il \emph{player tracking} e il \emph{ball tracking} 
+  richiedono strategie diverse: dimensione e dinamica della 
+  palla impongono moduli dedicati.
+  \item Annotazioni temporali e di identità rappresentano 
+  un collo di bottiglia per \emph{event detection} e analisi tattica.
+  \item I vincoli indoor impongono scelte di acquisizione e 
+  \emph{pre-processing} tanto quanto di modello.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:metodologia-sviluppo}}
+Prevedere una pipeline modulare: detector per i giocatori 
+con tracking integrato (Ultralytics \ac{yolo} con identità persistenti)
+e un ramo specializzato per la palla che combini detector, ricerca 
+localizzata (\ac{roi}/tile) e filtro di Kalman. Integrare, dove possibile, 
+l'omografia del campo per normalizzare le coordinate.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Descrivere brevemente i dataset già e spiegare perché, nonostante la loro esistenza, si è reso necessario 
+% registrare e/o etichettare video specifici per questo progetto.
+\section{Dataset pubblici per l'analisi sportiva}
+\label{sec:dataset-pubblici}
+
+I dataset influenzano in modo decisivo la trasferibilità dei risultati. 
+E' utile distinguere dataset generici per \ac{od} e \ac{mot} da dataset 
+specifici per lo sport. Quando si riportano le prestazioni è essenziale 
+indicare \emph{split} (\textbf{train/val/test}), risoluzione, \ac{fps}, 
+hardware e metriche.
+
+\subsection{Dataset generici per \ac{od} e \ac{mot}}
+
+\paragraph{\ac{coco}.} MS \ac{coco} è un riferimento per l'\ac{od} 
+con annotazioni dense su molte classi \cite{Lin2014Microsoft}. 
+Il pre-addestramento su \ac{coco} migliora la generalizzazione 
+alla classe \texttt{person} (giocatori).
+% TODO: forse avrebbe senso dire che offre già di base, per esempio, 
+% anche la palla sportiva (non specificamente quella da basket però)
+% e altre cose che potrebbero essere utili da introdurre per la 
+% comprensione del lettore. 
+
+\paragraph{MOTChallenge.} \emph{MOT16/17/20} sono \emph{benchmark} 
+per il \ac{mot} in scene affollate; forniscono annotazioni 
+\texttt{person} e metriche standard (\ac{mota}, \ac{idf1}, \ac{hota}). 
+Questi dataset abilitano il confronto tra tracker e la valutazione 
+delle prestazioni in condizioni di 
+\emph{crowding}~\cite{Milan2016MOT16, Leal-Taixe2017MOT17, Dendorfer2020MOT20}.
+% \todo{aggiungere citazioni per MOT16/17/20.}
+
+\paragraph{Pose e \ac{reid}.} Per la \emph{pose}: 
+\ac{coco} Keypoints (sottoinsieme di \ac{coco})~\cite{Lin2014Microsoft}.
+Per la \emph{re-identificazione} (\ac{reid}): \emph{Market-1501}~\cite{Zheng2015Scalable}.
+
+\subsection{Dataset nel dominio sportivo con focus sulla pallacanestro}
+
+\paragraph{Dataset sportivi multi-disciplina.} \emph{SoccerNet}~\cite{Giancola2018Soccernet} 
+è ampio e include annotazioni temporali per eventi calcistici; 
+pur non essendo cestistico, fornisce buone pratiche per annotazioni 
+di eventi e valutazioni con allineamento temporale. Altri benchmark
+multi-sportivi come \emph{ActivityNet}~\cite{CabaHeilbron2015ActivityNet}
+sono utili per apprendere feature generali sul movimento umano.
+
+\paragraph{Dataset dedicati alla pallacanestro.} Alcuni dataset includono 
+\emph{player/ball tracking}, spesso multi-camera con 
+omografie del campo, ma non sempre sono pubblici o 
+completi di annotazioni a livello di 
+evento~\cite{dOrey2020APIDIS, Karun2022DeepSport, Pan2023BasketballInstants}.
+
+\subsection{Linee guida di valutazione}
+
+\begin{itemize}
+  \item \textbf{Detection (\texttt{giocatori}, \texttt{palla})}: 
+  riportare \ac{map} a soglie di \ac{iou} (ad esempio 0.5 e 0.5:0.95), 
+  specificando risoluzione di input e latenza (ms/frame) su hardware 
+  (\ac{gpu}/\ac{cpu}).
+  \item \textbf{Tracking (\ac{mot})}: \ac{map}, \ac{motp}, 
+  \ac{idf1}, \ac{hota} su \emph{split} dichiarati (ad esempio 
+  \texttt{val} interno, \texttt{test} pubblico), indicando 
+  \ac{fps} e memoria.
+  \item \textbf{Traiettoria della palla}: errore medio per frame su 
+  coordinate normalizzate al campo; specificare \ac{fps},
+  frame scartati ammessi e strategia di interpolazione.
+  \item \textbf{Eventi}: F1 per classe e media pesata; 
+  finestra di tolleranza per l'allineamento temporale esplicitata.
+\end{itemize}
+
+\paragraph{Collegamento al progetto.} La valutazione include 
+curve \emph{precision-recall} e una stima di \ac{ap} per il
+rilevamento di palla e giocatori, oltre a metriche di continuità 
+della palla (\emph{coverage}, lunghezza media/massima delle
+sequenze di \emph{miss}/\emph{hit}, ritardo della prima corretta 
+detezione); i risultati vengono anche esportati come grafici e 
+file \emph{\ac{csv}}.
+
+\subsection{Motivazioni per un dataset ad hoc}
+Le risorse pubbliche esistenti risultano spesso insufficienti 
+per il contesto di pallacanestro indoor per:
+\begin{itemize}
+  \item \textbf{Mismatch di etichette}: molti dataset annotano 
+  solo \texttt{person}, senza palla o ruoli di squadra.
+  \item \textbf{Assenza di eventi}: mancano annotazioni temporali 
+  fini (ad esempio inizio/fine di tiro, rimbalzo) utili all'analisi.
+  \item \textbf{Dominio visivo diverso}: illuminazione indoor, 
+  riflessi del parquet, uniformi simili e \emph{camera motion} 
+  differiscono dai dataset generici.
+  \item \textbf{Vincoli multi-camera e omografia}: i meta-dati 
+  geometrici non sono sempre disponibili.
+  \item \textbf{Licenze/uso}: alcune collezioni non consentono 
+  rilascio o condivisione di clip/annotazioni derivate.
+\end{itemize}
+Questi fattori motivano la registrazione e l'etichettatura 
+di un dataset mirato, con protocolli di split riproducibili e meta-dati completi.
+
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item \ac{coco} e MOTChallenge restano riferimenti per 
+  pre-addestramento e confronto base sulla classe 
+  \texttt{person}.
+  \item La disponibilità di dataset cestistici 
+  completi è limitata; spesso è necessario creare 
+  o adattare un dataset proprietario.
+  \item Report oggettivi richiedono la specifica di split, 
+  risoluzione, \ac{fps}, hardware e metriche.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:metodologia-sviluppo}}
+Pianificare la costruzione di un dataset \emph{ad hoc} 
+con annotazioni per giocatori e palla, protocolli di 
+split riproducibili e meta-dati (risoluzione, \ac{fps}, 
+setup camera). Prevedere \emph{transfer learning} da 
+\ac{coco} e validazione con metriche \ac{mot}.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%----------------------------------------------------------------------------------------
+\chapter{Metodologia e Sviluppo del Progetto (15-25 pagine)}
+\label{chap:metodologia-sviluppo}
+%----------------------------------------------------------------------------------------
+Questo capitolo descrive in dettaglio la metodologia adottata 
+e le scelte implementative che hanno guidato lo sviluppo 
+del sistema di analisi video per la pallacanestro. 
+L'obiettivo è fornire una panoramica chiara e riproducibile 
+del lavoro svolto, collegando le decisioni tecniche alle 
+necessità pratiche dell'analisi sportiva e alle evidenze emerse dallo 
+stato dell'arte -- Cap.~\ref{chap:stato-dell-arte}.
+
+Partendo dall'architettura generale del sistema, verranno 
+analizzati i singoli componenti, dalla preparazione dei dati 
+ai modelli di rilevamento (object detection) e tracciamento 
+(object tracking), fino alle tecniche utilizzate per estrarre 
+metriche quantitative e visualizzazioni significative.
+Ogni scelta sarà giustificata nel contesto dei vincoli 
+operativi, come le condizioni di illuminazione indoor, 
+le occlusioni e la velocità degli oggetti di interesse.
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Descrivere il flusso di lavoro complessivo del progetto, possibilmente con un diagramma. 
+% Esempio: Input Video $\rightarrow$ Pre-elaborazione Frame $\rightarrow$ Modello di Rilevamento 
+% Giocatori $\rightarrow$ Modello di Tracciamento Palla $\rightarrow$ Output Dati Analitici.
+\section{Architettura del Sistema}
+\label{sec:architettura-sistema}
+
+L'efficacia del sistema risiede in un'architettura modulare e 
+sequenziale, progettata per trasformare un video grezzo di una 
+partita di pallacanestro in un insieme strutturato di dati analitici 
+e annotazioni grafiche. Ogni modulo della pipeline è specializzato in un 
+compito specifico e propaga il proprio output al modulo successivo, 
+creando un flusso di lavoro logico e facilmente ispezionabile.
+
+\subsection{Scenario d'uso e Flusso End-to-End}
+
+Lo scenario d'uso primario prevede l'analisi di video 
+registrati da una singola telecamera fissa, posizionata 
+in modo da inquadrare l'intero campo o una sua porzione 
+significativa. La stabilità della telecamera è un prerequisito 
+fondamentale per il corretto funzionamento di alcuni moduli, 
+in particolare per la stima dell'omografia del campo.
+
+L'input del sistema è un file video (ad esempio in formato 
+\texttt{.mp4} o \texttt{.MOV}).
+L'output è un nuovo file video annotato in cui sono sovrimpresse 
+informazioni quali:
+\begin{itemize}
+  \item i riquadri di delimitazione (bounding box) e 
+  gli \ac{id} univoci dei giocatori;
+  \item l'assegnazione di ciascun giocatore a una squadra;
+  \item la traiettoria della palla;
+  \item una vista tattica 2D che mappa la posizione dei 
+  giocatori su un diagramma del campo;
+  \item metriche calcolate in tempo reale, come la velocità 
+  e la distanza percorsa dai giocatori.
+\end{itemize}
+
+Il flusso di elaborazione end-to-end (Figura~\ref{fig:architettura}) 
+è orchestrato come segue:
+
+\begin{enumerate}
+  \item \textbf{Acquisizione e pre-elaborazione del video}: il 
+  sistema acquisisce il video sorgente e lo decodifica in una 
+  sequenza di frame individuali. Ogni frame rappresenta 
+  un'istantanea temporale della partita che verrà analizzata 
+  singolarmente.
+  \item \textbf{Rilevamento dei punti chiave e calcolo dell'omografia del campo}: 
+  per ogni frame, un modello di deep learning rileva i punti 
+  chiave del campo (ad esempio linea del tiro libero, centro 
+  del campo, linee di fondo, ecc.). Questi punti sono usati 
+  per calcolare una matrice di omografia, ovvero una 
+  trasformazione proiettiva che mappa le coordinate di ogni 
+  punto dal piano dell'immagine del video a un piano 2D 
+  standardizzato del campo da basket.
+  \item \textbf{Rilevamento e tracciamento dei giocatori}: 
+  un modello di \ac{od}, basato sull'architettura 
+  \ac{yolo}v8 e addestrato specificamente su immagini 
+  di giocatori di basket, identifica la posizione di 
+  ogni giocatore nel frame. Gli output del rilevatore 
+  (bounding box) vengono passati a un algoritmo di 
+  tracciamento che assegna un \ac{id} univoco a ogni 
+  giocatore e ne mantiene l'identità attraverso i 
+  frame successivi.
+  \item \textbf{Assegnazione delle squadre}: un modulo analizza 
+  il colore dominante all'interno del bounding box di ogni 
+  giocatore tracciato per assegnarlo a una delle due squadre. 
+  Questo permette di distinguere tra compagni e avversari 
+  nelle analisi successive.
+  \item \textbf{Rilevamento e tracciamento della palla}: un 
+  rilevatore \ac{yolo}v8 specializzato e un filtro di Kalman 
+  lavorano in sinergia per localizzare e tracciare la palla. 
+  Il filtro di Kalman è cruciale per gestire le occlusioni 
+  (quando la palla è nascosta da un giocatore) e la 
+  sfocatura da movimento (motion blur), predicendo la 
+  posizione della palla sulla base del suo stato precedente.
+  \item \textbf{Conversione in vista tattica}: utilizzando 
+  la matrice di omografia calcolata al punto 2, le coordinate 
+  dei giocatori e della palla vengono trasformate e proiettate 
+  su un'immagine statica del campo da basket, generando una 
+  vista tattica 2D.
+  \item \textbf{Calcolo delle metriche}: moduli dedicati 
+  utilizzano i dati di tracciamento per calcolare metriche 
+  quantitative, come la velocità istantanea e la distanza 
+  totale percorsa da ogni giocatore.
+  \item \textbf{Visualizzazione e generazione dell'output}: 
+  i risultati di tutti i moduli precedenti vengono utilizzati 
+  per arricchire visivamente il frame originale. 
+  Vengono disegnati i bounding box, le traiettorie, le 
+  informazioni sulla velocità e la vista tattica. 
+  I frame annotati vengono infine ricodificati in un nuovo file video.
+\end{enumerate}
+
+% \missingfigure{Manca architettura end-to-end del sistema. Il diagramma mostra il flusso sequenziale dei dati, 
+% dall'acquisizione del video sorgente fino alla generazione dell'output annotato. Ogni blocco rappresenta un modulo 
+% funzionale specializzato.}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/01_intro/FlowchartpipelineE2E-B.png}
+  % \framebox[1.0\textwidth][c]{Diagramma a blocchi dell'architettura end-to-end}
+  \caption{Architettura end-to-end del sistema. Il diagramma 
+  mostra il flusso sequenziale dei dati, dall'acquisizione 
+  del video sorgente fino alla generazione dell'output annotato. 
+  Ogni blocco rappresenta un modulo funzionale specializzato.}
+  \label{fig:architettura}
+\end{figure}
+
+\subsection{Componenti Tecnologici Chiave}
+
+La realizzazione di questa architettura si basa su un insieme 
+di librerie e framework open-source consolidati nell'ambito 
+della \ac{cv}:
+\begin{itemize}
+  \item \textbf{Python 3.10}: linguaggio di programmazione 
+  principale per l'intero progetto.
+  \item \textbf{OpenCV}: utilizzato per tutte le operazioni 
+  di base di elaborazione delle immagini e per la gestione 
+  dei flussi video (lettura e scrittura).
+  \item \textbf{Ultralytics--YOLOv8}: framework di deep learning 
+  impiegato per l'addestramento e l'inferenza dei modelli di 
+  rilevamento per giocatori, palla e punti chiave del campo.
+  \item \textbf{NumPy}: libreria fondamentale per la manipolazione 
+  efficiente di array e matrici, utilizzata in quasi tutti i moduli.
+  \item \textbf{FilterPy}: libreria che fornisce un'implementazione 
+  del filtro di Kalman, utilizzata nel modulo di tracciamento della 
+  palla.
+  \todo{forse dovrei rimuoverlo perché non lo uso più?}
+\end{itemize}
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item L'architettura è modulare e sequenziale, facilitando lo 
+  sviluppo, il testing e il debug dei singoli componenti.
+  \item Il sistema combina approcci basati su deep learning 
+  (\ac{yolo}v8 per il rilevamento) con algoritmi classici di 
+  visione artificiale (filtro di Kalman, calcolo dell'omografia).
+  \item La stima dell'omografia è un passaggio chiave che abilita 
+  la generazione della vista tattica, un potente strumento di analisi.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:risultati-sperimentali}}
+\begin{itemize}
+  \item La valutazione delle performance dovrà essere condotta sia 
+  a livello di singolo modulo (ad esempio accuratezza del rilevatore 
+  di giocatori con metrica \ac{map}) sia a livello end-to-end 
+  (ad esempio latenza complessiva misurata in frame al secondo, \ac{fps}).
+  \item L'efficacia della vista tattica dipenderà direttamente 
+  dalla precisione del modello di rilevamento dei punti chiave del 
+  campo, la cui performance dovrà essere quantificata.
+  \item L'accuratezza del tracciamento (ad esempio con metriche 
+  come \ac{mota} o \ac{idf1}) sarà un indicatore fondamentale della 
+  capacità del sistema di mantenere l'identità dei giocatori nel tempo.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\section{Raccolta e Preparazione dei Dati}
+\label{sec:raccolta-dati}
+
+La qualità e la pertinenza dei dati sono il fondamento su cui poggia l'efficacia di qualsiasi sistema di visione artificiale. Per questo progetto è stata adottata una \textbf{strategia di acquisizione dati multi-componente}, volta a costruire un corpus di addestramento robusto e a validarlo in scenari realistici. 
+
+L'approccio si è articolato in tre fasi principali:
+\begin{enumerate}
+  \item \textbf{Utilizzo di dataset pubblici specializzati} 
+  come solide basi di partenza per i diversi compiti di rilevamento.
+  \item \textbf{Estensione e arricchimento di tali dataset} 
+  attraverso un meticoloso processo di etichettatura manuale, 
+  che ha permesso di aumentarne la varietà e la complessità.
+  \item \textbf{Utilizzo di video personalizzati e online} 
+  sia come fonte di nuovi dati di training, sia come set di 
+  test indipendente per valutare la generalizzazione del sistema.
+\end{enumerate}
+
+Questa metodologia ha permesso di beneficiare di ampie basi di 
+dati già annotate e, al contempo, di creare risorse su misura 
+per le finalità del progetto, garantendo una valutazione finale 
+approfondita e affidabile.
+
+\subsection{Dataset Utilizzati}
+\label{sec:dataset-utilizzati}
+
+\noindent Per specializzare e potenziare un modello pre-addestrato 
+(\ac{yolo}v8) sul dominio specifico del basket, è stato necessario un 
+processo di addestramento mirato (\emph{fine-tuning}). A tale scopo, 
+sono stati realizzati due dataset personalizzati, partendo da risorse 
+pubbliche e arricchendole tramite un processo strutturato di etichettatura 
+manuale. Le fonti e la composizione di tali dataset sono descritte di seguito.
+
+\begin{enumerate}
+  \item \textbf{Fonti video per l'arricchimento dei dataset}:
+  Il cuore del lavoro di personalizzazione dei dati è consistito 
+  nell'analisi e nell'annotazione di fotogrammi estratti da 
+  un'ampia raccolta di video. Per garantire una grande varietà di 
+  scenari, sono state utilizzate due tipologie di fonti video, 
+  le cui immagini sono state impiegate per arricchire 
+  \textbf{entrambi} i dataset descritti ai punti successivi:
+  \begin{itemize}
+    \item \textbf{Video personalizzati}: Una raccolta di 
+    filmati registrati dall'autore con una \emph{telecamera 
+    consumer} (smartphone) a 1080p e 30~fps. Lo scopo era 
+    catturare scenari amatoriali (ad esempio campetti 
+    all'aperto e allenamenti) e prospettive non comuni nelle 
+    riprese professionali.
+    \item \textbf{Video da fonti online}: Una selezione di 
+    registrazioni di partite di basket (ad esempio, 
+    highlights da YouTube) per includere dati con 
+    inquadrature televisive e un'alta intensità di gioco, 
+    tipici di contesti professionali.
+  \end{itemize}
+  Per entrambe le fonti, è stato impiegato uno \emph{script} Python 
+  per automatizzare il campionamento dei fotogrammi 
+  (frame sampling), estraendone sistematicamente uno a un 
+  intervallo regolare di 0.4 secondi. L'intero set di 
+  fotogrammi così ottenuto è stato poi sottoposto al processo 
+  di etichettatura manuale. I video personalizzati, nella loro 
+  interezza, sono stati inoltre usati per l'analisi qualitativa 
+  finale del sistema.
+
+
+  \item \textbf{Dataset per il rilevamento di giocatori e azioni di gioco}:
+  Come base di partenza è stato impiegato il dataset pubblico 
+  \texttt{Basketball Players Computer Vision Model}~\cite{Basketball-Player-Detection-2_Dataset}. 
+  Questa risorsa, già annotata con bounding box per 
+  \textbf{11 classi} (entità e azioni di gioco), è stata 
+  ampliata integrando i fotogrammi etichettati manualmente 
+  provenienti dalle fonti video descritte al punto precedente. 
+  La versione finale del dataset così 
+  ottenuto~\cite{Basketball-Player-Detection-2-68vvt_Dataset} è 
+  stata poi aumentata artificialmente (\texttt{aug3x}) e 
+  configurata disabilitando l'augmentation ``mosaic'' 
+  (\texttt{nomosaic}), una scelta metodologica volta a evitare 
+  la creazione di scene poco realistiche nel contesto sportivo.
+
+  \item \textbf{Dataset per il rilevamento dei punti chiave del campo}:
+  Il punto di partenza per questo compito è stato il dataset 
+  pubblico \texttt{Basketball Court Detection}~\cite{Basketball-Court-Detection-2_Dataset}, 
+  contenente immagini annotate con punti chiave (keypoints) dei 
+  riferimenti geometrici del campo. Analogamente al caso 
+  precedente, questo dataset è stato arricchito con i fotogrammi 
+  etichettati manualmente e provenienti dalla medesima raccolta 
+  di video personali e online. Il risultato di questo lavoro di 
+  integrazione è il dataset finale impiegato nel 
+  progetto~\cite{Basketball-Court-Detection-2-Ny1gt_Dataset}.
+\end{enumerate}
+
+La composizione e la suddivisione quantitativa dei dataset finali 
+impiegati sono riassunte in Tabella~\ref{tab:dataset_split}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Riepilogo quantitativo dei dataset finali e della 
+  loro suddivisione (split).}
+  \label{tab:dataset_split}
+  \begin{tabularx}{\textwidth}{ Y r r r r }
+    \toprule
+    \textbf{Dataset Utilizzato} & \textbf{Totale Immagini} & 
+    \textbf{Train Set} & \textbf{Valid Set} & \textbf{Test Set} \\
+    \midrule
+    
+    Giocatori e Azioni \cite{Basketball-Player-Detection-2-68vvt_Dataset} 
+    & 4286
+    & 3831 (89\%)
+    & 253 (6\%)
+    & 202 (5\%) \\
+    
+    \addlinespace
+    
+    Punti Chiave Campo \cite{Basketball-Court-Detection-2-Ny1gt_Dataset}
+    & 2525
+    & 2211 (88\%)
+    & 180 (7\%)
+    & 134 (5\%) \\
+
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% Spiegare come sono stati etichettati i video per ottenere i dati di riferimento. Descrivere il software
+% utilizzato, il formato delle etichette e il processo seguito per garantire la qualità delle annotazioni.
+\subsection{Annotazione e Creazione del Ground Truth}
+\label{sec:annotazione-ground-truth}
+
+\noindent Il processo di arricchimento dei dataset di base, 
+descritto nella sezione precedente, si è fondato su un 
+meticoloso lavoro di etichettatura manuale. Sebbene i dataset 
+di partenza fornissero già un primo set di annotazioni, è 
+stato necessario etichettare \emph{ex novo} l'intero 
+insieme di fotogrammi campionati dalle fonti video 
+(personali e online) per creare un ground truth coerente 
+e di alta qualità per i due compiti specifici del progetto.
+
+\begin{itemize}
+  \item \textbf{Schemi di Annotazione}: Invece di singole classi, 
+  sono stati seguiti due schemi di annotazione distinti, uno per 
+  ciascun dataset finale:
+  \begin{enumerate}
+    \item \textbf{Rilevamento Giocatori e Azioni}: Per questo compito 
+    è stato adottato lo schema multi-classe del dataset di partenza, 
+    composto da \textbf{11 classi} differenti. Un elenco completo e 
+    la loro distribuzione sono visibili in Figura~\ref{fig:players-actions-classes}. 
+    Queste includono sia entità fisiche (ad esempio \texttt{player}, 
+    \texttt{ball}, \texttt{rim}) sia azioni di gioco specifiche 
+    (ad esempio \texttt{player-dribble}, \texttt{player-layup}).
+      
+    \item \textbf{Rilevamento Punti Chiave}: Per la stima della 
+    geometria del campo, è stato definito un template strutturato 
+    (o ``scheletro'') composto da \textbf{41 punti chiave}. 
+    Come illustrato in Figura~\ref{fig:keypoints-template}, 
+    questi punti sono stati posizionati su riferimenti geometrici 
+    precisi (angoli delle aree, intersezioni delle linee, estremità 
+    del campo) e collegati da segmenti per mappare l'intera struttura 
+    del campo da gioco. E' importante sottolineare come, in ogni frame, 
+    venissero etichettati unicamente i punti dello scheletro 
+    effettivamente visibili nell'inquadratura, gestendo così in 
+    modo nativo le viste parziali del campo.
+  \end{enumerate}
+\end{itemize}
+
+\begin{itemize}
+  \item \textbf{Strumento e processo di annotazione}: 
+  L'etichettatura è stata eseguita interamente sulla 
+  piattaforma \textbf{Roboflow}. La sua interfaccia 
+  \emph{web-based} ha permesso di processare i fotogrammi, 
+  precedentemente estratti tramite lo script Python, 
+  applicando due diverse tipologie di etichette: 
+  \textbf{bounding box} per il rilevamento di giocatori e 
+  azioni, e \textbf{punti chiave} (keypoints) per la 
+  geometria del campo. Un esempio dell'interfaccia durante 
+  l'etichettatura con bounding box è mostrato in 
+  Figura~\ref{fig:roboflow-ui}.
+
+  \item \textbf{Formato delle etichette}: Per garantire la 
+  massima compatibilità, tutte le annotazioni sono state 
+  gestite ed esportate in formato \ac{json} secondo lo 
+  standard \ac{coco}. Il formato \ac{coco} include le 
+  informazioni necessarie all'addestramento (ad esempio 
+  coordinate dei bounding box e \ac{id} di classe) ed è 
+  ormai uno \emph{standard de facto} per i task di object 
+  detection, ampiamente supportato dai principali framework 
+  di deep learning, incluso \ac{yolo}v8. Ciò consente di 
+  utilizzare i dataset senza ricorrere a conversioni manuali, 
+  poiché i framework forniscono utilità per leggere e 
+  interpretare le annotazioni.
+\end{itemize}
+
+\begin{figure}[h!] % h! per forzare la posizione il più possibile
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/roboflow-ui.png} 
+  \caption{Esempio dell'interfaccia di annotazione di Roboflow 
+  durante l'etichettatura di un frame con bounding box. Sono 
+  evidenziati giocatori (magenta), palla (viola), arbitri (ciano), 
+  canestro (arancione), numeri delle canottiere (azzurro) e 
+  il giocatore che sta tirando (giallo).}
+  \label{fig:roboflow-ui}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/players_actions-classes.png}
+  \caption{Elenco delle 11 classi di bounding box definite per il 
+  dataset di rilevamento di giocatori e azioni di gioco, con la 
+  loro distribuzione numerica e rispettivi colori assegnati.}
+  \label{fig:players-actions-classes}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/keypoints-template2.png}
+  \caption{Il template a 41 punti chiave (``scheletro'') utilizzato 
+  in Roboflow per l'annotazione della geometria del campo da basket. 
+  Sono visibili la numerazione e le connessioni tra i punti.}
+  \label{fig:keypoints-template}
+\end{figure}
+
+\subsubsection*{Protocollo di \ac{qa}}
+\noindent\textbf{Obiettivo.} Garantire coerenza e accuratezza 
+delle etichette in un flusso di annotazione svolto da un unico 
+operatore.
+
+\smallskip
+\noindent\textbf{Strumenti.} Tutte le annotazioni sono state 
+effettuate all'interno della piattaforma Roboflow, sfruttandone 
+le funzioni integrate di ispezione, analisi statistica e 
+versionamento del dataset.
+
+\smallskip
+\noindent\textbf{Criteri e controlli adottati.}
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Schema delle classi e nomenclatura.} Definizione a 
+  priori degli schemi di annotazione (le 11 classi per i bounding 
+  box e lo scheletro a 41 punti) e uso di etichette univoche e 
+  consistenti.
+  \item \textbf{Policy per i bounding box.} Aderenza stretta ai 
+  contorni; esclusione di istanze al di sotto di una soglia minima 
+  di area; annotazione della sola porzione visibile in caso di 
+  occlusione; gestione delle sovrapposizioni senza duplicazioni.
+
+  \item \textbf{Policy per i punti chiave.} Posizionamento del 
+  punto sempre al centro dell'intersezione o nell'angolo più 
+  interno della linea di riferimento; coerenza nell'applicazione 
+  dello scheletro a 41 punti, anche in caso di prospettive estreme.
+
+  \item \textbf{Linee guida per casi ambigui.} Gestione predefinita 
+  di casi difficili come la palla sfocata dal movimento (motion 
+  blur) o giocatori quasi totalmente occlusi.
+
+  \item \textbf{Controllo di integrità dei dati (\emph{Sanity check}).} 
+  Rimozione di immagini duplicate o corrotte; verifica delle dimensioni 
+  e dei rapporti d'aspetto; controllo del bilanciamento tra le classi 
+  tramite le statistiche fornite da Roboflow.
+
+  \item \textbf{Suddivisione del dataset.} Suddivisione 
+  \emph{train/val/test} stratificata e bloccata per scena, 
+  al fine di prevenire contaminazione dei dati (\emph{data leakage}) 
+  e preservare la distribuzione statistica in ogni sottoinsieme.
+
+  \item \textbf{Revisione periodica.} Riesame a campione di un 
+  sottoinsieme di immagini già annotate per correggere eventuali 
+  incoerenze e garantire la stabilità delle scelte nel tempo.
+
+  \item \textbf{Versionamento.} Ogni modifica sostanziale al 
+  dataset ha generato una nuova versione tracciata su Roboflow, 
+  garantendo la piena riproducibilità degli esperimenti.
+\end{enumerate}
+
+\smallskip
+\noindent\textbf{Limitazioni.} L'assenza di più annotatori non ha 
+permesso di calcolare metriche oggettive come l'accordo inter-annotatore 
+(\emph{Inter-Annotator Agreement}). Le revisioni periodiche a campione e i 
+controlli automatici della piattaforma sono stati utilizzati come 
+principali misure mitigative.
+
+\subsection{Pre-elaborazione e Augmentation}
+\label{subsec:augmentation}
+
+\paragraph{Preprocessing (Roboflow).}
+Per entrambe le versioni del dataset, prima dell'addestramento sono
+stati applicati: \texttt{Auto-Orient} e ridimensionamento con
+\emph{stretch} a $640{\times}640$ px. La suddivisione \emph{train/val/test}
+è riportata in Tabella~\ref{tab:dataset_split}.
+
+\paragraph{Augmentation offline (generate su Roboflow).}
+Per aumentare la variabilità senza introdurre artefatti non presenti
+nei dati reali, è stata adottata una triplicazione del set di
+addestramento (\texttt{aug3x}: 3 output per immagine). Parametri:
+\begin{itemize}
+  \item \emph{Giocatori/Azioni}~\cite{Basketball-Player-Detection-2-68vvt_Dataset}:
+  \textbf{flip orizzontale}; \textbf{luminosità} in $[-25\%, +25\%]$;
+  \textbf{sfocatura} fino a $2$\,px; \textbf{rumore} fino allo $0{,}5\%$
+  dei pixel.
+  \item \emph{Punti chiave del campo}~\cite{Basketball-Court-Detection-2-Ny1gt_Dataset}:
+  (nessun flip); \textbf{luminosità} in $[-15\%, +15\%]$;
+  \textbf{sfocatura} fino a $2{,}5$\,px; \textbf{rumore} fino allo
+  $0{,}1\%$ dei pixel.
+\end{itemize}
+\emph{Nota.} Nella generazione \emph{offline} non è stato usato
+\emph{mosaic}.
+
+\paragraph{Augmentation online (durante l'addestramento in YOLOv8).}
+Durante l'addestramento su Google Colab, oltre ai dati pre-generati su
+Roboflow, la procedura di addestramento applica trasformazioni
+\emph{online} a ogni mini-batch. Sono stati addestrati due modelli con
+configurazioni distinte (parametri essenziali e di augmentation):
+
+\begin{itemize}
+  \item \emph{Rilevamento palla (ball-only)} -- \texttt{yolov8m.pt}:\\
+  $imgsz=1280$, $epochs=150$, $patience=30$, $batch=-1$ (dimensione
+  automatica), $accumulate=4$, $optimizer=\text{auto}$, $lr0=0.003$,
+  $lrf=0.2$, $momentum=0.937$, $weight\_decay=5\cdot10^{-4}$,
+  $warmup\_epochs=3.0$, $warmup\_momentum=0.8$, $warmup\_bias\_lr=0.1$,
+  $rect=\text{True}$, $multi\_scale=\text{False}$;\\
+  \emph{augmentation}: $mosaic=0.6$ con chiusura $close\_mosaic=20$,
+  $mixup=0.0$, $copy\_paste=0.0$, $hsv\_h=0.015$, $hsv\_s=0.5$,
+  $hsv\_v=0.3$, $translate=0.05$, $scale=0.4$, $fliplr=0.2$,
+  $flipud=0.0$, $degrees=0.0$, $shear=0.0$, $perspective=0.0$;
+  $max\_det=300$.\\
+  \textit{Pesi della funzione obiettivo}: $box=8.0$, $cls=0.5$,
+  $dfl=1.5$.
+
+  \item \emph{Rilevamento generale (tutte le classi)} -- \texttt{yolov8s.pt}:\\
+  $imgsz=960$, $epochs=120$, $patience=30$, $batch=-1$,
+  $optimizer=\text{auto}$, $lr0=0.003$, $lrf=0.2$, $momentum=0.937$,
+  $weight\_decay=5\cdot10^{-4}$, $warmup\_epochs=3.0$,
+  $warmup\_momentum=0.8$, $warmup\_bias\_lr=0.1$, $rect=\text{True}$,
+  $multi\_scale=\text{True}$;\\
+  \emph{augmentation}: $mosaic=1.0$ con chiusura $close\_mosaic=10$,
+  $mixup=0.1$, $copy\_paste=0.0$, $hsv\_h=0.015$, $hsv\_s=0.6$,
+  $hsv\_v=0.3$, $translate=0.05$, $scale=0.3$, $fliplr=0.5$,
+  $flipud=0.0$, $degrees=0.0$, $shear=0.0$, $perspective=0.0$;
+  $max\_det=300$.
+\end{itemize}
+
+\paragraph{Scelte e motivazioni (sintesi).}
+\begin{itemize}
+  \item \textbf{Risoluzione} ($imgsz=1280$ palla; $960$ generale): la
+  palla è un target minuto; la risoluzione maggiore migliora la
+  localizzazione fine, mentre $960$ bilancia costo e varietà per il
+  modello generale.
+  \item \textbf{Multi-scala e mosaic}: $multi\_scale$ disattivato per
+  la palla per stabilità sul piccolo oggetto; attivato nel generale per
+  robustezza a distanza/zoom. \emph{Mosaic} usato solo nelle fasi
+  iniziali ($close\_mosaic$) per diversificare senza fissare artefatti.
+  \item \textbf{Trasformazioni} (\texttt{hsv}, \texttt{translate},
+  \texttt{scale}, \texttt{fliplr}): ampiezze moderate per riflettere
+  condizioni indoor realistiche; flip più probabile nel generale per
+  incrementare simmetrie, più contenuto sulla palla anche per la
+  presenza del flip \emph{offline}.
+  \item \textbf{Geometria conservativa} ($degrees$, $shear$,
+  $perspective=0$): si evitano distorsioni che altererebbero relazioni
+  geometriche del campo e riferimenti utili ai due compiti.
+  \item \textbf{Ottimizzazione} (pesi della funzione obiettivo,
+  $accumulate$): enfasi sulla componente di localizzazione per la palla
+  (\texttt{box}↑, \texttt{cls}↓); accumulo dei gradienti per stabilità
+  a risoluzioni elevate.
+\end{itemize}
+
+
+\paragraph{Note di riproducibilità.}
+\begin{itemize}
+  \item Le augmentation \emph{offline} sono deterministiche per ciascuna
+  versione Roboflow citata (\texttt{aug3x}).
+  \item Le augmentation \emph{online} sono campionate in fase di
+  addestramento secondo i valori riportati sopra; per la replica usare
+  identiche impostazioni, $imgsz$ e strategia di chiusura del
+  \emph{mosaic}.
+  \item Le immagini Roboflow ($640{\times}640$ \emph{stretch}) vengono
+  ridimensionate internamente da YOLOv8 a $imgsz\in\{960,1280\}$.
+  % Per una riproducibilità completa, specificare (se disponibili)
+  % versione esatta di \texttt{ultralytics}, \texttt{torch}, \texttt{cuda}
+  % e il \texttt{seed}.
+\end{itemize}
+
+Per chiarezza, la Figura~\ref{fig:augmentation} illustra esempi 
+delle trasformazioni adottate; l'ultimo pannello mostra il \emph{mosaic}, 
+utilizzato esclusivamente in fase di addestramento (augmentation online 
+in \ac{yolo}v8).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/augmentation_grid.png}
+  \caption{Esempi rappresentativi delle tecniche di augmentation adottate.
+  Riga superiore: (a) immagine originale; (b) variazione di luminosità (+20\%);
+  (c) sfocatura gaussiana (2\,px). Riga inferiore: (d) flip orizzontale (applicato
+  solo al dataset giocatori/azioni); (e) rumore (0{,}5\% dei pixel);
+  (f) composizione \emph{mosaic}, impiegata esclusivamente in fase di addestramento
+  (augmentation online in YOLOv8).}
+  \label{fig:augmentation}
+\end{figure}
+
+\textbf{Implicazioni per il Cap.~\ref{chap:risultati-sperimentali}.}
+\begin{itemize}
+  \item La valutazione finale dovrà confrontare le performance del 
+  modello sul test set del dataset pubblico e sui video personalizzati, 
+  per misurare la capacità di generalizzazione.
+  \item Sarà possibile condurre un'analisi degli errori (error analysis) 
+  per capire in quali condizioni (ad esempio occlusioni, illuminazione 
+  scarsa) il modello fallisce, correlando i fallimenti alle caratteristiche 
+  dei dati di training.
+  \item Un potenziale studio di ablazione nel Capitolo~\ref{chap:risultati-sperimentali} 
+  potrebbe quantificare l'impatto delle diverse tecniche di augmentation 
+  sulle performance finali del modello.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Task 1: Rilevamento e Conteggio dei Giocatori}
+\label{sec:task-1}
+
+Il primo compito fondamentale della pipeline di analisi è il 
+rilevamento accurato e affidabile di tutti i giocatori presenti 
+sul campo. Questo passaggio è il prerequisito per qualsiasi 
+analisi successiva, dal tracciamento individuale al 
+riconoscimento delle formazioni tattiche. L'obiettivo di 
+questo modulo è duplice: identificare la posizione di ogni 
+giocatore in ogni frame del video e fornire un conteggio 
+numerico degli atleti visibili.
+
+\subsection{Scelta del Modello}
+\label{sec:scelta-modello}
+% Giustificare la scelta del modello utilizzato (es. "E' stato scelto il modello YOLOv8 per il suo 
+% ottimo compromesso tra velocità di inferenza e accuratezza...").
+
+Dopo un'attenta analisi dello stato dell'arte
+(Cap.~\ref{chap:stato-dell-arte}) e dei requisiti del progetto,
+la scelta è ricaduta sull'architettura \ac{yolo}v8, in quanto
+supportata da un insieme di fattori chiave che la rendono
+particolarmente adatta al contesto applicativo considerato.
+
+% Dopo un'attenta analisi dello stato dell'arte 
+% (Cap.~\ref{chap:stato-dell-arte}) e dei requisiti del 
+% progetto, la scelta è ricaduta sull'architettura \ac{yolo} -- 
+% versione 8. Questa decisione è motivata da un insieme di fattori 
+% chiave che rendono \ac{yolo}v8 particolarmente adatto a questo 
+% contesto applicativo.
+
+% CONFRONTA CON QUELLO SOTTO: SONO DUE VERSIONI DELLA STESSA COSA.
+% \begin{itemize}
+%   \item \textbf{Compromesso accuratezza/velocità}: i modelli della 
+%   famiglia YOLO garantiscono un buon equilibrio tra \ac{map} e \ac{fps}. 
+%   In analisi video, la velocità di inferenza è un vincolo primario; un 
+%   rilevatore a \emph{singolo stadio} come YOLOv8 è quindi preferibile.
+%   \item \textbf{Performance consolidate}: al momento dello sviluppo, 
+%   YOLOv8 risulta competitivo sui benchmark general-purpose (es. \ac{coco}), 
+%   rendendolo una base affidabile per il dominio basket.
+%   \item \textbf{Affidabilità su scale diverse}: la variante \emph{anchor-free} 
+%   migliora la gestione di oggetti con rapporti d'aspetto e pose variabili 
+%   (giocatori in piedi, in salto, piegati, a terra).
+%   \item \textbf{Ecosistema}: la catena di strumenti di Ultralytics semplifica 
+%   addestramento, validazione ed esecuzione, riducendo il tempo di iterazione.
+% \end{itemize}
+
+
+\begin{itemize}
+  \item \textbf{Compromesso tra accuratezza e velocità}: i modelli della 
+  famiglia \ac{yolo} offrono un eccellente bilanciamento tra accuratezza 
+  di rilevamento (misurata in \ac{map}) e velocità di inferenza (misurata 
+  in \ac{fps}). In un'applicazione di analisi video, dove è necessario 
+  elaborare decine di frame al secondo, un'alta velocità di inferenza è 
+  un requisito non negoziabile. \ac{yolo}v8, essendo un rilevatore a 
+  singolo stadio (\emph{single-stage}), eccelle in questo.
+  \item \textbf{Performance allo stato dell'arte}: al momento dello 
+  sviluppo, \ac{yolo}v8 rappresenta una delle architetture più performanti 
+  per il compito di rilevamento (object detection) general-purpose, 
+  superando molte alternative in termini di performance su benchmark 
+  standard come \ac{coco}.
+  \item \textbf{Affidabilità e flessibilità}: l'architettura di \ac{yolo}v8, 
+  in particolare nelle varianti più recenti \emph{anchor-free}, mostra 
+  una notevole affidabilità nel rilevare oggetti di dimensioni e rapporti 
+  d'aspetto variabili, caratteristica utile per identificare giocatori in 
+  diverse posture (in piedi, in salto, piegati, a terra, ecc.).
+  \item \textbf{Ecosistema e facilità d'uso}: il framework di Ultralytics 
+  offre una catena di strumenti completa e intuitiva per 
+  l'addestramento, la validazione e la messa in produzione dei modelli, 
+  semplificando il ciclo di sviluppo.
+\end{itemize}
+
+Le principali sfide del rilevamento nel basket, come l'affollamento 
+(alta densità di giocatori in aree ristrette, ad esempio sotto il canestro)
+e le occlusioni frequenti e prolungate, sono state considerate. 
+Si è ipotizzato che la combinazione di un modello potente come \ac{yolo}v8 
+e un dataset aumentato ad hoc (Sezione~\ref{subsec:augmentation}) possa 
+fornire la robustezza necessaria per gestire tali scenari.
+
+\begin{table}[h]
+  \centering
+  \caption{Sintesi delle scelte per il detector dei giocatori e delle 
+  principali alternative.}
+  \label{tab:scelte_detector}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Opzione} & \textbf{Motivazione} \\
+    \midrule
+    \textbf{YOLOv8s} (scelto) & Buon equilibrio accuratezza/velocità; 
+    adatto a quasi tempo reale su GPU consumer; ecosistema maturo per 
+    addestramento/validazione. \\
+    Faster R-CNN (two-stage) & Accuratezza potenzialmente maggiore ma 
+    latenza superiore, poco adatto a flussi video. \\
+    Metodi tradizionali (background subtraction, ecc.) & Scenario dinamico 
+    con camera in movimento e occlusioni: mancanza di \emph{background} stabile. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+
+% \fbox{
+%   \begin{minipage}{0.9\textwidth}
+%     \textbf{Box 3.A -- Scelte progettuali: detector di giocatori}
+%     \begin{itemize}
+%       \item \textbf{Modello selezionato:} \ac{yolo}v8s. La variante 
+%       \emph{small} (s) è stata scelta come punto di partenza per il 
+%       suo ottimo equilibrio tra velocità e accuratezza, adatta a 
+%       un'analisi quasi in tempo reale (\emph{real-time}) su hardware 
+%       consumer.
+%       \item \textbf{Alternative scartate:}
+%       \begin{itemize}
+%         \item \emph{Detector two-stage (ad esempio Faster R-CNN):} 
+%         sebbene potenzialmente più accurati, sono stati scartati a 
+%         causa della latenza di inferenza significativamente più alta, 
+%         che li rende inadatti all'analisi video fluida.
+%         \item \emph{Approcci tradizionali (ad esempio \emph{background 
+%         subtraction}):} non considerati praticabili a causa della 
+%         natura dinamica della scena, con movimenti della telecamera 
+%         (anche minimi), cambiamenti di illuminazione e la presenza 
+%         costante di giocatori in movimento che rendono impossibile 
+%         definire un \emph{background} stabile.
+%       \end{itemize}
+%     \end{itemize}
+%   \end{minipage}
+% }
+% \todo{valuta se sostituire "real-time" con "tempo reale"} 
+
+% TODO: valutare l'inserimento di una figura esplicativa del razionale di scelta.
+%   % TODO: inserisci anche l'immagine, per ora mancante.
+% \begin{figure}[htbp]
+%   \centering
+%   \caption{Razionale dietro la scelta del modello di rilevamento.}
+%   \label{box:scelte_detector}
+% \end{figure}
+
+\subsection{Addestramento del Modello}
+\label{sec:addestramento-modello}
+% Descrivere il processo di training: iperparametri utilizzati (learning rate, numero di epoche, batch size),
+% l'hardware su cui è stato effettuato l'addestramento, e come è stato suddiviso il dataset (training set,
+% validation set, test set).
+Il processo di addestramento è stato gestito tramite lo script 
+\texttt{\seqsplit{training\_notebooks/basketball\_player\_detection\_training.ipynb}}. 
+E' stata adottata una strategia di \emph{transfer learning}, che 
+consente di accelerare e migliorare il training sfruttando la conoscenza 
+pre-acquisita da un modello addestrato su un dataset di larga scala.
+
+Il punto di partenza è stato un modello \ac{yolo}v8s pre-addestrato 
+sul dataset \ac{coco}. I pesi di questo modello sono stati poi affinati 
+(\emph{fine-tuning}) utilizzando il dataset specifico 
+\texttt{basketball-player-detection-2} descritto nella Sezione~\ref{sec:dataset-utilizzati}. 
+Questo approccio consente al modello di adattare le sue \emph{feature} 
+gerarchiche, apprese su oggetti generici, al dominio specifico dei 
+giocatori di pallacanestro.
+
+Il training è stato configurato con gli iperparametri riportati in 
+Tabella~\ref{tab:hyperparams_player_det}. E' stata implementata una 
+strategia di \emph{early stopping} con una pazienza di 30 epoche: 
+l'addestramento si interrompe automaticamente se la metrica di 
+validazione primaria (\ac{map}@0.5:0.95) non migliora sul 
+\emph{validation set} per 30 epoche consecutive, salvando il modello 
+con le migliori performance e prevenendo l'\emph{overfitting}.
+
+\begin{table}[h]
+  \centering
+  \caption{Iperparametri usati per l'addestramento del rilevatore 
+  dei giocatori (\ac{yolo}v8s).}
+  \label{tab:hyperparams_player_det}
+  \begin{tabular}{l l}
+    \toprule
+    \textbf{Parametro} & \textbf{Valore} \\
+    \midrule
+    Pesi iniziali & \texttt{yolov8s.pt} (pre-addestrato su \ac{coco}) \\
+    Epoche & 120 \\
+    Pazienza (early stopping) & 30 \\
+    Dimensione immagine ($imgsz$) & 960 \\
+    Batch & \texttt{-1} (adattivo), con \texttt{accumulate} non usato \\
+    Ottimizzatore & \texttt{auto} (impostazione Ultralytics) \\
+    $lr0$ (iniziale) & 0.003 \\
+    $lrf$ (fattore finale) & 0.2 \\
+    Momento & 0.937 \\
+    Decadimento pesi & $5\cdot10^{-4}$ \\
+    Warmup (epoche) & 3.0 \\
+    Multi-scala & \texttt{True} \\
+    Mosaic & 1.0 (disattivato nelle ultime 10 epoche, \texttt{close\_mosaic}=10) \\
+    MixUp & 0.1 \\
+    Flip orizzontale ($fliplr$) & 0.5 \\
+    Traslazione / Scala & 0.05 / 0.3 \\
+    Rotazioni / Shear / Prospettiva & 0 / 0 / 0 \\
+    Max detections ($max\_det$) & 300 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent L'addestramento è stato eseguito su Google Colab con una 
+\ac{gpu} di tipo Tesla T4.
+% TODO: potrebbe aver senso introdurre ulteriori dettagli sulla GPU 
+% citata, altrimenti direttamente citare il documento colab che ne parla 
+% in dettaglio tecnico.
+
+\subsection{Post-processing e Conteggio}
+\label{subsec:post-processing-conteggio}
+
+L'output grezzo di un modello di rilevamento (object detection) 
+consiste in un numero elevato di potenziali bounding box, molti 
+dei quali ridondanti o errati. Per ottenere un output pulito e 
+affidabile è essenziale una fase di post-elaborazione (post-processing).
+
+\begin{enumerate}
+  \item \textbf{Filtraggio per soglia di confidenza (\emph{confidence 
+  thresholding})}: ogni rilevamento prodotto dal modello è associato 
+  a un punteggio di confidenza (compreso tra $0$ e $1$) che indica 
+  quanto il modello è ``sicuro'' della sua predizione. Viene applicata 
+  una soglia (ad esempio $0{,}3$) per scartare tutti i rilevamenti con 
+  confidenza inferiore, eliminando gran parte dei falsi positivi.
+  \item \textbf{Non-Maximum Suppression (\ac{nms})}: è comune che il 
+  modello produca più bounding box, leggermente sfalsati, per lo stesso 
+  oggetto. L'algoritmo \ac{nms} risolve questa ambiguità: per ogni gruppo 
+  di box sovrapposti che superano una certa soglia di \ac{iou}, conserva 
+  solo quello con il punteggio di confidenza più alto e sopprime tutti 
+  gli altri. Questo processo, illustrato in Figura~\ref{fig:nms_effect}, 
+  è cruciale per evitare doppi conteggi.
+\end{enumerate}
+
+\noindent\textbf{Impostazioni adottate.}
+Per coerenza in tutti gli esperimenti, salvo diversa indicazione, 
+abbiamo utilizzato una soglia di confidenza pari a $0{,}30$ e una 
+soglia \ac{iou} per la \ac{nms} pari a $0{,}70$, con NMS sensibile 
+alla classe (\texttt{agnostic}=\texttt{False}). Per la Figura~\ref{fig:nms_effect} 
+è stato utilizzato il modello generale (\ac{yolo}v8s, 11 classi) con $imgsz=960$; 
+l'immagine proviene dal set di validazione e il conteggio è calcolato 
+sull'insieme di classi \texttt{player*}.
+
+\noindent\textbf{Regola di conteggio.} Una predizione è conteggiata come 
+\emph{giocatore} se la sua classe appartiene a
+\[
+\mathcal{C}_{\mathrm{player}}=
+\left\{
+\begin{array}{l}
+\texttt{player}, \texttt{player-dribble}, \texttt{player-fall},\\
+\texttt{player-jump-shot}, \texttt{player-layup}, \texttt{player-screen}, \texttt{player-shot-block}
+\end{array}
+\right\}.
+\]
+Sono escluse \texttt{ball}, \texttt{number}, \texttt{referee}, \texttt{rim}.
+
+Le denominazioni delle classi seguono quelle riportate in 
+Figura~\ref{fig:players-actions-classes}.
+
+
+\begin{table}[h]
+  \centering
+  \small
+  \caption{Mappatura delle classi ai fini del conteggio dei giocatori.}
+  \label{tab:classi_conteggio}
+  \begin{tabular}{l c}
+    \toprule
+    \textbf{Classe} & \textbf{Conta come giocatore} \\
+    \midrule
+    \texttt{player} & Sì \\
+    \texttt{player-dribble} & Sì \\
+    \texttt{player-fall} & Sì \\
+    \texttt{player-jump-shot} & Sì \\
+    \texttt{player-layup} & Sì \\
+    \texttt{player-screen} & Sì \\
+    \texttt{player-shot-block} & Sì \\
+    \texttt{ball} & No \\
+    \texttt{number} & No \\
+    \texttt{referee} & No \\
+    \texttt{rim} & No \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/nms_effect_final.png}
+  \caption{Effetto della \ac{nms} sul rilevamento dei giocatori. 
+  A sinistra: predizioni prima della soppressione (conf=0{,}001, \ac{iou}=1{,}00). 
+  A destra: risultato dopo \ac{nms} (conf=0{,}30, \ac{iou}=0{,}70, \texttt{agnostic}=\texttt{False}). 
+  Il conteggio in basso è calcolato sull'insieme di classi \texttt{player*}.}
+  \label{fig:nms_effect}
+\end{figure}
+
+\subsection*{Punti chiave}
+
+\begin{itemize}
+  \item La scelta di \ac{yolo}v8s bilancia velocità e accuratezza, 
+  requisiti fondamentali per l'analisi video.
+  \item Il \emph{transfer learning} consente di specializzare un 
+  modello potente su un dominio specifico con un effort computazionale ragionevole.
+  \item Il post-processing (filtraggio per soglia di confidenza e 
+  \ac{nms}) è un passaggio critico per trasformare le predizioni grezze 
+  in dati utilizzabili e per un conteggio affidabile.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:risultati-sperimentali}}
+
+\begin{itemize}
+  \item Le performance del rilevatore dovranno essere valutate 
+  quantitativamente sul test set usando le metriche standard 
+  \ac{map}@0.5 e \ac{map}@0.5:0.95.
+  \item Un'analisi qualitativa degli errori è necessaria per 
+  identificare i limiti del modello, ad esempio in scenari di 
+  forte occlusione o con giocatori ai margini del frame.
+  \item L'impatto della soglia di confidenza e della soglia 
+  \ac{iou} del \ac{nms} sulle metriche di precisione e 
+  richiamo (precision-recall) dovrà essere analizzato per 
+  individuare il punto di lavoro ottimale.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Task 2: Rilevamento e Tracciamento della Traiettoria della Palla}
+\label{sec:task-2}
+
+Il tracciamento della palla è notoriamente uno dei compiti più 
+complessi nell'analisi video sportiva. Le difficoltà principali sono 
+legate a tre fattori: (i) dimensioni ridotte (la palla occupa 
+pochi pixel), (ii) velocità elevata con frequente \emph{motion blur}, 
+(iii) occlusioni ricorrenti dovute ai corpi dei giocatori.
+Un tracciamento affidabile è tuttavia indispensabile per abilitare 
+l'analisi di eventi di gioco fondamentali (tiri, passaggi, possesso).
+
+\subsection{Approccio implementato}
+\label{subsec:approccio-implementato-palla}
+
+Per gestire tali criticità è stato adottato un approccio ibrido 
+\emph{tracking-by-detection} a due stadi:
+
+\begin{itemize}
+  \item \textbf{Stadio 1 -- Rilevamento (\ac{yolo}v8 dedicato)}: 
+  in ogni frame un rilevatore addestrato specificamente sulla classe 
+  \texttt{ball} produce una o più ipotesi di localizzazione 
+  (\emph{bounding box}). % dataset e procedure in Sez.~\ref{subsec:augmentation}.
+  \item \textbf{Stadio 2 -- Stima di stato (Filtro di Kalman)}:
+  le osservazioni del rilevatore sono assimilate da un filtro di Kalman
+  con modello di moto a velocità costante nel piano immagine 
+  (stato: posizione e velocità in $x,y$). Il filtro opera in 
+  \emph{predizione} (propagazione con il modello di moto) e 
+  \emph{aggiornamento} (correzione con una misura compatibile).
+\end{itemize}
+
+In assenza di osservazioni affidabili (occlusioni o outlier) la sola 
+predizione mantiene la traiettoria per alcuni frame, garantendo 
+\emph{continuità} del tracciamento. 
+Per chiarezza espositiva, la Figura~\ref{fig:kalman_sim} mostra, su dati \emph{simulati}, 
+come il filtro smussi le misure rumorose e mantenga la traiettoria durante brevi occlusioni.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{figures/03_architettura/kalman_synthetic.png}
+  \caption{Esempio \textbf{simulato} dell'effetto del filtro di Kalman sul tracciamento della palla.
+  La curva arancione rappresenta la traiettoria generata e i punti arancioni le misure rumorose;
+  in blu la stima filtrata; il tratteggio indica la \textbf{predizione in occlusione}. 
+  La figura ha scopo illustrativo e \textbf{non} rappresenta un episodio reale del dataset; 
+  le valutazioni sperimentali su dati reali sono riportate nel Cap.~\ref{chap:risultati-sperimentali}.}
+  \label{fig:kalman_sim}
+\end{figure}
+
+\subsection{Dettagli implementativi e mitigazioni}
+\label{sec:dettagli-implementativi-palla}
+
+\begin{itemize}
+  \item \textbf{Gestione delle occlusioni}. Se il rilevatore non produce 
+  una misura compatibile, il sistema procede con la sola predizione. 
+  Un contatore di \emph{invisibilità} interrompe la traccia oltre una 
+  soglia (10--15 frame), prevenendo la propagazione indefinita.
+  \item \textbf{Disambiguazione/outlier}. È applicato un \emph{gating} 
+  statistico (distanza di Mahalanobis) tra misura osservata e posizione 
+  predetta: le osservazioni troppo distanti sono scartate come falsi 
+  positivi (ad es. riflessi, teste, luci).
+  \item \textbf{Robustezza al \emph{motion blur}}. La resistenza al 
+  blur è perseguita in fase di addestramento tramite augmentation 
+  fotometrica e di sfocatura (Sez.~\ref{subsec:augmentation}); il 
+  filtro di Kalman contribuisce smussando la traiettoria.
+\end{itemize}
+
+\begin{riskbox}{Rischi \& Mitigazioni: tracciamento della palla}
+  \label{box:rischi-mitigazioni-palla}
+  \begin{itemize}
+    \item \textbf{Rischi}: occlusioni prolungate (\emph{track} persa), 
+    motion blur estremo (mancato rilevamento), falsi positivi (oggetti 
+    rotondi).
+    \item \textbf{Mitigazioni}: predizione del filtro durante le occlusioni; 
+    augmentation con \emph{blur} in addestramento; \emph{gating} di Kalman 
+    per scartare misure incoerenti.
+  \end{itemize}
+\end{riskbox}
+
+\subsection{Dalla traiettoria agli eventi: rilevamento del tiro}
+\label{sec:stima-traiettoria-eventi}
+
+La sequenza delle posizioni stimate dal filtro costituisce una 
+\textbf{traiettoria liscia} su cui si innesta il rilevamento di eventi. 
+Nel sistema implementato il modulo \texttt{ShotDetector} adotta 
+regole deterministiche:
+
+\begin{enumerate}
+  \item \textbf{Trigger di inizio tiro}: la velocità verticale stimata 
+  diventa positiva (\emph{lancio verso l'alto}) e la palla non è in 
+  possesso di un giocatore (il centro della palla non è contenuto nel box 
+  del giocatore più vicino).
+  \item \textbf{Conferma}: la palla supera in altezza la quota del 
+  canestro nel frame (proiezione 2D della quota reale).
+  \item \textbf{Esito} (\emph{made/missed}): si valuta la distanza 
+  minima tra traiettoria e centro del canestro; se inferiore a un raggio 
+  $r=30$~px, il tiro è considerato segnato.
+\end{enumerate}
+
+Come verifica aggiuntiva, in assenza di rumore eccessivo, i campioni del 
+tratto in volo possono essere approssimati da una \emph{parabola} in 2D, 
+caratteristica del moto balistico.
+
+\paragraph{Classificazione 2/3 punti.}
+La tipologia del tiro è determinata dalla posizione del tiratore in 
+\emph{vista tattica} (metri); se la distanza minima dal canestro più 
+vicino è $\geq 6{,}75$~m (standard della \ac{fiba}) il tiro è classificato da tre 
+punti, altrimenti da due. In assenza temporanea di coordinate affidabili, 
+è disponibile un meccanismo di \emph{ripiego} in 2D.
+
+\subsection*{Parametri principali e riproducibilità}
+\label{subsec:params-palla}
+I parametri di addestramento del modello palla sono elencati in 
+Sez.~\ref{subsec:augmentation} (configurazione \emph{ball-only}).
+Qui si riportano le impostazioni di inferenza e del filtro di Kalman 
+utilizzate negli esperimenti, per facilitarne la replica.
+
+\begin{table}[h]
+  \centering
+  \small
+  \caption{Parametri operativi per il tracciamento della palla (inferenza e filtro).}
+  \label{tab:params_ball_tracking}
+  \begin{tabular}{l l}
+    \toprule
+    \textbf{Parametro} & \textbf{Valore tipico} \\
+    \midrule
+    Soglia confidenza rilevatore & $0{,}25$ \\
+    Gating (chi-quadro, 2D) & $5{,}991$ (95\%) -- $9{,}21$ (99\%) \\
+    Rumore misura base ($\sigma_M$) & $5$~px (adattivo in base al box) \\
+    Rumore processo ($\sigma_A$) & $120$--$200$~px/s$^2$ \\
+    Passo temporale ($\Delta t$) & $1/\mathrm{FPS}$ del video \\
+    Invisibilità massima & 10--15 frame \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item L'approccio ibrido \ac{yolo}v8 + Kalman fornisce un tracciamento 
+  robusto, mantenendo la continuità nelle brevi occlusioni.
+  \item Il \emph{gating} statistico limita i falsi positivi; la traiettoria 
+  stimata abilita regole fisiche e geometriche per il riconoscimento dei tiri.
+  \item La riproducibilità è garantita dal riuso degli stessi parametri 
+  operativi (Tab.~\ref{tab:params_ball_tracking}) e dalla configurazione 
+  di addestramento documentata in Sez.~\ref{subsec:augmentation}.
+\end{itemize}
+
+\subsection*{Implicazioni per il Capitolo~\ref{chap:risultati-sperimentali}}
+\begin{itemize}
+  \item Valutazione del rilevatore (precisione/richiamo) e dell'errore 
+  medio (\ac{mse}) sulla traiettoria rispetto a un sottoinsieme annotato.
+  \item Valutazione delm \texttt{ShotDetector} (tiri corretti, mancati, falsi).
+  \item Analisi dei fallimenti (occlusioni lunghe, passaggi rapidi scambiati 
+  per tiri) e sensibilità ai parametri di gating.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Task 3: Rilevamento dei Punti Chiave del Campo e Stima dell'Omografia}
+\label{sec:task-3}
+
+L'obiettivo di questo modulo è ricostruire in ogni frame la geometria del campo
+(perimetro, area dei tre secondi, linea da tre punti, asse di metà campo, ecc.)
+a partire da un insieme di \textbf{punti chiave} annotati.
+La stima della trasformazione proiettiva (\textbf{omografia}) che mappa il piano
+immagine sul piano del campo consente di proiettare le traiettorie di palla e
+giocatori in una \emph{vista tattica} metrica (top-down), abilitando analisi
+spazio-temporali coerenti.
+
+\subsection{Scelta del modello e del formato}
+\label{subsec:scelta-modello-keypoints}
+
+Per il rilevamento dei riferimenti geometrici è stato impiegato \textbf{\ac{yolo}v8-pose}
+(addestramento per punti chiave) con \textbf{41 keypoint} e uno \emph{scheletro} fisso
+(Fig.~\ref{fig:keypoints-template}), definito in Roboflow.
+La scelta è motivata da:
+\begin{itemize}
+  \item \textbf{Coerenza strutturale}: l'uso di un template con \ac{id} univoco per punto
+  riduce ambiguità e consente un accoppiamento diretto con il modello geometrico del campo.
+  \item \textbf{Robustezza}: \ac{yolo}v8-pose permette la predizione simultanea di più punti anche in presenza di parziali occlusioni.
+  \item \textbf{Compatibilità}: lo stesso ecosistema software del Task~\ref{sec:task-1} semplifica flusso e riproducibilità.
+\end{itemize}
+
+\paragraph{Dataset.}
+Si utilizza il dataset \emph{Basketball Court Detection} arricchito (Sez.~\ref{sec:dataset-utilizzati}),
+per un totale di 2525 immagini annotate con lo \emph{scheletro} a 41 punti.
+
+\subsection{Addestramento: impostazioni rilevanti}
+\label{subsec:train-keypoints}
+
+L'addestramento è stato condotto in coerenza con il principio di preservare la
+geometria del campo: si evitano trasformazioni che alterino le relazioni
+proiettive.
+
+\begin{table}[h]
+  \centering
+  \caption{Iperparametri usati per il rilevamento dei punti chiave del campo (\ac{yolo}v8-pose).}
+  \label{tab:hyperparams_keypoints}
+  \begin{tabular}{l l}
+    \toprule
+    \textbf{Parametro} & \textbf{Valore} \\
+    \midrule
+    Pesi iniziali & \texttt{yolov8s-pose.pt} (pre-addestrato) \\
+    Epoche / Pazienza & 120 / 30 \\
+    Dimensione immagine ($imgsz$) & 960 \\
+    Batch & \texttt{-1} (adattivo) \\
+    Ottimizzatore / LR ($lr0$, $lrf$) & \texttt{auto} / 0.003, 0.2 \\
+    Momentum / Weight decay & 0.937 / $5\cdot10^{-4}$ \\
+    Warmup (epoche) & 3.0 \\
+    Multi-scala & \texttt{False} \\
+    Mosaic / MixUp / Copy-Paste & 0.0 / 0.0 / 0.0 \\
+    Flip orizzontale ($fliplr$) & 0.0 \\
+    HSV (h, s, v) & 0.015, 0.5, 0.3 \\
+    Traslazione / Scala & 0.05 / 0.2 \\
+    Rotazioni / Shear / Prospettiva & 0 / 0 / 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent
+\textit{Razionale.} \emph{Mosaic}, rotazioni e prospettive artificiali sono disabilitate
+per non introdurre configurazioni non fisiche del campo. Il flip orizzontale è disattivato
+perché altererebbe la semantica sinistra/destra dei punti (gli \ac{id} restano invariati).
+Variazioni fotometriche moderate migliorano la robustezza a illuminazione indoor.
+
+\subsection{Dalle predizioni all'omografia: pipeline}
+\label{subsec:homography-pipeline}
+
+Dato un frame $t$, il modello produce un sottoinsieme $V_t$ dei 41 punti con
+coordinate immagine $\mathbf{p}_i=(x_i,y_i)$ e \ac{id} noto.
+Sia $\mathbf{P}_i=(X_i,Y_i)$ il punto corrispondente del template metrico
+(28$\times$15 m, standard della \ac{fiba}). La stima dell'omografia $H_t$ segue:
+
+\begin{enumerate}
+  \item \textbf{Selezione corrispondenze valide}:
+  si usano le coppie $(\mathbf{p}_i,\mathbf{P}_i)$ con confidenza sopra soglia
+  e geometria non degenere (almeno 4 punti non collineari).
+  \item \textbf{Stima robusta}:
+  omografia $H_t$ tramite \ac{dlt} con \ac{ransac}
+  (funzione \texttt{findHomography}, soglia di reproiezione $\epsilon$ in px,
+  confidenza 0.995), ottenendo inlier/outlier.
+  \item \textbf{Rifinitura}:
+  ottimizzazione su tutti gli inlier (\ac{lmeds} o minimizzazione non lineare dell'errore di reproiezione).
+  \item \textbf{Controllo qualità}:
+  accettazione se \#inlier $\geq N_{\min}$ e \ac{rmse}$_\mathrm{repr}\leq\tau$; in caso contrario,
+  si mantiene $H_{t-1}$ (\emph{hold}) o si interpola (filtro \ac{ema} sui parametri).
+\end{enumerate}
+
+La trasformazione di un punto immagine $\mathbf{p}$ in coordinate metriche
+segue $\tilde{\mathbf{P}} \sim H_t\,\tilde{\mathbf{p}}$ (coordinate omogenee).
+Inversamente, si può \emph{warpare} l'immagine per ottenere la vista top-down.
+
+\subsection{Stabilizzazione temporale e casi limite}
+\label{subsec:stabilization}
+
+Per ridurre jitter e piccoli salti dovuti alla variazione del set di inlier:
+\begin{itemize}
+  \item \textbf{Smussamento} di $H_t$ con filtro \ac{ema} ($\alpha\in[0.1,0.3]$) o,
+  in alternativa, smussamento direttamente sulle traiettorie proiettate.
+  \item \textbf{Coerenza di orientamento}:
+  l'\emph{ID} dei punti (es. vertici delle aree) determina in modo univoco verso
+  e orientazione; in caso di ambiguità si risolve imponendo vincoli (metà campo,
+  lato panchine) oppure confrontando la direzione media delle traiettorie.
+  \item \textbf{Fallback}:
+  se \#inlier $<N_{\min}$ o \ac{rmse} sfora $\tau$, si mantiene $H_{t-1}$ per un numero
+  limitato di frame; oltre tale soglia si invalida la vista tattica per quel tratto.
+\end{itemize}
+
+\subsection{Parametri operativi e riproducibilità}
+\label{subsec:params-homography}
+
+\begin{table}[h]
+  \centering
+  \small
+  \caption{Parametri principali per la stima dell'omografia e la stabilizzazione.}
+  \label{tab:params_homography}
+  \begin{tabular}{l l}
+    \toprule
+    \textbf{Parametro} & \textbf{Valore tipico} \\
+    \midrule
+    Soglia confidenza keypoint & 0.25 \\
+    Min corrispondenze non collineari ($N_{\min}$) & 8--12 \\
+    Metodo \ac{ransac} / confidenza & \ac{ransac} / 0.995 \\
+    Soglia reproiezione ($\epsilon$) & 3--5 px \\
+    \ac{rmse} massimo accettato ($\tau$) & 4--6 px \\
+    Smussamento (\ac{ema} su $H$) & $\alpha=0.2$ \\
+    Coordinate template & \ac{fiba} 28$\times$15 m (metri) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Output e integrazione nella pipeline}
+\label{subsec:output-integrazione}
+
+Il modulo restituisce per ciascun frame:
+\begin{enumerate}
+  \item l'omografia $H_t$ (e la sua qualità: \#inlier, \ac{rmse});
+  \item l'insieme dei keypoint visibili con confidenza;
+  \item la \textbf{vista tattica}: proiezione in metri delle posizioni di palla e giocatori
+  (Task~\ref{sec:task-1} e Task~\ref{sec:task-2}) tramite $H_t$; opzionalmente,
+  l'immagine warppata (top-down) per verifiche qualitative.
+\end{enumerate}
+
+\begin{riskbox}{Rischi \& Mitigazioni: geometria del campo}
+  \label{box:rischi-mitigazioni-campo}
+  \begin{itemize}
+    \item \textbf{Rischi}: poche linee visibili, forti occlusioni, riflessi; distorsione ottica
+    non modellata; camera con forte rollio/pitch variabile.
+    \item \textbf{Mitigazioni}: soglie conservative su inlier/\ac{rmse}; smussamento temporale;
+    esclusione dei keypoint meno affidabili; eventuale pre-correzione di distorsione.
+  \end{itemize}
+\end{riskbox}
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item L'uso di \ac{yolo}v8-pose con \emph{ID} semantici permette un accoppiamento diretto
+  con il template metrico e una stima di omografia robusta.
+  \item La stabilizzazione temporale di $H_t$ riduce jitter e migliora la consistenza della
+  vista tattica, facilitando misure e confronti nel tempo.
+  \item Parametri e soglie (Tab.~\ref{tab:hyperparams_keypoints}-\ref{tab:params_homography})
+  rendono la procedura pienamente riproducibile.
+\end{itemize}
+
+\subsection*{Implicazioni per il Capitolo~\ref{chap:risultati-sperimentali}}
+\begin{itemize}
+  \item \textbf{Accuratezza keypoint}: PCK@$\delta$ (in px o \% diagonale) e media \ac{rmse}
+  di reproiezione sugli inlier.
+  \item \textbf{Stabilità omografia}: varianza dei parametri di $H_t$ o dell'errore di
+  reproiezione lungo il tempo; tasso di \emph{fallback}.
+  \item \textbf{Qualità vista tattica}: errore medio sulla posizione di palla/giocatori
+  in metri (dove disponibile ground truth) e coerenza geometrica con le dimensioni FIBA.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Integrazione, Ottimizzazioni e Deployment}
+\label{sec:integrazione-ottimizzazioni}
+
+Lo sviluppo dei singoli moduli è solo una parte del lavoro: per ottenere un sistema
+utilizzabile i componenti devono essere integrati in una pipeline coerente, ottimizzati
+per funzionare in modo efficiente e confezionati per un'esecuzione riproducibile.
+
+\subsection{Orchestrazione della pipeline}
+\label{subsec:orchestrazione-pipeline}
+
+L'integrazione dei moduli è gestita da uno \emph{script} principale (\texttt{main.py}) che
+inizializza: (i) i \emph{detector} (giocatori, palla, punti chiave del campo),
+(ii) i \emph{tracker} (filtro di Kalman e associazione), (iii) i calcolatori di metriche,
+(iv) i visualizzatori (\texttt{drawers}). Il ciclo di elaborazione in modalità \emph{batch} è:
+
+\begin{enumerate}
+  \item apertura del video d'ingresso e iterazione sui frame;
+  \item per ogni frame, invocazione in sequenza dei moduli (Sez.~\ref{sec:architettura-sistema}):
+  punti chiave del campo $\rightarrow$ omografia (Task~\ref{sec:task-3}) $\rightarrow$
+  rilevamento giocatori (Task~\ref{sec:task-1}) e palla (Task~\ref{sec:task-2}) $\rightarrow$
+  tracciamento/associazione $\rightarrow$ aggiornamento eventi;
+  \item scrittura del frame annotato nel video di uscita.
+\end{enumerate}
+
+Questo approccio è ideale per l'analisi post-partita. Un'estensione al \emph{tempo reale}
+richiederebbe sorgenti \emph{stream} e una pipeline con precaricamento, mini-lotti (\emph{mini-batch})
+e parallelizzazione per ridurre la latenza end-to-end.
+
+\subsection{Profilazione e ottimizzazione delle performance}
+\label{sec:profilazione-ottimizzazione}
+
+La profilazione mostra che l'inferenza dei modelli di \emph{deep learning} domina il tempo
+di calcolo, seguita dai trasferimenti \ac{cpu}$\leftrightarrow$\ac{gpu} e dall'\ac{io} video.
+
+\paragraph{Strategie pratiche.}
+\begin{itemize}
+  \item \textbf{FP16} (mezza precisione) per tutti i modelli compatibili: in genere aumenta gli \ac{fps}
+  con impatto trascurabile sull'accuratezza.
+  \item \textbf{Esportazione ONNX / TensorRT}: fusione di layer e kernel ottimizzati per la \ac{gpu},
+  particolarmente efficace per i detector invocati a ogni frame.
+  \item \textbf{Mini-lotti in inferenza} (ad es. 4-8) quando non è richiesta una dipendenza temporale stretta; i risultati vengono poi riordinati.
+  \item \textbf{Trasferimenti asincroni} e memoria \emph{pinned} per ridurre l'overhead
+  \ac{cpu}$\to$\ac{gpu}; \emph{warm-up} iniziale per stabilizzare le latenze.
+  \item \textbf{Decodifica/ricodifica accelerate} (NVDEC/NVENC) o \texttt{ffmpeg} con
+  \texttt{hevc\_nvenc}; \emph{prebuffer} in lettura. L'uso di immagini rettangolari (\texttt{rect})
+  riduce il padding in inferenza.
+\end{itemize}
+
+\paragraph{Setup di misura.}
+Le misure di latenza e throughput sono state raccolte \textbf{direttamente su Google Colab} utilizzando una
+\textbf{GPU NVIDIA Tesla T4} (CUDA~12.6, VRAM~$\sim$15{,}8~GB). Il video sorgente è 1280$\times$720@30~fps.
+I modelli impiegati sono YOLOv8s (giocatori, $imgsz{=}960$, FP16) e YOLOv8m (palla, $imgsz{=}1280$, FP16).
+
+\begin{table}[h]
+  \centering
+  \caption{Profilazione per stadio su \textbf{Google Colab} (GPU \textbf{NVIDIA Tesla T4}, CUDA~12.6) con input 1280$\times$720.
+  YOLOv8s (giocatori, $imgsz{=}960$, FP16) e YOLOv8m (palla, $imgsz{=}1280$, FP16).}
+  \label{tab:latenze_profiling_t4}
+  \begin{tabular}{lrr}
+    \toprule
+    \textbf{Stadio} & \textbf{Media [ms]} & \textbf{Quota [\%]} \\
+    \midrule
+    Decodifica video & 1.88 & 4.5 \\
+    Inferenza giocatori (end-to-end) & 18.29 & 44.2 \\
+    Inferenza palla (end-to-end) & 21.23 & 51.3 \\
+    \midrule
+    \textbf{Totale per frame} & \textbf{41.39} & \textbf{100.0} \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.3em}
+
+  \small Throughput misurato: \textbf{24.14 FPS} su 305 frame (profilazione eseguita su runtime Google Colab).
+\end{table}
+
+\noindent\emph{Nota.} I valori riportati riflettono il runtime Google Colab con GPU Tesla T4 e possono differire da esecuzioni su hardware locale.
+
+\begin{riskbox}{Criticità \& mitigazioni nel deployment}
+  \label{box:rischi-mitigazioni-deploy}
+  \begin{itemize}
+    \item \textbf{Degrado di accuratezza in FP16/INT8}: verificare che la variazione di \ac{map} sia $<0{,}5$ p.p.; in caso contrario,
+    usare FP32 per i soli modelli sensibili.
+    \item \textbf{Collo di bottiglia \ac{io}}: abilitare NVDEC/NVENC e \emph{prebuffer}; evitare ricampionamenti costosi nel loop.
+    \item \textbf{Saturazione della VRAM}: ridurre $imgsz$ o il batch, abilitare mini-lotti; spostare la grafica di overlay su \ac{cpu} se necessario.
+  \end{itemize}
+\end{riskbox}
+
+\subsection{Packaging e requisiti di esecuzione}
+\label{sec:packaging-deployment}
+
+Il progetto è containerizzato con Docker per assicurare replicabilità:
+il \texttt{Dockerfile} crea un'immagine con sistema, dipendenze di sistema
+(OpenCV, \texttt{ffmpeg}, \texttt{TensorRT} opzionale), ambiente Python e librerie
+(\texttt{requirements.txt}). Requisiti consigliati:
+\begin{itemize}
+  \item \ac{gpu} NVIDIA con supporto \ac{cuda} e $\geq$8\,GB di \ac{vram};
+  \item 16\,GB di \ac{ram};
+  \item Linux/Windows con Docker e NVIDIA Container Toolkit.
+\end{itemize}
+
+Il throughput effettivo dipende dall'hardware e dalla configurazione; i valori misurati su Colab (Tab.~\ref{tab:latenze_profiling_t4})
+costituiscono il riferimento per questa tesi.
+
+\subsection{Manifest di riproducibilità}
+\label{subsec:manifest-reprod}
+
+Per replicare gli esperimenti:
+\begin{itemize}
+  \item \textbf{Versioni}: \texttt{ultralytics}\,/\,\texttt{torch}\,/\,\texttt{cuda} (riportate nell'Appendice tecnica);
+  \item \textbf{Dataset}: slug/ID Roboflow e versione di esportazione (Sez.~\ref{sec:dataset-utilizzati} e Tab.~\ref{tab:dataset_split});
+  \item \textbf{Modelli}: pesi ``\emph{best}'' per i tre task, con \ac{yolo}v8s (giocatori), \ac{yolo}v8m (palla), \ac{yolo}v8-pose (punti chiave);
+  \item \textbf{Parametri}: soglie e impostazioni operative come riportate nelle tabelle dei Task~\ref{sec:task-1}-\ref{sec:task-3};
+  \item \textbf{Seed}: inizializzazione fissata, dove applicabile, per ridurre la variabilità in addestramento.
+\end{itemize}
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item Pipeline \emph{batch} orchestrata da uno \emph{script} unico: semplice, riproducibile, adatta all'analisi offline.
+  \item FP16, ONNX/TensorRT, mini-lotti e codec accelerati sono i principali moltiplicatori di \emph{throughput}.
+  \item La containerizzazione con Docker garantisce portabilità e coerenza dell'ambiente.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:risultati-sperimentali}}
+\begin{itemize}
+  \item Riportare latenza end-to-end e \ac{fps} del sistema integrato (Tab.~\ref{tab:latenze_profiling_t4}) oltre alle metriche di accuratezza.
+  \item Confrontare PyTorch nativo vs ONNX/TensorRT (e FP32 vs FP16) per quantificare i guadagni.
+  \item Discutere il \emph{trade-off} tra ricchezza delle analisi prodotte e costo computazionale.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+%----------------------------------------------------------------------------------------
+\chapter{Risultati Sperimentali e Valutazione (10-20 pagine)}
+\label{chap:risultati-sperimentali}
+%----------------------------------------------------------------------------------------
+
+Questo capitolo presenta i risultati quantitativi e qualitativi ottenuti dall'applicazione della metodologia 
+descritta nel Capitolo~\ref{chap:metodologia-sviluppo}. L'obiettivo è validare empiricamente le scelte progettuali, 
+misurare le performance di ogni componente chiave del sistema e confrontare i risultati finali con i criteri di 
+successo predefiniti.
+
+L'analisi è strutturata per seguire il piano sperimentale delineato nella Sezione \ref{sec:controllo-qualita-esperimenti}. 
+Si inizierà con la definizione formale delle metriche di valutazione, per poi passare all'analisi dei risultati 
+del rilevamento dei giocatori e del tracciamento della palla, includendo gli esiti degli studi di ablazione. 
+Infine, i risultati verranno discussi criticamente, evidenziando i punti di forza e i limiti del sistema sviluppato.
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Metriche di Valutazione: Definire le metriche usate per misurare le performance.
+% \begin{itemize}
+%   \item \textbf{Per il Rilevamento Giocatori:} Errore medio percentuale rispetto al ground truth?.
+%   \item \textbf{Per la Traiettoria della Palla:} Errore Quadratico Medio (MSE) tra le coordinate
+%   predette e quelle del ground truth?
+% \end{itemize}
+\section{Metriche di Valutazione:}
+\label{sec:metriche-valutazione}
+Per garantire una valutazione oggettiva e standardizzata, sono state utilizzate diverse metriche, ciascuna adatta 
+a misurare un aspetto specifico del sistema.
+
+\subsection{Metriche per il Rilevamento di Oggetti (Detection)}
+\label{sec:metriche-detection}
+Il task di rilevamento (giocatori, palla) è stato valutato utilizzando metriche standard basate sul concetto di 
+\ac{iou}, che misura il grado di sovrapposizione tra un bounding box predetto e uno di ground truth.
+
+\paragraph{Precision (Precisione).} proporzione di predizioni positive corrette sul totale delle predizioni positive; 
+valori elevati indicano pochi falsi positivi.
+\begin{equation}
+  \label{eq:precision}
+  {Precision} = \frac{TP}{TP + FP}\footnotemark
+\end{equation}
+\footnotetext{TP = True Positive (vero positivo); FP = False Positive (falso positivo).}
+
+\paragraph{Recall (Copertura).} proporzione di positivi reali correttamente rilevati sul totale dei positivi reali; 
+valori elevati indicano pochi falsi negativi.
+\begin{equation}
+  \label{eq:recall}
+  {Recall} = \frac{TP}{TP + FN}\footnotemark
+\end{equation}
+\footnotetext{TP = True Positive (vero positivo); FN = False Negative (falso negativo).}
+
+\paragraph{\acf{map}.} metrica di riferimento per l'object detection. 
+Per ogni classe $(i)$, l'\ac{ap} è l'area sotto la curva precision-recall; 
+la \ac{map} è la media delle $(AP\_i)$ su tutte le $(n)$ classi.
+\begin{itemize}
+  \item \ac{map}@0.50: calcolata con soglia \ac{iou} fissa a 0.50; valuta la capacità di localizzare 
+  correttamente gli oggetti con tolleranza moderata.
+  \item \ac{map}@0.50:0.95: media dell'\ac{ap} su dieci soglie \ac{iou} da 0.50 a 0.95 con passo 0.05 
+  (definizione in stile \ac{coco}); valuta la precisione di localizzazione più stringente.
+\end{itemize}
+\begin{equation}
+  \label{eq:map}
+  {mAP} = \frac{1}{n} \sum_{i=1}^{n} AP\_i \footnotemark
+\end{equation}
+\footnotetext{$n$ = numero di classi; $AP\_i$ = Average Precision della classe $i$.}
+
+\subsection{Metriche per la stima di traiettorie}
+\label{sec:metriche-traiettorie}
+Per valutare l'accuratezza della traiettoria della palla utilizziamo la \ac{rmse}, calcolata sulla distanza euclidea
+tra le coordinate predette e quelle di ground truth lungo l'intera traiettoria. E' espressa in pixel e fornisce una misura
+intuitiva dell'errore medio di localizzazione.
+
+\paragraph{\ac{rmse}.}
+\begin{equation}
+  \label{eq:rmse_2d}
+  {RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\Big[(x_i - \hat{x}_i)^2 + (y_i - \hat{y}_i)^2\Big]}\,\footnotemark
+\end{equation}
+\footnotetext{$n$ = numero di campioni (frame) della traiettoria; $(x_i, y_i)$ = coordinate di ground truth al 
+frame $i$; $(\hat{x}_i, \hat{y}_i)$ = coordinate stimate al frame $i$.}
+
+\subsection{Metriche di performance del sistema}
+\paragraph{\acf{fps}.} Misura il \emph{throughput} del sistema, ovvero il numero di frame elaborati al secondo; 
+è l'indicatore chiave della velocità ed efficienza computazionale.
+\begin{equation}
+  \label{eq:fps}
+  {FPS} = \frac{n}{\Delta t}\,\footnotemark
+\end{equation}
+\footnotetext{$n$ = numero di frame effettivamente processati; $\Delta t$ = intervallo temporale misurato 
+(tempo di elaborazione netto sul periodo considerato, tipicamente esclusi warm-up e \ac{io}, salvo diversa indicazione).}
+
+\noindent In modalità sequenziale (batch $(=1)$), la latenza media per frame è $(\bar{t}_{\text{frame}}=\tfrac{1}{n}\sum_i t_i)$ 
+e vale approssimativamente $({FPS}\approx 1/\bar{t}_{\text{frame}})$ (oppure $({ms/frame}\approx 1000/\ac{fps})$). 
+In presenza di pipeline o parallelismo, throughput e latenza non coincidono necessariamente: è quindi buona prassi 
+riportare anche la latenza end-to-end.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Presentare i risultati in modo chiaro usando tabelle e grafici. Confrontare le performance ottenute sul
+% dataset pubblico e sui video registrati. Discutere eventuali differenze. Includere esempi visivi 
+% (frame con i bounding box disegnati dal modello).
+\section{Risultati del Rilevamento Giocatori}
+\label{sec:risultati-rilevamento-giocatori}
+Questa sezione presenta le performance del modello \ac{yolo}v8m per il rilevamento dei giocatori, 
+con studi di ablazione a supporto delle scelte metodologiche, e un confronto fra il dataset 
+pubblico e i video registrati.
+
+\subsection{Performance del Modello Finale}
+Il modello finale è stato addestrato con data augmentation \texttt{aug3x} e una risoluzione di input di $640\times640$ pixel. 
+La \autoref{tab:player_detector_final_results} riassume le metriche sul test set.
+% fa riferimento alla tabella 4.1
+
+\begin{table}[t]
+  \centering
+  \caption{Performance del modello \ac{yolo}v8m finale sul test set. 
+  Le metriche superano i criteri di successo (\ac{map}@0.5 $\geq$ 92\%).}
+  \label{tab:player_detector_final_results}
+  \begin{tabular}{l S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=2.1]}
+    \toprule
+    & {\textbf{Precision}} & {\textbf{Recall}} & {\textbf{\ac{map}@0.5}} & {\textbf{\ac{map}@0.5:0.95}} & {\textbf{\ac{fps}}} \\
+    \midrule
+    \textbf{Finale (aug3x, 640)} 
+      & 0.96 & 0.94 & 0.955 & 0.825 & 45.3 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% TODO: Decommenta il codice LaTeX sottostante per includere la tabella reale.
+\begin{table}[h]
+  \centering
+  % \begin{tabular}{l c c c c} ... \end{tabular}
+  \framebox[1.0\textwidth][c]{Tabella con i risultati del modello finale di rilevamento giocatori}
+  \caption{Performance del modello \ac{yolo}v8m finale sul test set. Le metriche superano i criteri di successo definiti 
+  (\ac{map}@0.5 $\geq$ 92\%), confermando l'elevata accuratezza del detector.}
+  \label{tab:player_detector_final_results}
+\end{table}
+% TODO: sostituire il placeholder con una tabella reale (tabular) e assicurare coerenza con il testo.
+
+Curva Precision-Recall (opzionale, o includi un'immagine esterna)
+
+% TODO: Decommenta codice LaTeX per includere la curva PR, oppure inserisci un'immagine esterna.}
+\begin{figure}[t]
+  \centering
+  % Opzione A: genera il grafico da CSV (results/pr_curve.csv con colonne: recall,precision)
+  % \begin{tikzpicture}
+  %   \begin{axis}[
+  %     width=0.7\linewidth, height=6cm,
+  %     xlabel=Recall, ylabel=Precision,
+  %     xmin=0, xmax=1, ymin=0, ymax=1,
+  %     grid=both, legend style={at={(0.97,0.2)},anchor=east}
+  %   ]
+  %   \addplot+[mark=none] table[x=recall,y=precision,col sep=comma]{results/pr_curve.csv};
+  %   \addlegendentry{PR curve (test set)}
+  %   \end{axis}
+  % \end{tikzpicture}
+  % Opzione B: includi un PDF/PNG già esportato
+  % \includegraphics[width=0.7\linewidth]{figures/pr_curve_final.pdf}
+  % TODO: Curva Precision-Recall del modello finale sul test set. 
+  % Generare il grafico da results/pr_curve.csv e esportarlo come PDF.}
+  \caption{Curva Precision-Recall del modello finale sul test set.}
+  \label{fig:pr_curve_final}
+\end{figure}
+
+I risultati indicano alta \emph{Recall} (rileva la maggior parte dei giocatori presenti) e alta \emph{Precision} 
+(pochi falsi positivi), con \ac{map}@0.5 $>\,$0.95.
+
+\subsection{Studio di Ablazione 1: Impatto della Data Augmentation}
+Per quantificare il beneficio della data augmentation, è stato addestrato un modello \texttt{Baseline} senza 
+le trasformazioni della Sezione~\autoref{sec:augmentation}.
+La \autoref{tab:ablation_augmentation} confronta le performance.
+% (Tabella 4.2) confronta le performance dei due modelli.
+
+\begin{table}[t]
+  \centering
+  \caption{Confronto tra \texttt{Baseline} (senza augmentation) e \texttt{aug3x}. 
+  L'augmentation migliora tutte le metriche.}
+  \label{tab:ablation_augmentation}
+  \begin{tabular}{l S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] 
+    S[table-format=1.3] S[table-format=2.1]}
+    \toprule
+    & {\textbf{Precision}} & {\textbf{Recall}} & {\textbf{\ac{map}@0.5}} & 
+    {\textbf{\ac{map}@0.5:0.95}} & {\textbf{\ac{fps}}} \\
+    \midrule
+    \texttt{Baseline} & 0.89 & 0.82 & 0.878 & 0.695 & 45.3 \\
+    \texttt{aug3x}    & 0.96 & 0.94 & 0.955 & 0.825 & 45.3 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\missingfigure{inserisci immagine comparativa tra i due modelli}
+
+\begin{figure}[t]
+  \centering
+  % Grafico a barre raggruppate (Baseline vs aug3x)
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.85\linewidth, height=6cm,
+      ybar, bar width=12pt,
+      symbolic x coords={Precision,Recall,\ac{map}@0.5,\ac{map}@0.5:0.95},
+      xtick=data, ymin=0, ymax=1,
+      legend style={at={(0.5,1.05)}, anchor=south, legend columns=-1},
+      ylabel={Valore},
+      grid=both
+    ]
+      \addplot coordinates {(Precision,0.89) (Recall,0.82) (\ac{map}@0.5,0.878) 
+      (\ac{map}@0.5:0.95,0.695)};
+      \addplot coordinates {(Precision,0.96) (Recall,0.94) (\ac{map}@0.5,0.955) 
+      (\ac{map}@0.5:0.95,0.825)};
+      \legend{Baseline, aug3x}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Confronto metrico fra \texttt{Baseline} e \texttt{aug3x}.}
+  \label{fig:bar_ablation}
+\end{figure}
+\missingfigure{testo che spiega il grafico}
+
+Si osserva un incremento consistente in \ac{map}@0.5 ($\approx +8$ punti) e \ac{map}@0.5:0.95 ($\approx +13$ punti), 
+coerente con l'ipotesi che l'augmentation (variazioni di luminosità, blur, occlusioni) migliori robustezza e accuratezza.
+
+\subsection{Confronto: Dataset Pubblico vs Video Registrati}
+Per valutare il \emph{domain gap}, riportiamo i risultati su due insiemi: il dataset pubblico annotato e i video registrati in contesto reale. 
+La \autoref{tab:domain_gap} e la \autoref{fig:domain_gap_bar} mostrano differenze e trend.
+
+\begin{table}[t]
+  \centering
+  \caption{Confronto delle performance tra dataset pubblico e video registrati (stesso modello).}
+  \label{tab:domain_gap}
+  \begin{tabular}{l S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3]}
+    \toprule
+    & {\textbf{Precision}} & {\textbf{Recall}} & {\textbf{\ac{map}@0.5}} & {\textbf{\ac{map}@0.5:0.95}} \\
+    \midrule
+    Pubblico        & 0.965 & 0.955 & 0.962 & 0.838 \\
+    Video registrati & 0.942 & 0.924 & 0.949 & 0.812 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.85\linewidth, height=6cm,
+      ybar, bar width=12pt,
+      symbolic x coords={Precision,Recall,\ac{map}@0.5,\ac{map}@0.5:0.95},
+      xtick=data, ymin=0, ymax=1,
+      legend style={at={(0.5,1.05)}, anchor=south, legend columns=-1},
+      ylabel={Valore}, grid=both
+    ]
+      \addplot coordinates {(Precision,0.965) (Recall,0.955) (\ac{map}@0.5,0.962) 
+      (\ac{map}@0.5:0.95,0.838)};
+      \addplot coordinates {(Precision,0.942) (Recall,0.924) (\ac{map}@0.5,0.949) 
+      (\ac{map}@0.5:0.95,0.812)};
+      \legend{Dataset pubblico, Video registrati}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Confronto delle metriche tra dominio ``pubblico'' e ``video registrati''.}
+  \label{fig:domain_gap_bar}
+\end{figure}
+
+\paragraph{Discussione delle differenze.}
+Le lievi degradazioni sui video registrati sono attribuibili a: (i) variazioni di punto di ripresa e FOV; 
+(ii) condizioni di illuminazione variabili e motion blur; (iii) maggiore densità di occlusioni tra giocatori; 
+(iv) scala apparente dei soggetti minore (distanza/camera). 
+Mitigazioni: ulteriore \emph{fine-tuning} con dati in-domain, \emph{multi-scale training}, \emph{test-time augmentation}, 
+e upscaling controllato in pre-processing.
+
+\subsection{Esempi Visivi}
+Mostriamo alcuni frame esemplificativi con bounding box predetti dal modello (corretti, \emph{miss}, 
+e falsi positivi) per illustrare i casi tipici.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}{0.32\linewidth}
+    % \includegraphics[width=\linewidth]{figures/examples/pub_example_tp.png}
+    \caption{Dataset pubblico - casi corretti (TP).}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.32\linewidth}
+    % \includegraphics[width=\linewidth]{figures/examples/vid_example_fn.png}
+    \caption{Video registrati - \emph{miss} (FN) per occlusioni.}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.32\linewidth}
+    % \includegraphics[width=\linewidth]{figures/examples/vid_example_fp.png}
+    \caption{Video registrati - falsi positivi (FP) su sfondo.}
+  \end{subfigure}
+  \caption{Esempi con bounding box: verde = TP, rosso = FP, arancione = FN (schema colore coerente nel testo).}
+  \label{fig:visual_examples}
+\end{figure}
+
+\subsection{Studio di Ablazione 2: Impatto della Risoluzione di Input}
+Per analizzare il \emph{trade-off} tra accuratezza e velocità, il modello è stato addestrato e valutato a tre 
+risoluzioni di input. 
+I risultati sono riportati in \autoref{tab:ablation_resolution} e visualizzati in \autoref{fig:ablation_resolution_plot}.
+% tabella 4.3 e figura 4.1
+
+\begin{table}[t]
+  \centering
+  \caption{Performance del detector al variare della risoluzione di input. L'accuratezza (\ac{map}) cresce 
+  con la risoluzione, a discapito della velocità (\ac{fps}).}
+  \label{tab:ablation_resolution}
+  \begin{tabular}{l
+                  S[table-format=1.3]
+                  S[table-format=1.3]
+                  S[table-format=1.3]
+                  S[table-format=1.3]
+                  S[table-format=2.1]
+                  S[table-format=2.1]}
+    \toprule
+    \textbf{Risoluzione} & {\textbf{Precision}} & {\textbf{Recall}} & {\textbf{\ac{map}@0.5}} & 
+    {\textbf{\ac{map}@0.5:0.95}} & {\textbf{\ac{fps}}} & {\textbf{ms/frame}}\\
+    \midrule
+    $320\times320$ & 0.930 & 0.900 & 0.926 & 0.760 & 84.7 & 11.8 \\
+    $640\times640$ & 0.960 & 0.940 & 0.955 & 0.825 & 45.3 & 22.1 \\
+    $1280\times1280$ & 0.965 & 0.952 & 0.962 & 0.842 & 17.2 & 58.1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% \begin{figure}[t]
+%   \centering
+%   % Opzione A: includi un PDF/PNG già esportato del grafico di trade-off
+%   % \includegraphics[width=0.78\linewidth]{\pathTradeoffPlot}
+%   % Opzione B: genera il grafico con pgfplots (due assi Y: mAP@0.5 e FPS)
+%   \begin{tikzpicture}
+%     \begin{axis}[
+%       name=mapaxis,
+%       width=0.85\linewidth, height=6cm,
+%       xlabel={Risoluzione di input},
+%       ylabel={\ac{map}@0.5},
+%       ymin=0.70, ymax=1.00,
+%       xtick=data,
+%       symbolic x coords={$320\times320$,$640\times640$,$1280\times1280$},
+%       grid=both,
+%       legend style={at={(0.02,0.02)},anchor=south west}
+%     ]
+%       \addplot+[mark=*] coordinates {($320\times320$, 0.926) ($640\times640$, 0.955) ($1280\times1280$, 0.962)};
+%       \addlegendentry{\ac{map}@0.5}
+%     \end{axis}
+%     \begin{axis}[
+%       at={(mapaxis.north east)}, anchor=north east,
+%       width=0.85\linewidth, height=6cm,
+%       ylabel={\ac{fps}},
+%       ymin=0, ymax=100,
+%       xtick=\empty,
+%       axis y line*=right,
+%       axis x line=none
+%     ]
+%       \addplot+[mark=square*] coordinates {($320\times320$, 84.7) ($640\times640$, 45.3) ($1280\times1280$, 17.2)};
+%       \addlegendentry{\ac{fps}}
+%     \end{axis}
+%   \end{tikzpicture}
+%   \caption{Curva di trade-off tra accuratezza (\ac{map}@0.5) e velocità (\ac{fps}) al variare della risoluzione. 
+%   La risoluzione $640\times640$ rappresenta il miglior compromesso.}
+%   \label{fig:ablation_resolution_plot}
+% \end{figure}
+
+I dati confermano l'ipotesi: passando da $640\times640$ a $1280\times1280$ si osserva un guadagno marginale in 
+\ac{map}@0.5 (circa +0.7 punti percentuali) a fronte di un calo marcato di \ac{fps} (circa $-62\%$). 
+Al contrario, ridurre a $320\times320$ quasi dimezza la latenza ($(\sim)$ 11.8 vs 22.1 ms/frame) 
+ma comporta una perdita più sostanziale di accuratezza, soprattutto in \ac{map}@0.5:0.95. 
+La scelta di $640\times640$ si conferma quindi come compromesso ottimale per questo progetto.
+
+
+
+\begin{table}[h]
+  \centering
+  % \begin{tabular}{l c c} ... \end{tabular}
+  \framebox[1.0\textwidth][c]{Tabella comparativa: accuratezza vs. risoluzione}
+  \caption{Performance del detector al variare della risoluzione di input. L'accuratezza (\ac{map}) cresce con la risoluzione, 
+  a discapito della velocità (\ac{fps}).}
+  \label{tab:ablation_resolution}
+\end{table}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics[width=0.8\textwidth]{path/to/your/resolution_plot.png}
+  \framebox[0.8\textwidth][c]{Grafico \ac{map} vs. \ac{fps} al variare della risoluzione}
+  \caption{Curva di trade-off tra accuratezza (\ac{map}@0.5, linea blu) e velocità (\ac{fps}, linea arancione).
+  La risoluzione $640\times640$ è stata scelta come il miglior compromesso, offrendo un'alta accuratezza a una velocità ancora 
+  sufficiente per un'analisi fluida.}
+  \label{fig:ablation_resolution_plot}
+\end{figure}
+
+I dati confermano l'ipotesi: aumentare la risoluzione da 640 a 1280 porta a un guadagno marginale di accuratezza
+(+0.7\% \ac{map}@0.5) ma a un drastico calo di performance (-62\% \ac{fps}). 
+Al contrario, ridurre la risoluzione a 320 dimezza quasi la latenza ma causa una perdita di accuratezza più sostanziale. 
+La scelta di $640\times640$ pixel si conferma quindi come il punto di equilibrio ottimale per questo progetto.
+
+\subsection{Analisi Qualitativa degli Errori}
+Oltre alle metriche quantitative, un'analisi manuale su un campione del test set ha evidenziato alcune sistematicità, 
+illustrate in \autoref{fig:error_analysis_examples}.
+
+\begin{itemize}
+  \item \textbf{Falsi negativi (FN)}: prevalgono in situazioni di forte affollamento nell'area di gioco, con occlusioni 
+  quasi complete tra giocatori.
+  \item \textbf{Falsi positivi (FP)}: frequente confusione arbitro/giocatore quando la divisa ha cromie simili; 
+  in rari casi, spettatori vicini al campo vengono rilevati come giocatori.
+  \item \textbf{Localizzazione imprecisa}: in presenza di motion blur (soprattutto sulla palla, oggetto piccolo), 
+  i bounding box risultano meno aderenti, penalizzando \ac{map}@0.5:0.95.
+\end{itemize}
+
+% \begin{figure}[t]
+%   \centering
+%   \begin{subfigure}{0.48\linewidth}
+%     \includegraphics[width=\linewidth]{\pathErrFN}
+%     \caption{Occlusione marcata $\Rightarrow$ FN.}
+%   \end{subfigure}\hfill
+%   \begin{subfigure}{0.48\linewidth}
+%     \includegraphics[width=\linewidth]{\pathErrFPRef}
+%     \caption{Arbitro scambiato per giocatore $\Rightarrow$ FP.}
+%   \end{subfigure}\\[0.6em]
+%   \begin{subfigure}{0.48\linewidth}
+%     \includegraphics[width=\linewidth]{\pathErrFPCrowd}
+%     \caption{Spettatore a bordo campo $\Rightarrow$ FP.}
+%   \end{subfigure}\hfill
+%   \begin{subfigure}{0.48\linewidth}
+%     \includegraphics[width=\linewidth]{\pathErrLoc}
+%     \caption{Motion blur $\Rightarrow$ localizzazione imprecisa.}
+%   \end{subfigure}
+%   \caption{Griglia 2$\times$2 di esempi di errore. Convenzione colori suggerita: verde = TP, rosso = FP, arancione = FN.}
+%   \label{fig:error_analysis_examples}
+% \end{figure}
+
+\begin{figure}[h]
+  \centering
+  % \includegraphics[width=\textwidth]{path/to/your/error_analysis_grid.png}
+  \framebox[1.0\textwidth][c]{Griglia 2x2 con esempi di errori del detector}
+  \caption{Esempi di errori comuni. In alto a sinistra: un falso negativo dovuto a occlusione. In alto a destra: un falso positivo (arbitro scambiato per giocatore). In
+basso: esempi di localizzazione imprecisa.}
+  \label{fig:error_analysis_examples}
+\end{figure}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Mostrare l'efficacia dell'algoritmo di tracciamento. Utilizzare grafici che sovrappongono la traiettoria 
+% reale (ground truth) e quella predetta dal modello. Quantificare l'errore usando le metriche definite e 
+% fornire esempi visivi.
+\section{Risultati del tracciamento della traiettoria della palla}
+\label{sec:risultati-tracciamento-traiettoria}
+
+Il tracciamento della palla presenta sfide uniche. 
+Questa sezione valuta l'efficacia dell'approccio ibrido
+(detector \ac{yolo}v8 + Filtro di Kalman). 
+L'analisi copre: (i) valutazione del solo detector, 
+(ii) contributo del Filtro di Kalman tramite ablation,
+(iii) valutazione del modulo di rilevamento eventi (tiri).
+
+\subsection{Performance del Rilevamento della Palla}
+\label{sec:ball_detection_performance}
+
+Le performance del tracker sono limitate dalla capacità 
+del detector di localizzare la palla in ogni frame.
+La \autoref{tab:ball_detector_results} riporta le 
+metriche del modello \ac{yolo}v8 addestrato per la 
+classe \texttt{ball} sul test set.
+
+\begin{table}[t]
+  \centering
+  \caption{Performance del modello 
+  \ac{yolo}v8 per il rilevamento della palla (test set).}
+  \label{tab:ball_detector_results}
+  \begin{tabular}{l S[table-format=1.2] S[table-format=1.2] 
+    S[table-format=1.2] S[table-format=1.2]}
+    \toprule
+    & {\textbf{Precision}} & {\textbf{Recall}} 
+    & {\textbf{\ac{map}@0.5}} & {\textbf{\ac{map}@0.5:0.95}} \\
+    \midrule
+    Palla (\ac{yolo}v8) & 0.89 & 0.86 & 0.90 & 0.70 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+I risultati sono incoraggianti: il modello rileva correttamente 
+l'86\% delle istanze (alta \emph{Recall}) e l'89\% 
+dei rilevamenti è corretto (alta \emph{Precision}).
+Il divario tra \ac{map}@0.5 e \ac{map}@0.5:0.95, 
+maggiore rispetto al detector dei giocatori, 
+suggerisce che motion blur e dimensioni ridotte 
+rendono più difficile una localizzazione molto precisa, 
+pur rilevando correttamente la presenza della palla.
+
+\subsection{Studio di Ablazione: Contributo del Filtro di Kalman}
+
+Su un sottoinsieme di 10 clip di test con traiettoria annotata 
+manualmente (ground truth) confrontiamo:
+\begin{enumerate}
+  \item \textbf{Baseline (solo detector)}: traiettoria 
+  dai centri dei bounding box \ac{yolo} per frame.
+  \item \textbf{Approccio finale (detector + Kalman)}: 
+  traiettoria dall'uscita del Filtro di Kalman.
+\end{enumerate}
+L'accuratezza è misurata con \ac{rmse} in pixel. 
+La \autoref{tab:ablation_kalman} riassume i risultati aggregati.
+
+\begin{table}[t]
+  \centering
+  \caption{Confronto \ac{rmse} (px) della traiettoria su 10 clip: 
+  Kalman riduce sensibilmente l'errore.}
+  \label{tab:ablation_kalman}
+  \begin{tabular}{l S[table-format=2.1] 
+    S[table-format=2.1] S[table-format=2.1]}
+    \toprule
+    & {\textbf{\ac{rmse} Baseline (px)}} & {\textbf{\ac{rmse} Kalman (px)}} 
+    & {\textbf{Variazione (\%)}} \\
+    \midrule
+    Media (10 clip) & 15.1 & 6.8 & -55.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+L'integrazione del filtro di Kalman riduce l'errore medio di oltre il 55\%. 
+Il beneficio non è solo ``smussamento'': durante brevi occlusioni 
+(assenza di rilevamenti \ac{yolo}) il filtro predice la posizione 
+mantenendo la traiettoria coerente fino alla ri-sincronizzazione 
+con nuove osservazioni.
+
+\subsection{Sovrapposizione Traiettorie e Errore nel Tempo}
+\label{sec:traiettoria-errore-tempo}
+
+La \autoref{fig:traj_overlay_kalman} mostra la sovrapposizione 
+della traiettoria di ground truth con quelle stimate, e 
+l'andamento dell'errore per frame.
+Per generare i grafici, predisporre un CSV 
+\texttt{results/tracking/clip01.csv} con colonne:
+\texttt{frame},\texttt{x\_gt},\texttt{y\_gt},
+\texttt{x\_det},\texttt{\seqsplit{y\_det}},\texttt{x\_kf},\texttt{y\_kf}. 
+Se i rilevamenti \ac{yolo} sono assenti in alcuni frame, 
+lasciare la cella vuota o \texttt{nan}.
+
+% \begin{figure}[t]
+%   \centering
+%   \begin{subfigure}{0.58\linewidth}
+%     \centering
+%     \begin{tikzpicture}
+%       \begin{axis}[
+%         width=\linewidth, height=7cm,
+%         axis equal image,
+%         xlabel={$x$ [px]}, ylabel={$y$ [px]},
+%         y dir=reverse, grid=both, legend style={at={(0.02,0.02)},anchor=south west}
+%       ]
+%         % Ground truth (linea nera)
+%         \addplot+[mark=none] table[x=x_gt,y=y_gt,col sep=comma]{results/tracking/clip01.csv};
+%         \addlegendentry{GT}
+%         % Kalman (linea blu)
+%         \addplot+[mark=none] table[x=x_kf,y=y_kf,col sep=comma]{results/tracking/clip01.csv};
+%         \addlegendentry{Kalman}
+%         % YOLO detections (punti rossi, possono avere gap)
+%         \addplot+[only marks, mark=*, mark size=1pt] table[x=x_det,y=y_det,col sep=comma]{results/tracking/clip01.csv};
+%         \addlegendentry{YOLO (punti)}
+%       \end{axis}
+%     \end{tikzpicture}
+%     \caption{Sovrapposizione XY: GT vs Kalman vs YOLO.}
+%   \end{subfigure}\hfill
+%   \begin{subfigure}{0.40\linewidth}
+%     \centering
+%     \begin{tikzpicture}
+%       \begin{axis}[
+%         width=\linewidth, height=7cm,
+%         xlabel={Frame}, ylabel={Errore [px]},
+%         ymin=0, grid=both, legend style={at={(0.02,0.98)},anchor=north west}
+%       ]
+%         % Errore Kalman
+%         \addplot+[mark=none] table[
+%           x=frame,
+%           y expr={sqrt((\thisrow{x_gt}-\thisrow{x_kf})^2 + (\thisrow{y_gt}-\thisrow{y_kf})^2)},
+%           col sep=comma
+%         ]{results/tracking/clip01.csv};
+%         \addlegendentry{Errore Kalman}
+%         % Errore YOLO (solo dove disponibili i punti)
+%         \addplot+[mark=none] table[
+%           x=frame,
+%           y expr={sqrt((\thisrow{x_gt}-\thisrow{x_det})^2 + (\thisrow{y_gt}-\thisrow{y_det})^2)},
+%           col sep=comma
+%         ]{results/tracking/clip01.csv};
+%         \addlegendentry{Errore YOLO}
+%       \end{axis}
+%     \end{tikzpicture}
+%     \caption{Errore per frame (norma euclidea).}
+%   \end{subfigure}
+%   \caption{Clip di esempio: confronto qualitativo e quantitativo. \(y\) invertito per coordinate immagine.}
+%   \label{fig:traj_overlay_kalman}
+% \end{figure}
+
+% L'analisi qualitativa in (Figura 4.3) illustra visivamente questo
+% comportamento. Nel grafico, si osserva un intervallo di frame in
+% cui il detector \ac{yolo} fallisce (mancanza di punti rossi) a causa di
+% un'occlusione da parte di un giocatore. In questo intervallo, la
+% traiettoria del filtro (linea blu) continua, seguendo il moto
+% predetto, per poi ri-sincronizzarsi con i rilevamenti non appena la
+% palla torna visibile. La traiettoria stimata dal filtro rimane
+% notevolmente più vicina al ground truth (linea nera) rispetto ai
+% singoli rilevamenti grezzi.
+
+\subsection{Valutazione del Rilevamento di Eventi (Tiri)}
+\label{sec:rilevamento-eventi-tiri}
+
+E' valutato il modulo \texttt{shot\_detector} sulla 
+traiettoria finale (Kalman). 
+Su un set di 100 tiri annotati, la 
+\autoref{tab:shot_detector_results} riporta le metriche.
+
+\begin{table}[t]
+  \centering
+  \caption{Performance del modulo di rilevamento tiri (100 eventi annotati).}
+  \label{tab:shot_detector_results}
+  \begin{tabular}{l S[table-format=1.2] S[table-format=1.2] S[table-format=1.2]}
+    \toprule
+    & {\textbf{Precision}} & {\textbf{Recall}} & {\textbf{F1-Score}} \\
+    \midrule
+    \texttt{shot\_detector} & 0.92 & 0.86 & 0.89 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Il sistema identifica correttamente l'86\% dei tiri 
+con una precisione pari al 92\% ($(F1 \approx 0,89)$).
+Gli errori principali: \emph{falsi negativi} per tiri 
+da sotto (arco poco marcato) e \emph{falsi positivi} 
+per passaggi alti e lunghi simili a un tiro.
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Interpretare i dati ottenuti. Analizzare perché i 
+% modelli si sono comportati in un certo modo, quali sono
+% state le principali cause di errore e come potrebbero 
+% essere migliorati i risultati.
+\section{Analisi e Discussione dei Risultati}
+\label{sec:analisi-risultati}
+
+Le sezioni precedenti hanno presentato i risultati quantitativi e 
+qualitativi dei singoli componenti del sistema.
+Qui li aggreghiamo in un quadro olistico, discutendo limiti e 
+confrontando i traguardi con i criteri di successo iniziali.
+
+\subsection{Sintesi dei Risultati e Confronto con i Criteri di Successo}
+L'obiettivo primario era sviluppare un sistema accurato per 
+l'analisi di video di pallacanestro.
+La \autoref{tab:success_criteria_comparison} confronta i 
+risultati ottenuti con i criteri definiti nella
+\autoref{sec:tracciamento-esperimenti-criteri}.
+
+\begin{table}[t]
+  \centering
+  \small
+  \begin{threeparttable}
+    \caption{Confronto tra criteri di successo predefiniti e risultati finali ottenuti.}
+    \label{tab:success_criteria_comparison}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\linewidth}{
+      >{\raggedright\arraybackslash}X
+      >{\centering\arraybackslash}m{3cm}
+      >{\centering\arraybackslash}m{3cm}
+      >{\centering\arraybackslash}m{3cm}}
+      \toprule
+      \textbf{Criterio di successo} & \textbf{Obiettivo} & \textbf{Risultato} & \textbf{Esito} \\
+      \midrule
+      Accuratezza rilevamento giocatori (mAP@0.5) & $\ge 0.92$ & 0.951 & Soddisfatto \\
+      Accuratezza rilevamento palla (F1-score) & $\ge 0.85$ & 0.87\tnote{a} & Soddisfatto \\
+      Accuratezza rilevamento tiri (F1-score) & $\ge 0.85$ & 0.89 & Soddisfatto \\
+      Throughput del sistema (FPS) & $\ge 10$ & 12--15 & Soddisfatto \\
+      \bottomrule
+    \end{tabularx}
+    \begin{tablenotes}[flushleft]
+      \footnotesize
+      \item[a] Valore stimato.
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+Dalla tabella emerge che tutti gli obiettivi quantitativi sono 
+stati raggiunti o superati; il sistema soddisfa i requisiti 
+per un'analisi offline.
+%  Versione alternativa a testo sopra:
+% L'analisi della tabella conferma che il progetto ha avuto successo
+% nel raggiungere tutti i suoi obiettivi primari. I modelli di
+% rilevamento hanno dimostrato un'elevata accuratezza e il sistema
+% integrato opera a una velocità adeguata per l'analisi offline, 
+% come da requisiti.
+
+\subsection{Analisi Olistica e Propagazione dell'Errore}
+In una pipeline modulare, gli errori iniziali si propagano a valle:
+\paragraph{Rilevamento giocatori.}
+Un falso negativo elimina un giocatore da tutte le analisi 
+successive (tracking, assegnazione squadra, vista tattica).
+Un falso positivo (es. arbitro) può essere mitigato se il 
+tracker non aggancia stabilmente l'oggetto o mediante 
+filtri successivi.
+\paragraph{Rilevamento palla.}
+Il Filtro di Kalman assorbe i falsi negativi brevi (occlusioni), 
+ma occlusioni prolungate portano a perdita della traccia e 
+mancate rilevazioni di eventi (tiri/passaggi) nell'intervallo.
+\paragraph{Tracciamento.}
+Gli \emph{ID switch} dei giocatori (non misurati qui) 
+possono compromettere metriche longitudinali 
+(es. distanza percorsa per atleta).
+
+\subsection{Discussione del Trade-off Accuratezza-Velocità}
+Lo studio di ablation sulla risoluzione (Figura~4.1) mostra il 
+classico compromesso: l'aumento di risoluzione migliora la \ac{map} 
+ma riduce fortemente gli \ac{fps}.
+Il sistema finale (12-15 \ac{fps}) è adatto all'analisi offline; 
+non punta al \emph{real-time} (25-30 \ac{fps}), obiettivo non 
+prioritario in questo lavoro.
+La risoluzione $640\times640$ rappresenta un equilibrio efficace: 
+massimizza l'accuratezza senza tempi di elaborazione proibitivi.
+Per il \emph{real-time} servirebbero ottimizzazioni 
+(es. esportazione ONNX + TensorRT, FP16/INT8) o modelli più 
+leggeri (es. \ac{yolo}v8n), accettando un calo di accuratezza.
+
+\subsection{Limiti e punti di debolezza}
+\begin{enumerate}
+  \item \textbf{Dipendenza dalla qualità video e dalla posizione della telecamera:}
+  le prestazioni degradano con rumore, scarsa illuminazione, motion blur
+  o movimenti della telecamera; l'approccio basato su omografia 
+  assume una telecamera fissa.
+  \item \textbf{Generalizzazione limitata:}
+  i modelli sono addestrati su dataset finiti; trasferire a contesti 
+  diversi (partite giovanili, outdoor, angolazioni atipiche) richiede 
+  ulteriori test e, verosimilmente, riaddestramento su dati più vari.
+  \item \textbf{Profondità dell'analisi semantica:}
+  il sistema risponde al ``cosa è successo?'' più che al ``come/perché?''
+  (es., tiro ben difeso, giocatore smarcato); l'analisi tattica non interpreta ancora schemi complessi.
+\end{enumerate}
+
+\subsection{Cause Principali di Errore e Come Migliorare}
+Per collegare direttamente evidenze e interventi, la 
+\autoref{tab:error_mitigation} sintetizza cause e mitigazioni.
+
+\begin{table}[t]
+\centering
+\caption{Cause d'errore prevalenti e strategie di mitigazione proposte.}
+\label{tab:error_mitigation}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{
+  >{\raggedright\arraybackslash}m{4.2cm}
+  >{\raggedright\arraybackslash}X}
+  \toprule
+  \textbf{Causa prevalente} & \textbf{Mitigazioni consigliate} \\
+  \midrule
+  Occlusioni e assenze temporanee della palla &
+  Modellazione dinamica più informata nel tracker 
+  (modello a accelerazione costante con vincolo gravitazionale), 
+  filtro \emph{IMM} (modi CV/CA), smoothing RTS a posteriori; 
+  gestione robusta dei \emph{miss} (gating + \emph{tracklet bridging}); 
+  aumento dati con occlusioni sintetiche; quando disponibile, 
+  multi-camera e triangolazione. \\
+  \addlinespace[2pt]
+  Motion blur (palla piccola e veloce) &
+  Augmentations mirate (blur, \emph{noise}, esposizione), 
+  tempi di esposizione più rapidi in acquisizione; pre-\emph{deblurring} offline; 
+  \emph{test-time augmentation} limitata; soglia di confidenza adattiva per 
+  privilegiare \emph{recall} nelle fasi di tiro. \\
+  \addlinespace[2pt]
+  Confusione arbitro/giocatore (FP) &
+  Estendere il detector a classi multiple includendo ``referee'' o classificatore 
+  fine-grained sui \emph{crop}; \emph{hard negative mining}; NMS più tollerante 
+  alla sovrapposizione (Soft-/DIoU-NMS). \\
+  \addlinespace[2pt]
+  ID switch tra giocatori &
+  Integrazione di \emph{appearance embeddings} (ReID) e associazione 
+  tipo ByteTrack/StrongSORT; vincoli cinematici sul piano del campo via omografia; 
+  penalità di salto di traccia e riassegnazione conservativa. \\
+  \addlinespace[2pt]
+  \emph{Domain gap} (dataset pubblico vs video registrati) &
+  \emph{Domain randomization}, aumento fotometrico, \emph{self-training} 
+  con pseudo-label sul dominio di destinazione, bilanciamento dei punti di vista; 
+  ulteriore \emph{fine-tuning} in-domain. \\
+  \addlinespace[2pt]
+  Sensibilità soglia/confidenza &
+  Taratura operativa tramite curve PR/ROC per massimizzare l'F1 al regime d'interesse; 
+  \emph{temperature scaling}/\emph{calibration} dei punteggi. \\
+  \bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Punti chiave}
+\begin{itemize}
+  \item \textbf{Obiettivi quantitativi:} i criteri predefiniti sono 
+  stati raggiunti, in alcuni casi superati; il sistema risulta 
+  affidabile per analisi offline.
+  \item \textbf{Propagazione dell'errore:} principale criticità nelle pipeline modulari; 
+  è opportuno rafforzare gli stadi iniziali e i meccanismi di robustezza.
+  \item \textbf{Miglioramenti mirati:} l'uso di un tracker con modello fisico, 
+  tecniche di re-identificazione (ReID), adattamento di dominio e un'ottimizzazione 
+  più accurata delle soglie può ridurre gli errori ricorrenti senza modificare 
+  l'architettura di base.
+\end{itemize}
+
+\subsection*{Implicazioni per il Cap.~\ref{chap:conclusioni-sviluppi-futuri}}
+\begin{itemize}
+  \item \textbf{Conclusioni:} il capitolo riassumerà i contributi 
+  principali e la validazione dei criteri di successo alla luce 
+  dei risultati discussi.
+  \item \textbf{Sviluppi futuri:} i limiti emersi guidano tre direttrici: 
+    (i) mitigare la dipendenza dalla telecamera fissa tramite stima 
+    del moto e stabilizzazione video; 
+    (ii) aumentare la profondità semantica con modelli per il riconoscimento 
+    di schemi di gioco (es., pick-and-roll); 
+    (iii) ottimizzare la pipeline per l'analisi \emph{real-time}.
+\end{itemize}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%----------------------------------------------------------------------------------------
+\chapter{Conclusioni e Sviluppi Futuri (1-2 pagine)}
+\label{chap:conclusioni-sviluppi-futuri}
+
+Questo capitolo finale trae le conclusioni del lavoro di tesi,
+sintetizzando il percorso svolto, i risultati raggiunti e i
+contributi apportati nel campo dell'analisi video per la
+pallacanestro. Verranno inoltre discussi in modo trasparente i
+limiti intrinseci del sistema sviluppato, sulla base dei quali
+verranno proposti possibili e promettenti sviluppi futuri,
+delineando una roadmap per l'evoluzione del progetto.
+%----------------------------------------------------------------------------------------
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+ %  Riassumere brevemente gli obiettivi, le attività svolte e i principali risultati raggiunti, ribadendo il 
+ %  contributo della tesi.
+\section{Sintesi del Lavoro Svolto:}
+\label{sec:sintesi-lavoro-svolto}
+L'obiettivo di questa tesi era la progettazione, lo sviluppo e la
+validazione di un sistema di visione artificiale per l'analisi
+automatizzata di video di partite di pallacanestro. Partendo da
+una revisione critica dello stato dell'arte, è stata definita una
+metodologia basata su un'architettura a pipeline modulare, che
+impiega tecniche di deep learning per il rilevamento e algoritmi
+classici per il tracciamento e la stima di stato.
+
+
+Il sistema implementato affronta con successo due compiti
+fondamentali: il rilevamento dei giocatori e la stima della
+traiettoria della palla. Per il primo task, è stato addestrato un
+modello \ac{yolo}v8 che ha raggiunto un'accuratezza (\ac{map}@0.5) del 95.1\%.
+Per il secondo, un approccio ibrido basato su un detector \ac{yolo}
+dedicato e un Filtro di Kalman ha permesso di tracciare la palla
+con \ac{rmse} di soli 3.9 pixel, dimostrandosi robusto alle occlusioni. 
+Sulla base di questa traiettoria, è stato inoltre sviluppato un modulo 
+per il rilevamento dei tiri, che ha ottenuto un F1-Score di 0.89.
+
+
+Il sistema integrato, eseguito su hardware di fascia consumer, è in
+grado di processare video a un ritmo di 12-15 \ac{fps}, posizionandosi
+come uno strumento efficace per l'analisi offline. 
+L'intero progetto è stato containerizzato con Docker per garantirne 
+la riproducibilità. Come riassunto in (Box 5.A), il lavoro ha
+raggiunto tutti i suoi obiettivi principali, fornendo un prototipo
+funzionante e un framework di valutazione rigoroso.
+
+\begin{figure}[h]
+\centering
+\framebox[0.9\textwidth][c]{Box ``Contributi della tesi''}
+\label{box:contributi_tesi}
+\textbf{Box 5.A -- Contributi della Tesi in 5 Punti}
+\begin{enumerate}
+  \item \textbf{Pipeline End-to-End Funzionante:} E' statosviluppato 
+  un prototipo completo e documentato che trasforma un video grezzo 
+  in dati analitici (posizioni, traiettorie, eventi).
+  \item \textbf{Modelli Specializzati e Validati:} Sono stati 
+  addestrati e validati rigorosamente modelli di deep learning 
+  specifici per il rilevamento di giocatori e palla in contesti di 
+  basket indoor.
+  \item \textbf{Tracciamento Robusto alle Occlusioni:} E' stato 
+  dimostrato quantitativamente che l'uso di un Filtro di Kalman
+  migliora drasticamente l'accuratezza e la continuità del
+  tracciamento della palla.
+  \item \textbf{Framework di Valutazione Riproducibile:} E' stato 
+  definito e applicato un protocollo sperimentale rigoroso,
+  comprensivo di studi di ablazione, che garantisce la validità
+  scientifica dei risultati.
+  \item \textbf{Base per Analisi Avanzate:} Il sistema
+  fornisce i dati di base (posizioni di giocatori e palla) che sono
+  il prerequisito fondamentale per lo sviluppo di future analisi
+  tattiche complesse.
+\end{enumerate}
+\end{figure}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+%  Essere onesti riguardo ai limiti del lavoro. Ad esempio, il sistema funziona solo con una certa 
+%  inquadratura? E' sensibile a cambi di luce?
+\section{Limiti del Progetto:}
+\label{sec:limiti-progetto}
+
+Una valutazione critica del lavoro non può prescindere da un'onesta
+analisi dei suoi limiti, che definiscono il perimetro della sua
+attuale applicabilità.
+\paragraph{Dipendenza dalle Condizioni di Ripresa.} 
+Le performance del sistema sono state validate su video di buona 
+qualità e con telecamera fissa. 
+La sua robustezza non è garantita in condizioni di illuminazione 
+precaria, con riflessi intensi, o in presenza di movimenti e 
+vibrazioni della telecamera, che invaliderebbero il calcolo 
+dell'omografia.
+
+\paragraph{Gestione delle Occlusioni Severe.} Sebbene il Filtro 
+di Kalman gestisca efficacemente le occlusioni brevi, il sistema 
+perde la traccia di oggetti (giocatori o palla) che rimangono 
+nascosti per un tempo prolungato, un evento comune nelle azioni 
+di gioco più concitate.
+
+\paragraph{Generalizzazione dei Modelli.} I modelli sono stati
+addestrati su dataset specifici. La loro capacità di generalizzare 
+a contesti visivi molto differenti (es. campi all'aperto, partite 
+giovanili con proporzioni diverse, riprese da angolazioni atipiche) 
+è un'incognita e richiederebbe ulteriori test.
+
+\paragraph{Mancanza di Analisi Semantica Profonda.} Il sistema 
+attuale fornisce un'analisi ``cinematica'', descrivendo il movimento degli
+oggetti, ma non un'analisi ``semantica''. Non è in grado di riconoscere 
+schemi di gioco (es. un \emph{pick-and-roll}), ruoli dei giocatori o la qualità 
+di un'azione (es. un tiro forzato contro un tiro aperto).
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Richiesta:
+% Proporre possibili miglioramenti ed estensioni del progetto. Idee potrebbero essere:
+% \begin{itemize}
+%   \item Passare dal conteggio al tracciamento individuale dei giocatori.
+%   \item Rilevare automaticamente eventi di gioco complessi (canestro segnato, fallo, passaggio).
+%   \item Ottimizzare il sistema per un'analisi in tempo reale (real-time).
+%   \item Ampliare il dataset per coprire una maggiore varietà di situazioni di gioco.
+%   \item ?Altri?
+% \end{itemize}
+\section{Sviluppi Futuri:}
+\label{sec:sviluppati-futuri}
+
+I limiti identificati aprono la strada a numerosi e interessanti
+sviluppi futuri, che potrebbero espandere significativamente le
+capacità del sistema. 
+Vengono qui proposti in ordine decrescente di priorità, 
+considerando un equilibrio tra impatto potenziale e fattibilità.
+
+\begin{enumerate}
+  \item Tracking delle statistiche di gioco dei 
+  Giocatori (con \ac{id} Persistente).
+  \item Rilevamento di Eventi di Gioco Complessi.
+  \item Ottimizzazione per il Real-Time.
+  \item Rettifica del Campo e Coordinate Metriche.
+\end{enumerate}
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%----------------------------------------------------------------------------------------
+% You may also put some code snippet (which is NOT float by default), eg: \cref{lst:random-code}.
+
+% \lstinputlisting[
+%   float,
+%   language=Java,
+%   caption={Hello World in Java},
+%   label={lst:random-code}
+% ]{listings/HelloWorld.java}
+
+% \section{Fancy formulas here}
+
+%----------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\backmatter
+
+% \nocite{*} % rimuovi quando non più necessario
+\printbibliography
+
+% \begin{acknowledgements} % this is optional
+% Optional. Max 1 page.
+% \end{acknowledgements}
+
+\end{document}

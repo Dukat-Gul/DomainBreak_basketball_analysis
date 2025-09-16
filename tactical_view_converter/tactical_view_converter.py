@@ -136,11 +136,16 @@ class TacticalViewConverter:
             return None
 
         for frame_idx, frame_keypoints in enumerate(keypoints_list):
+            # Skip if frame has no keypoints object
+            if frame_keypoints is None or not hasattr(frame_keypoints, "xy"):
+                continue
             frame_keypoints = frame_keypoints.xy.tolist()[0]
 
             # Get indices of detected keypoints (not (0, 0))
             detected_indices = [
-                i for i, kp in enumerate(frame_keypoints) if kp[0] > 0 and kp[1] > 0
+                i
+                for i, kp in enumerate(frame_keypoints)
+                if kp[0] > 0 and kp[1] > 0 and i < len(self.key_points)
             ]
 
             # Need at least 3 detected keypoints to validate proportions
@@ -171,6 +176,8 @@ class TacticalViewConverter:
                 d_ik = measure_distance(frame_keypoints[i], frame_keypoints[k])
 
                 # Calculate distances between corresponding tactical keypoints
+                if i >= len(self.key_points) or j >= len(self.key_points) or k >= len(self.key_points):
+                    continue
                 t_ij = measure_distance(self.key_points[i], self.key_points[j])
                 t_ik = measure_distance(self.key_points[i], self.key_points[k])
 
@@ -183,6 +190,7 @@ class TacticalViewConverter:
                     error = abs(error)
 
                     if error > 0.8:  # 80% error margin
+                        # Zero-out invalid keypoint in the original tensor-like structure
                         keypoints_list[frame_idx].xy[0][i] *= 0
                         keypoints_list[frame_idx].xyn[0][i] *= 0
                         invalid_keypoints.append(i)
@@ -215,6 +223,11 @@ class TacticalViewConverter:
             # Initialize empty dictionary for this frame
             tactical_positions = {}
 
+            # Guard: skip frames without keypoints object
+            if frame_keypoints is None or not hasattr(frame_keypoints, "xy"):
+                tactical_player_positions.append(tactical_positions)
+                continue
+
             frame_keypoints = frame_keypoints.xy.tolist()[0]
 
             # Skip frames with insufficient keypoints
@@ -227,7 +240,9 @@ class TacticalViewConverter:
 
             # Filter out undetected keypoints (those with coordinates (0,0))
             valid_indices = [
-                i for i, kp in enumerate(detected_keypoints) if kp[0] > 0 and kp[1] > 0
+                i
+                for i, kp in enumerate(detected_keypoints)
+                if kp[0] > 0 and kp[1] > 0 and i < len(self.key_points)
             ]
 
             # Need at least 4 points for a reliable homography

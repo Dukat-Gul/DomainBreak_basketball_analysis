@@ -3,10 +3,12 @@ from utils.bbox_utils import get_center_of_bbox
 
 
 class ShotVisualizer:
-    def __init__(self):
+    def __init__(self, enable_trajectory: bool = True):
         self.trajectory_color = (0, 255, 0)
         self.success_color = (0, 255, 0)
         self.failure_color = (0, 0, 255)
+        # Permette di abilitare/disabilitare il disegno della traiettoria verde
+        self.enable_trajectory = bool(enable_trajectory)
 
     def draw(self, frame, shot_detector, shot_outcome_text=None):
         """
@@ -19,8 +21,8 @@ class ShotVisualizer:
         """
         output_frame = frame.copy()
 
-        # 1. Disegna la traiettoria se un tiro è in corso
-        if shot_detector.shot_in_progress:
+        # 1. Disegna la traiettoria se abilitata e un tiro è in corso
+        if self.enable_trajectory and shot_detector.shot_in_progress:
             self._draw_trajectory(output_frame, shot_detector.ball_positions_in_shot)
 
         # 2. Disegna l'esito del tiro se è fornito

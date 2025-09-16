@@ -25,6 +25,7 @@ def read_video(video_path):
         if not ret:
             break
         frames.append(frame)
+    cap.release()
     return frames
 
 def save_video(ouput_video_frames,output_video_path):
@@ -42,7 +43,44 @@ def save_video(ouput_video_frames,output_video_path):
         os.makedirs(os.path.dirname(output_video_path))
 
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(output_video_path, fourcc, 24, (ouput_video_frames[0].shape[1], ouput_video_frames[0].shape[0]))
+    out = cv2.VideoWriter(
+        output_video_path,
+        fourcc,
+        24,
+        (ouput_video_frames[0].shape[1], ouput_video_frames[0].shape[0]),
+    )
     for frame in ouput_video_frames:
         out.write(frame)
+    out.release()
+
+
+def read_video_with_meta(video_path):
+    """
+    Legge tutti i frame e restituisce anche fps e size utili per il salvataggio.
+
+    Returns: (frames, fps, (width, height))
+    """
+    cap = cv2.VideoCapture(video_path)
+    frames = []
+    fps = cap.get(cv2.CAP_PROP_FPS) or 24
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frames.append(frame)
+    cap.release()
+    return frames, fps, (width, height)
+
+
+def save_video_with_fps(frames, output_video_path, fps: float):
+    """Salva i frame usando l'fps specificato."""
+    if not os.path.exists(os.path.dirname(output_video_path)):
+        os.makedirs(os.path.dirname(output_video_path))
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    h, w = frames[0].shape[:2]
+    out = cv2.VideoWriter(output_video_path, fourcc, float(fps or 24), (w, h))
+    for f in frames:
+        out.write(f)
     out.release()

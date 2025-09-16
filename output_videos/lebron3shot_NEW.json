@@ -1,0 +1,5256 @@
+{
+    "0": {
+        "frame_number": 0,
+        "player_with_ball": -1,
+        "players": [
+            {
+                "id": 8,
+                "team_id": 1,
+                "position_2d": [
+                    524.7417602539062,
+                    356.95330810546875,
+                    579.6417236328125,
+                    546.5436401367188
+                ]
+            },
+            {
+                "id": 11,
+                "team_id": 1,
+                "position_2d": [
+                    683.9710083007812,
+                    370.4481506347656,
+                    755.21875,
+                    568.1229858398438
+                ]
+            },
+            {
+                "id": 169,
+                "team_id": 2,
+                "position_2d": [
+                    1112.113037109375,
+                    411.885498046875,
+                    1161.9058837890625,
+                    618.7634887695312
+                ]
+            },
+            {
+                "id": 9,
+                "team_id": 1,
+                "position_2d": [
+                    481.8667907714844,
+                    343.60455322265625,
+                    533.0682983398438,
+                    550.0009155273438
+                ]
+            },
+            {
+                "id": 307,
+                "team_id": 1,
+                "position_2d": [
+                    873.8270263671875,
+                    362.8948059082031,
+                    911.5992431640625,
+                    556.811279296875
+                ]
+            },
+            {
+                "id": 7,
+                "team_id": 1,
+                "position_2d": [
+                    933.1986083984375,
+                    326.2705383300781,
+                    1030.6622314453125,
+                    534.0638427734375
+                ]
+            },
+            {
+                "id": 329,
+                "team_id": 1,
+                "position_2d": [
+                    494.2434997558594,
+                    414.4757385253906,
+                    510.2128601074219,
+                    437.3105773925781
+                ]
+            },
+            {
+                "id": 27,
+                "team_id": 2,
+                "position_2d": [
+                    620.0402221679688,
+                    267.9525451660156,
+                    659.1005859375,
+                    279.7615966796875
+                ]
+            },
+            {
+                "id": 5,
+                "team_id": 2,
+                "position_2d": [
+                    917.0516967773438,
+                    539.9210815429688,
+                    989.5830688476562,
+                    692.677001953125
+                ]
+            },
+            {
+                "id": 12,
+                "team_id": 1,
+                "position_2d": [
+                    493.4849548339844,
+                    383.3985900878906,
+                    601.9482421875,
+                    576.671875
+                ]
+            },
+            {
+                "id": 337,
+                "team_id": 1,
+                "position_2d": [
+                    722.292236328125,
+                    414.5422668457031,
+                    739.3809814453125,
+                    436.4339904785156
+                ]
+            },
+            {
+                "id": 348,
+                "team_id": 2,
+                "position_2d": [
+                    827.9052124023438,
+                    593.380859375,
+                    919.7640991210938,
+                    693.8422241210938
+                ]
+            },
+            {
+                "id": 355,
+                "team_id": 1,
+                "position_2d": [
+                    542.4738159179688,
+                    404.07086181640625,
+                    557.8187255859375,
+                    424.66314697265625
+                ]
+            },
+            {
+                "id": 177,
+                "team_id": 2,
+                "position_2d": [
+                    222.46739196777344,
+                    446.8538513183594,
+                    269.5675964355469,
+                    607.2498168945312
+                ]
+            }
+        ],
+        "ball": [],
+        "events": [],
+        "players_tactical": {
+            "329": [
+                179.0089111328125,
+                90.22491455078125
+            ],
+            "337": [
+                260.50189208984375,
+                96.01830291748047
+            ],
+            "355": [
+                186.52230834960938,
+                83.37684631347656
+            ]
+        }
+    },
+    "1": {
+        "frame_number": 1,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "2": {
+        "frame_number": 2,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "3": {
+        "frame_number": 3,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    463.03558349609375,
+                    259.314697265625,
+                    473.91790771484375,
+                    276.08984375
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "4": {
+        "frame_number": 4,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    805.4614501953125,
+                    311.29871826171876,
+                    817.1711181640625,
+                    330.15233154296874
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "5": {
+        "frame_number": 5,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    516.1488024902344,
+                    265.0357049560547,
+                    527.7999279785156,
+                    283.9226690673828
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "6": {
+        "frame_number": 6,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    427.0119803466797,
+                    250.45211138916017,
+                    438.6227852783203,
+                    269.3312748413086
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "7": {
+        "frame_number": 7,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    412.1546142700195,
+                    247.60393219604492,
+                    423.908251940918,
+                    266.3278915344238
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "8": {
+        "frame_number": 8,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    244.29598695068358,
+                    220.61299591674805,
+                    256.04962462158204,
+                    239.33695525512695
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "9": {
+        "frame_number": 9,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    21.231884777832022,
+                    184.97514801635742,
+                    32.98552244873048,
+                    203.69910735473633
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "10": {
+        "frame_number": 10,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    -257.03769224853517,
+                    140.69035797729492,
+                    -245.2840545776367,
+                    159.41431731567383
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "11": {
+        "frame_number": 11,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "12": {
+        "frame_number": 12,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "13": {
+        "frame_number": 13,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "14": {
+        "frame_number": 14,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "15": {
+        "frame_number": 15,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "16": {
+        "frame_number": 16,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "17": {
+        "frame_number": 17,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "18": {
+        "frame_number": 18,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "19": {
+        "frame_number": 19,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    732.6494140625,
+                    306.72802734375,
+                    746.7139892578125,
+                    330.30181884765625
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "20": {
+        "frame_number": 20,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    732.6494140625,
+                    306.72802734375,
+                    746.7139892578125,
+                    330.30181884765625
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "21": {
+        "frame_number": 21,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    781.2657775878906,
+                    221.23372802734374,
+                    797.3307800292969,
+                    246.28250732421876
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "22": {
+        "frame_number": 22,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    783.1643707275391,
+                    212.08899108886717,
+                    800.1486175537109,
+                    237.97356994628908
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "23": {
+        "frame_number": 23,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    358.0104528808594,
+                    269.30858945274355,
+                    375.02268920898433,
+                    297.24377871131895
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "24": {
+        "frame_number": 24,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    583.3354389648438,
+                    304.72635197238924,
+                    600.1389262695312,
+                    331.58773494167326
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "25": {
+        "frame_number": 25,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    373.38176162109374,
+                    247.19989840703965,
+                    389.15058701171876,
+                    273.66716702264785
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "26": {
+        "frame_number": 26,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    295.33597703124997,
+                    218.25117461246683,
+                    310.4803681835938,
+                    244.33409150081442
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "27": {
+        "frame_number": 27,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    281.9473787460937,
+                    205.44944283419554,
+                    296.56305826562505,
+                    231.29332449978884
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "28": {
+        "frame_number": 28,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    296.1832517921875,
+                    202.69597137309702,
+                    310.53470475078126,
+                    228.55231964252798
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "29": {
+        "frame_number": 29,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    303.98912947773437,
+                    190.17727935649546,
+                    318.34058243632813,
+                    216.0336276259264
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "30": {
+        "frame_number": 30,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    335.6334776222656,
+                    177.10032928325327,
+                    349.9849305808594,
+                    202.95667755268423
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "31": {
+        "frame_number": 31,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    391.11629622578124,
+                    163.46512115337046,
+                    405.467749184375,
+                    189.3214694228014
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "32": {
+        "frame_number": 32,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    629.3442705172265,
+                    473.91436501976165,
+                    643.5986005765235,
+                    498.90143087867585
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "33": {
+        "frame_number": 33,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    676.247410260496,
+                    509.33370633170426,
+                    690.3774676691914,
+                    532.9230075354833
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "34": {
+        "frame_number": 34,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    870.0788268307847,
+                    323.4664649155914,
+                    884.9681702395278,
+                    349.35256584612733
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "35": {
+        "frame_number": 35,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    930.3990508518618,
+                    231.59218401024992,
+                    945.9271210231382,
+                    260.36994367529695
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "36": {
+        "frame_number": 36,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1049.5804473362368,
+                    82.20989030907805,
+                    1065.1085175075132,
+                    110.98764997412508
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "37": {
+        "frame_number": 37,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1171.9212676487368,
+                    -108.80637556006258,
+                    1187.4493378200132,
+                    -80.02861589501555
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "38": {
+        "frame_number": 38,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1020.458180811147,
+                    457.2613252244113,
+                    1034.391916845103,
+                    482.56991256855747
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "39": {
+        "frame_number": 39,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1012.9641012213033,
+                    573.6449006638644,
+                    1026.8978372552592,
+                    598.9534880080106
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "40": {
+        "frame_number": 40,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1072.3919545951467,
+                    291.919555617293,
+                    1087.0616586861033,
+                    318.58551030067576
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "41": {
+        "frame_number": 41,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1079.12405083379,
+                    240.75783993308164,
+                    1094.356173775585,
+                    268.38531802590273
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "42": {
+        "frame_number": 42,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1079.0702096070906,
+                    226.74182065579387,
+                    1094.7088431272844,
+                    254.97174135592488
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "43": {
+        "frame_number": 43,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1077.5657849085571,
+                    231.74109147565727,
+                    1093.5101428258179,
+                    260.15655256731145
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "44": {
+        "frame_number": 44,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    800.3377852758338,
+                    412.4290240427257,
+                    815.3201737085412,
+                    439.0569378713368
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "45": {
+        "frame_number": 45,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    767.6200068219899,
+                    321.9934190943123,
+                    781.6813847795726,
+                    346.8589978978752
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "46": {
+        "frame_number": 46,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    775.2156270898461,
+                    268.1830276433624,
+                    788.8478494726539,
+                    291.7624069269501
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "47": {
+        "frame_number": 47,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    724.2124532617211,
+                    226.850904840628,
+                    737.8446756445289,
+                    250.43028412421575
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "48": {
+        "frame_number": 48,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    680.4360860742211,
+                    170.37650908867488,
+                    694.0683084570289,
+                    193.95588837226262
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "49": {
+        "frame_number": 49,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    578.3048879375016,
+                    312.21080672828333,
+                    590.4580515156234,
+                    333.5343714943729
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "50": {
+        "frame_number": 50,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    516.1663991679703,
+                    330.5096958884396,
+                    528.3195627460922,
+                    351.83326065452917
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "51": {
+        "frame_number": 51,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    808.1739440171887,
+                    516.2980621463217,
+                    822.2611145765613,
+                    541.9248382443033
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "52": {
+        "frame_number": 52,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    833.6849810268758,
+                    392.938382882308,
+                    846.9878705356242,
+                    416.8908407505045
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "53": {
+        "frame_number": 53,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    944.1340777065633,
+                    364.8886697475424,
+                    957.4369672153117,
+                    388.84112761573886
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "54": {
+        "frame_number": 54,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1080.603438058126,
+                    317.68389679832364,
+                    1093.906327566874,
+                    341.6363546665201
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "55": {
+        "frame_number": 55,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1243.0930620815634,
+                    251.32406403465177,
+                    1256.3959515903116,
+                    275.27652190284823
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "56": {
+        "frame_number": 56,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "57": {
+        "frame_number": 57,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    708.693115234375,
+                    491.58355712890625,
+                    720.829833984375,
+                    513.1825561523438
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "58": {
+        "frame_number": 58,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    428.25638275146486,
+                    427.8525390625,
+                    441.7832290649414,
+                    451.96392822265625
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "59": {
+        "frame_number": 59,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    -103.16138763427733,
+                    309.1707763671875,
+                    -89.63454132080079,
+                    333.28216552734375
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "60": {
+        "frame_number": 60,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    460.4061036682129,
+                    220.98486251831054,
+                    475.4538816833496,
+                    246.95452957153321
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "61": {
+        "frame_number": 61,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    613.1291871643066,
+                    64.66058273315429,
+                    628.1769651794434,
+                    90.63024978637696
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "62": {
+        "frame_number": 62,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    877.5690065002441,
+                    -125.84225540161134,
+                    892.6167845153809,
+                    -99.87258834838866
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "63": {
+        "frame_number": 63,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    825.4935438079833,
+                    472.78861946105957,
+                    839.4754503326417,
+                    495.8874669647217
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "64": {
+        "frame_number": 64,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1037.8925692886353,
+                    532.6579258041381,
+                    1052.0774014144897,
+                    556.6929042739869
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "65": {
+        "frame_number": 65,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1329.9864413589478,
+                    674.2463657455444,
+                    1344.1712734848022,
+                    698.2813442153931
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "66": {
+        "frame_number": 66,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1679.1406161636353,
+                    846.8931552963256,
+                    1693.3254482894897,
+                    870.9281337661744
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "67": {
+        "frame_number": 67,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    2085.3548495620726,
+                    1050.5983554916381,
+                    2099.5396816879274,
+                    1074.6333339614869
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "68": {
+        "frame_number": 68,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "69": {
+        "frame_number": 69,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1020.530029296875,
+                    474.1136474609375,
+                    1034.512939453125,
+                    500.5621337890625
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "70": {
+        "frame_number": 70,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1020.5785766601563,
+                    469.68882446289064,
+                    1034.2466186523438,
+                    494.49086303710936
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "71": {
+        "frame_number": 71,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    675.7208728027343,
+                    308.021865234375,
+                    688.0678234863282,
+                    331.0667578125
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "72": {
+        "frame_number": 72,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    939.0488797607421,
+                    427.8473552246094,
+                    951.5781954345704,
+                    450.3366047363281
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "73": {
+        "frame_number": 73,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1030.5361720092774,
+                    466.6250608886719,
+                    1043.2514256469726,
+                    489.16223159179685
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "74": {
+        "frame_number": 74,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1233.1803370483399,
+                    557.3551939453125,
+                    1245.8955906860351,
+                    579.8923646484375
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "75": {
+        "frame_number": 75,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1043.1553985314943,
+                    475.84552296875,
+                    1056.2569549841307,
+                    498.0234955859375
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "76": {
+        "frame_number": 76,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1112.8734161096193,
+                    510.90039357421875,
+                    1125.9749725622557,
+                    533.0783661914063
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "77": {
+        "frame_number": 77,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1195.9171172814943,
+                    553.5028105664062,
+                    1209.0186737341307,
+                    575.6807831835938
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "78": {
+        "frame_number": 78,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1292.2866241174318,
+                    603.6527129101562,
+                    1305.3881805700682,
+                    625.8306855273438
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "79": {
+        "frame_number": 79,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "80": {
+        "frame_number": 80,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "81": {
+        "frame_number": 81,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "82": {
+        "frame_number": 82,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "83": {
+        "frame_number": 83,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    662.2120361328125,
+                    257.03997802734375,
+                    675.260986328125,
+                    282.20733642578125
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "84": {
+        "frame_number": 84,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    662.2120361328125,
+                    257.03997802734375,
+                    675.260986328125,
+                    282.20733642578125
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "85": {
+        "frame_number": 85,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    662.2120361328125,
+                    257.03997802734375,
+                    675.260986328125,
+                    282.20733642578125
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "86": {
+        "frame_number": 86,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    966.7323852539063,
+                    513.6827758789062,
+                    980.5676635742187,
+                    538.5113159179688
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "87": {
+        "frame_number": 87,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1190.2210327148437,
+                    701.6667236328125,
+                    1204.0563110351563,
+                    726.495263671875
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "88": {
+        "frame_number": 88,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    970.1041735839843,
+                    509.28738372802735,
+                    984.6771984863282,
+                    533.4428408813477
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "89": {
+        "frame_number": 89,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    937.4622668457031,
+                    475.92343109130854,
+                    952.0352917480469,
+                    500.07888824462896
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "90": {
+        "frame_number": 90,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    872.9183215332031,
+                    414.27416961669917,
+                    887.4913464355469,
+                    438.4296267700196
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "91": {
+        "frame_number": 91,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    896.4091214599609,
+                    171.89636361694332,
+                    910.5648775634766,
+                    195.82296621704106
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "92": {
+        "frame_number": 92,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    825.6685819091797,
+                    -19.727003692626994,
+                    839.8243380126953,
+                    4.199598907470744
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "93": {
+        "frame_number": 93,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    923.0528950317383,
+                    415.80920349426265,
+                    937.2642436401367,
+                    438.87719787292485
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "94": {
+        "frame_number": 94,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    934.4681056237794,
+                    493.9397487203979,
+                    948.8830906652831,
+                    516.6316624124146
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "95": {
+        "frame_number": 95,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    936.4418462999269,
+                    514.1492852859192,
+                    951.3463617078856,
+                    536.8807440109558
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "96": {
+        "frame_number": 96,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    933.3932523708863,
+                    505.32487323529966,
+                    948.6027193088012,
+                    528.1769578193878
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "97": {
+        "frame_number": 97,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    929.3950337396985,
+                    490.12857093267854,
+                    944.599228955614,
+                    512.753631215759
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "98": {
+        "frame_number": 98,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    926.2886696138827,
+                    478.5441256294375,
+                    941.1629905423673,
+                    500.8378934135313
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "99": {
+        "frame_number": 99,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    925.0804989054991,
+                    474.19389758416094,
+                    939.4489200398134,
+                    495.8178822009953
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "100": {
+        "frame_number": 100,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    925.3983658354118,
+                    478.21739029621733,
+                    939.9787093599007,
+                    499.74342513347017
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "101": {
+        "frame_number": 101,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    924.3594864408806,
+                    465.64552139973296,
+                    938.9398299653694,
+                    487.1715562369858
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "102": {
+        "frame_number": 102,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    923.2867935697868,
+                    448.65626358723296,
+                    937.8671370942757,
+                    470.1822984244858
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "103": {
+        "frame_number": 103,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    922.1803482572868,
+                    427.24961685871733,
+                    936.7606917817757,
+                    448.77565169597017
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "104": {
+        "frame_number": 104,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "105": {
+        "frame_number": 105,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "106": {
+        "frame_number": 106,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    727.5956420898438,
+                    496.5987854003906,
+                    740.3770141601562,
+                    519.0469360351562
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "107": {
+        "frame_number": 107,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    583.21220703125,
+                    497.3821426391602,
+                    597.3772705078125,
+                    520.8568099975586
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "108": {
+        "frame_number": 108,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    310.24516601562505,
+                    499.8452774047852,
+                    324.41022949218745,
+                    523.3199447631836
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "109": {
+        "frame_number": 109,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    -99.20543365478511,
+                    503.5400100708008,
+                    -85.0403701782227,
+                    527.0146774291992
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "110": {
+        "frame_number": 110,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    591.6732946777344,
+                    250.39396163940432,
+                    604.8192590332031,
+                    273.0279743957519
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "111": {
+        "frame_number": 111,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    630.2426990966796,
+                    268.6748332061768,
+                    642.9878917236329,
+                    291.2167683563232
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "112": {
+        "frame_number": 112,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    640.3172404418945,
+                    290.8727067306519,
+                    652.401143347168,
+                    313.1316878005981
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "113": {
+        "frame_number": 113,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    615.3855265612792,
+                    263.2098937348938,
+                    626.8703328137208,
+                    284.38831183151245
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "114": {
+        "frame_number": 114,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    601.052803163208,
+                    253.11970698649597,
+                    612.0554732039795,
+                    273.46116459553525
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "115": {
+        "frame_number": 115,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    593.3417656810425,
+                    250.37181674113313,
+                    604.03872748302,
+                    270.27436245808565
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "116": {
+        "frame_number": 116,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    582.3437798411987,
+                    255.7050686942581,
+                    593.0407416431763,
+                    275.60761441121065
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "117": {
+        "frame_number": 117,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    716.3059107814172,
+                    327.756710317426,
+                    727.0270970310828,
+                    347.221317026324
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "118": {
+        "frame_number": 118,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    853.237379734492,
+                    297.18035640188566,
+                    863.7405255389455,
+                    316.15313969186434
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "119": {
+        "frame_number": 119,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    790.9251562926601,
+                    327.7350934754606,
+                    801.1495507385899,
+                    346.1682268370394
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "120": {
+        "frame_number": 120,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    803.8318945739101,
+                    351.6093915711637,
+                    814.0562890198399,
+                    370.04252493274254
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "121": {
+        "frame_number": 121,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    805.4088599059413,
+                    378.70280587780434,
+                    815.6332543518712,
+                    397.13593923938316
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "122": {
+        "frame_number": 122,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    795.6560522887538,
+                    409.01533639538246,
+                    805.8804467346837,
+                    427.4484697569613
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "123": {
+        "frame_number": 123,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    940.0730854790808,
+                    418.21728454903337,
+                    951.1711772162317,
+                    438.02587951346663
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "124": {
+        "frame_number": 124,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    941.6024537806691,
+                    475.15927691869837,
+                    953.6827024693309,
+                    496.0966434914579
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "125": {
+        "frame_number": 125,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    941.9291395214683,
+                    442.38810211945605,
+                    954.3228136035317,
+                    463.4072470016377
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "126": {
+        "frame_number": 126,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    937.604609090809,
+                    421.4725168205333,
+                    950.2277883701285,
+                    442.6109792732167
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "127": {
+        "frame_number": 127,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    933.5517664026288,
+                    412.24873052437334,
+                    946.4853429723712,
+                    433.5650512139079
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "128": {
+        "frame_number": 128,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    919.0390100549726,
+                    385.71259771187334,
+                    931.972586624715,
+                    407.0289184014079
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "129": {
+        "frame_number": 129,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    897.7648401330976,
+                    350.5079468329671,
+                    910.69841670284,
+                    371.82426752250166
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "130": {
+        "frame_number": 130,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    869.7292566370038,
+                    306.6348084052327,
+                    882.6628332067462,
+                    327.9511290947673
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "131": {
+        "frame_number": 131,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    922.3328978587933,
+                    465.97363834460043,
+                    935.3489869068317,
+                    487.13207454602457
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "132": {
+        "frame_number": 132,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    920.114754575374,
+                    471.8131386380953,
+                    933.216544252751,
+                    492.6958945650297
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "133": {
+        "frame_number": 133,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    919.4602598433868,
+                    466.994892847448,
+                    933.1979432816132,
+                    487.5074264884895
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "134": {
+        "frame_number": 134,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    919.1069475153707,
+                    459.4638840996589,
+                    932.8522810002543,
+                    480.3688795722161
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "135": {
+        "frame_number": 135,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    919.5814348200582,
+                    452.09004376762766,
+                    933.3267683049418,
+                    472.99503924018484
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "136": {
+        "frame_number": 136,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    918.5653783974783,
+                    448.2600765357769,
+                    933.0490014853342,
+                    469.5548038353169
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "137": {
+        "frame_number": 137,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    917.1315619973755,
+                    445.41052952719224,
+                    932.121733901062,
+                    466.76610621499526
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "138": {
+        "frame_number": 138,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    915.2991246481628,
+                    444.4147937647377,
+                    930.6710901955872,
+                    466.00811883291857
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "139": {
+        "frame_number": 139,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    913.4201843728546,
+                    445.4241599566054,
+                    928.8826720724579,
+                    467.1485329144883
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "140": {
+        "frame_number": 140,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    912.3521246664669,
+                    446.2281619696238,
+                    927.8732171304081,
+                    468.53727992490747
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "141": {
+        "frame_number": 141,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    911.710775596605,
+                    448.4950557859632,
+                    927.256997840895,
+                    471.34143103044306
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "142": {
+        "frame_number": 142,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    911.7870326637172,
+                    451.62696507556484,
+                    927.4590610862828,
+                    474.68468043224766
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "143": {
+        "frame_number": 143,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    912.2907299935083,
+                    455.5001182286766,
+                    927.6765551627417,
+                    478.3573036463234
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "144": {
+        "frame_number": 144,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    912.6780166106902,
+                    461.6616550256986,
+                    928.4883652252473,
+                    484.14101831414513
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "145": {
+        "frame_number": 145,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    913.6675437563894,
+                    469.5575249730672,
+                    929.8605324154856,
+                    491.8709418238078
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "146": {
+        "frame_number": 146,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    915.5442032368944,
+                    480.16021987372517,
+                    931.4748397318556,
+                    502.78057602471233
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "147": {
+        "frame_number": 147,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    905.1713353322324,
+                    305.42670469285764,
+                    921.8146265818301,
+                    330.60259218214236
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "148": {
+        "frame_number": 148,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    915.058130533344,
+                    429.10630436898475,
+                    932.115209310406,
+                    453.5612371349215
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "149": {
+        "frame_number": 149,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    710.8031059241221,
+                    303.3224355192268,
+                    726.1494087243154,
+                    326.2519053010857
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "150": {
+        "frame_number": 150,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    835.2121436293073,
+                    437.67503347674,
+                    850.8679344956927,
+                    460.727066132635
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "151": {
+        "frame_number": 151,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    697.9090779330933,
+                    317.2183913536399,
+                    712.5048624965942,
+                    339.7683029822976
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "152": {
+        "frame_number": 152,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    854.9800191039466,
+                    433.09476847879796,
+                    870.0435404663659,
+                    456.51143269307704
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "153": {
+        "frame_number": 153,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    723.1318934997157,
+                    314.9249316851586,
+                    737.1632725159093,
+                    337.5761669476539
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "154": {
+        "frame_number": 154,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    872.6028112896447,
+                    422.3952518622282,
+                    887.6553674212928,
+                    445.20222128230307
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "155": {
+        "frame_number": 155,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    945.3263868480637,
+                    469.9668038670363,
+                    961.3313279956863,
+                    493.9362112696825
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "156": {
+        "frame_number": 156,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    966.3539346608321,
+                    483.7407214471598,
+                    982.2426229563554,
+                    507.3256848028402
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "157": {
+        "frame_number": 157,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    959.6510928856294,
+                    479.7527884602775,
+                    975.6001278174956,
+                    502.45467003581626
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "158": {
+        "frame_number": 158,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    942.5877230277531,
+                    468.4052447688739,
+                    958.4835660347469,
+                    490.6216106998761
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "159": {
+        "frame_number": 159,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    926.7274339514585,
+                    457.7512403079383,
+                    942.360090462604,
+                    480.4643358639367
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "160": {
+        "frame_number": 160,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    916.0283016664116,
+                    451.5619033718068,
+                    931.8636661070259,
+                    474.44291840553694
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "161": {
+        "frame_number": 161,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    910.26206580516,
+                    449.53303267764755,
+                    925.888568960465,
+                    472.72758743953995
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "162": {
+        "frame_number": 162,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    907.8418628116589,
+                    450.69125336751733,
+                    923.4360912899036,
+                    474.17971831217017
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "163": {
+        "frame_number": 163,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    906.1446872689424,
+                    454.42219522835586,
+                    921.6277736685576,
+                    478.56095906851914
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "164": {
+        "frame_number": 164,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    924.9144219574004,
+                    427.31706070770065,
+                    940.0512762847871,
+                    451.4091966165181
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "165": {
+        "frame_number": 165,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    932.2940260342427,
+                    414.99965550808577,
+                    947.1222337313823,
+                    439.09641382785173
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "166": {
+        "frame_number": 166,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    946.5256544522115,
+                    396.91661717800764,
+                    961.353862149351,
+                    421.0133754977736
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "167": {
+        "frame_number": 167,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    965.1853834561177,
+                    375.85915257839827,
+                    980.0135911532573,
+                    399.95591089816423
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "168": {
+        "frame_number": 168,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    988.2731520108052,
+                    351.82726170925764,
+                    1003.1013597079448,
+                    375.9240200290236
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "169": {
+        "frame_number": 169,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    608.9782425403762,
+                    313.9680327814413,
+                    623.3885787486863,
+                    338.0446625310587
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "170": {
+        "frame_number": 170,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    698.8650111723063,
+                    475.22289119652066,
+                    714.8938999605062,
+                    499.86304630347934
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "171": {
+        "frame_number": 171,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    593.0615930256924,
+                    529.1008907809238,
+                    609.5155554118076,
+                    554.4743045315762
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "172": {
+        "frame_number": 172,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    503.9591460017738,
+                    310.75355811695914,
+                    519.6836762638512,
+                    336.66929344554086
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "173": {
+        "frame_number": 173,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    477.2040880532924,
+                    209.77664992259406,
+                    492.8320447592076,
+                    236.73528245045281
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "174": {
+        "frame_number": 174,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    790.1215481607422,
+                    197.83306382032757,
+                    806.2954440267578,
+                    224.5914662089693
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "175": {
+        "frame_number": 175,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    932.8945319547071,
+                    341.8254984950301,
+                    949.0714104281054,
+                    369.19751175887615
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "176": {
+        "frame_number": 176,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    967.1144414112637,
+                    459.43025678343514,
+                    982.7383417918613,
+                    485.07706743531486
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "177": {
+        "frame_number": 177,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    951.9353824253845,
+                    503.1371569212562,
+                    967.0604671839905,
+                    527.3613782349938
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "178": {
+        "frame_number": 178,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    921.0633492407379,
+                    503.6404403868715,
+                    935.7303519311371,
+                    527.000794964691
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "179": {
+        "frame_number": 179,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    894.576564927501,
+                    486.14684037530225,
+                    908.824069838124,
+                    508.32837935126025
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "180": {
+        "frame_number": 180,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    738.5193242090163,
+                    309.94079790626625,
+                    752.2193232519212,
+                    331.6314066835775
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "181": {
+        "frame_number": 181,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    675.3954910576396,
+                    227.31157367110512,
+                    688.7365890204854,
+                    249.01771099686363
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "182": {
+        "frame_number": 182,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    666.5740971583165,
+                    205.59087073481265,
+                    679.7733149510585,
+                    227.80240929448422
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "183": {
+        "frame_number": 183,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    684.0345645440246,
+                    212.87145329488644,
+                    696.9210018622254,
+                    234.82358454691044
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "184": {
+        "frame_number": 184,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    669.7780281886297,
+                    282.5485655852291,
+                    682.3524649754328,
+                    303.57283334055217
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "185": {
+        "frame_number": 185,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    669.1023040582127,
+                    320.8342980336838,
+                    681.1896881292873,
+                    340.9371863413162
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "186": {
+        "frame_number": 186,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    822.3272463856707,
+                    437.37104475639114,
+                    836.3436520518293,
+                    458.5904420600151
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "187": {
+        "frame_number": 187,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    881.7791579191883,
+                    481.2067802796691,
+                    896.3499924714367,
+                    503.6728583922059
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "188": {
+        "frame_number": 188,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1000.0705397551258,
+                    581.3300712952941,
+                    1014.6413743073742,
+                    603.7961494078309
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "189": {
+        "frame_number": 189,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    770.7511600551505,
+                    296.2991681928387,
+                    784.8692012729745,
+                    317.7000993852863
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "190": {
+        "frame_number": 190,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    815.8004580346991,
+                    369.111257944948,
+                    830.9230527074884,
+                    391.061105336302
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "191": {
+        "frame_number": 191,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    667.2412288274144,
+                    267.2947720409558,
+                    681.9223453913356,
+                    289.4586459277942
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "192": {
+        "frame_number": 192,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    738.5774905502838,
+                    430.5091480458566,
+                    753.4399655044037,
+                    453.33405263773716
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "193": {
+        "frame_number": 193,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    727.782873851065,
+                    512.049034520466,
+                    742.645348805185,
+                    534.8739391123465
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "194": {
+        "frame_number": 194,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    720.6516482651275,
+                    622.2229236806222,
+                    735.5141232192475,
+                    645.0478282725028
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "195": {
+        "frame_number": 195,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    717.183752757315,
+                    761.0307850087472,
+                    732.046227711435,
+                    783.8556896006278
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "196": {
+        "frame_number": 196,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    852.0782057875424,
+                    530.8213847112012,
+                    867.5411789780826,
+                    555.1942402887988
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "197": {
+        "frame_number": 197,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    870.5058854087016,
+                    533.8952268662002,
+                    886.5846907631734,
+                    559.1023317275498
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "198": {
+        "frame_number": 198,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    912.3800919516704,
+                    544.076074034169,
+                    928.4588973061421,
+                    569.2831788955185
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "199": {
+        "frame_number": 199,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    959.5054581626079,
+                    548.3667844833877,
+                    975.5842635170796,
+                    573.5738893447373
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "200": {
+        "frame_number": 200,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1011.8819840415141,
+                    546.7674192490127,
+                    1027.960789395986,
+                    571.9745241103623
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "201": {
+        "frame_number": 201,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "202": {
+        "frame_number": 202,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "203": {
+        "frame_number": 203,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "204": {
+        "frame_number": 204,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "205": {
+        "frame_number": 205,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "206": {
+        "frame_number": 206,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "207": {
+        "frame_number": 207,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "208": {
+        "frame_number": 208,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "209": {
+        "frame_number": 209,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "210": {
+        "frame_number": 210,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    755.0611572265625,
+                    457.5537109375,
+                    771.680908203125,
+                    484.22088623046875
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "211": {
+        "frame_number": 211,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    758.8604919433594,
+                    443.9876647949219,
+                    775.7947814941406,
+                    469.4277404785156
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "212": {
+        "frame_number": 212,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    767.3898321533203,
+                    423.3741442871094,
+                    784.5516961669922,
+                    449.0883801269531
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "213": {
+        "frame_number": 213,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    777.5955997924805,
+                    404.67545385742187,
+                    794.905742980957,
+                    431.20027856445313
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "214": {
+        "frame_number": 214,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    787.3079415832519,
+                    393.2944394042969,
+                    804.7093924011231,
+                    421.2374209472656
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "215": {
+        "frame_number": 215,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    798.9347607684326,
+                    383.34062906738285,
+                    816.8257372784424,
+                    411.5776448583984
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "216": {
+        "frame_number": 216,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    806.7698293640747,
+                    374.806116128418,
+                    824.6426462218628,
+                    401.88974568798824
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "217": {
+        "frame_number": 217,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    810.2178783575866,
+                    369.0709249666504,
+                    827.6466235955384,
+                    395.2076394864746
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "218": {
+        "frame_number": 218,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    810.1995851628106,
+                    365.4738112950147,
+                    826.8195798762519,
+                    389.96851048232907
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "219": {
+        "frame_number": 219,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    805.8208436471706,
+                    355.88250713990874,
+                    822.7913389700169,
+                    381.2523195202475
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "220": {
+        "frame_number": 220,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    800.555816138957,
+                    345.59962450477207,
+                    817.2780461657305,
+                    371.1643525460092
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "221": {
+        "frame_number": 221,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    795.724013924223,
+                    331.920948701192,
+                    811.4811862710895,
+                    356.87427834958925
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "222": {
+        "frame_number": 222,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    832.7133893367999,
+                    305.63927163477973,
+                    847.4279680850751,
+                    329.3607894003765
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "223": {
+        "frame_number": 223,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    846.0780651627131,
+                    300.0362352615333,
+                    859.9469592513494,
+                    323.05623300018544
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "224": {
+        "frame_number": 224,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    845.828736190071,
+                    304.77948150436237,
+                    859.5537100989915,
+                    328.11724701126263
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "225": {
+        "frame_number": 225,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    785.7679327158622,
+                    272.57954513410834,
+                    800.4616815419503,
+                    296.3779133619854
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "226": {
+        "frame_number": 226,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    750.2005167682911,
+                    251.12199323938364,
+                    765.9116658488964,
+                    276.0567787332726
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "227": {
+        "frame_number": 227,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    699.6344767292286,
+                    227.5040122823524,
+                    715.3456258098339,
+                    252.43879777624136
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "228": {
+        "frame_number": 228,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    733.6255729194444,
+                    232.90776770409198,
+                    749.2021858696181,
+                    257.20520837012674
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "229": {
+        "frame_number": 229,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    202.23931095572044,
+                    279.2566501614191,
+                    220.54193904427956,
+                    308.7598293307684
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "230": {
+        "frame_number": 230,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    507.4636724541606,
+                    244.18515438057148,
+                    525.7163812567769,
+                    273.7735858538035
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "231": {
+        "frame_number": 231,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    692.7839396143968,
+                    225.15949545653675,
+                    710.3472859715407,
+                    252.948597805182
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "232": {
+        "frame_number": 232,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    774.7113736968746,
+                    217.0559079890093,
+                    792.6597200531254,
+                    244.2388002629438
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "233": {
+        "frame_number": 233,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    960.0372403960934,
+                    201.9947202448687,
+                    977.9855867523441,
+                    229.1776125188032
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "234": {
+        "frame_number": 234,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1195.5539029937495,
+                    184.696944976314,
+                    1213.5022493500005,
+                    211.8798372502485
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "235": {
+        "frame_number": 235,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1481.2614225249995,
+                    165.1625974421343,
+                    1499.2097688812505,
+                    192.3454897160688
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "236": {
+        "frame_number": 236,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    752.9588990878121,
+                    206.95588821681824,
+                    770.2918333340629,
+                    232.5771012851349
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "237": {
+        "frame_number": 237,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    727.645358084613,
+                    206.50832234381377,
+                    744.906399727887,
+                    230.9668668651706
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "238": {
+        "frame_number": 238,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    667.7357511510193,
+                    208.54781208990752,
+                    684.9967927942932,
+                    233.00635661126435
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "239": {
+        "frame_number": 239,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    728.5267933838385,
+                    200.6485655088337,
+                    745.3772593505365,
+                    224.9769532899944
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "240": {
+        "frame_number": 240,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    735.1644584936869,
+                    197.32102619065626,
+                    752.1623237328756,
+                    221.15773357496874
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "241": {
+        "frame_number": 241,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    740.2687525373777,
+                    195.1130972397094,
+                    757.4708714860598,
+                    218.80224699857186
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "242": {
+        "frame_number": 242,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    745.777602635034,
+                    192.47521882174064,
+                    762.979721583716,
+                    216.1643685806031
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "243": {
+        "frame_number": 243,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    744.907926580852,
+                    188.9957543715075,
+                    761.4545001769606,
+                    211.53311525739875
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "244": {
+        "frame_number": 244,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    746.0963213116745,
+                    184.92641496191072,
+                    762.365470680513,
+                    208.10199690332365
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "245": {
+        "frame_number": 245,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    750.4571611554245,
+                    180.9574665976529,
+                    766.726310524263,
+                    204.13304853906584
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "246": {
+        "frame_number": 246,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    755.781013694487,
+                    176.6997761679654,
+                    772.0501630633255,
+                    199.87535810937834
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "247": {
+        "frame_number": 247,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    762.067878928862,
+                    172.15334367284822,
+                    778.3370282977005,
+                    195.32892561426115
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "248": {
+        "frame_number": 248,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "249": {
+        "frame_number": 249,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    730.3670654296875,
+                    186.8999481201172,
+                    747.85546875,
+                    210.96656799316406
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "250": {
+        "frame_number": 250,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    730.3670654296875,
+                    186.8999481201172,
+                    747.85546875,
+                    210.96656799316406
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "251": {
+        "frame_number": 251,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    730.3670654296875,
+                    186.8999481201172,
+                    747.85546875,
+                    210.96656799316406
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "252": {
+        "frame_number": 252,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    717.2263488769531,
+                    197.5857727050781,
+                    733.7792663574219,
+                    221.22837524414064
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "253": {
+        "frame_number": 253,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    712.4994354248047,
+                    199.49831604003904,
+                    729.3761749267578,
+                    223.45956970214846
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "254": {
+        "frame_number": 254,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    706.3321990966797,
+                    202.50483154296873,
+                    723.2089385986328,
+                    226.46608520507814
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "255": {
+        "frame_number": 255,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    700.6099685668945,
+                    214.85979229736327,
+                    718.260758972168,
+                    240.55585711669923
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "256": {
+        "frame_number": 256,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    694.0844914245605,
+                    221.6822989440918,
+                    711.350933380127,
+                    245.61411829223633
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "257": {
+        "frame_number": 257,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    687.0059274444579,
+                    228.1305709918213,
+                    704.0239797821046,
+                    253.0225967327881
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "258": {
+        "frame_number": 258,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    679.3228809005736,
+                    237.67648117620848,
+                    696.7386425369264,
+                    263.10861403863527
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "259": {
+        "frame_number": 259,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    672.4791538374328,
+                    247.22219099815064,
+                    690.0726039750672,
+                    272.42020402138064
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "260": {
+        "frame_number": 260,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    664.8508923053436,
+                    258.1194649731195,
+                    682.4066760540314,
+                    283.2620657885993
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "261": {
+        "frame_number": 261,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    657.0247814654998,
+                    269.6093941723382,
+                    674.5805652141877,
+                    294.751994987818
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "262": {
+        "frame_number": 262,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    648.9026680707717,
+                    280.8470532155586,
+                    665.8966483354783,
+                    305.8758471750664
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "263": {
+        "frame_number": 263,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    641.2627880596965,
+                    295.2157369335082,
+                    657.841826198116,
+                    320.2727884571168
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "264": {
+        "frame_number": 264,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    268.5896965758696,
+                    549.506382369569,
+                    286.1571295960054,
+                    577.318324661681
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "265": {
+        "frame_number": 265,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    -19.526750872860873,
+                    750.388462447694,
+                    -1.9593178527250643,
+                    778.200404739806
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "266": {
+        "frame_number": 266,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    93.90642163631185,
+                    660.3556181713936,
+                    112.3848991644694,
+                    690.5317109301689
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "267": {
+        "frame_number": 267,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    90.59463613662923,
+                    657.7973519094287,
+                    109.59896737899577,
+                    689.8032340280713
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "268": {
+        "frame_number": 268,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    109.12276919090414,
+                    641.342669346854,
+                    128.7428161362443,
+                    674.493512293771
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "269": {
+        "frame_number": 269,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    129.43834383690023,
+                    621.3011044054477,
+                    149.0583907822404,
+                    654.4519473523648
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "270": {
+        "frame_number": 270,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    131.56758020304207,
+                    622.300915906079,
+                    151.64543249227043,
+                    656.622912218921
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "271": {
+        "frame_number": 271,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    495.39175804642633,
+                    420.7417721157006,
+                    514.8323020121675,
+                    453.8441653842994
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "272": {
+        "frame_number": 272,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    288.3267433735873,
+                    532.2762595239592,
+                    308.5000388529752,
+                    566.8685158666658
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "273": {
+        "frame_number": 273,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    156.79838512591542,
+                    603.4163919206777,
+                    177.73573352642833,
+                    639.1940817121348
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "274": {
+        "frame_number": 274,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    681.5309734699767,
+                    378.0290720007244,
+                    700.9682941081483,
+                    412.26285915161935
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "275": {
+        "frame_number": 275,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    923.2765398274212,
+                    274.0310895362493,
+                    941.4129132975788,
+                    306.9368059715632
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "276": {
+        "frame_number": 276,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    400.3273982222124,
+                    503.2930578413901,
+                    420.2656193559126,
+                    538.4900232132974
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "277": {
+        "frame_number": 277,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    118.85083174016783,
+                    624.9073499616293,
+                    140.29739213678528,
+                    661.7014146868082
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "278": {
+        "frame_number": 278,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    10.965699405617489,
+                    669.9558908227499,
+                    32.848692684226265,
+                    707.9661062475626
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "279": {
+        "frame_number": 279,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    4.353191427193961,
+                    671.2269910075655,
+                    26.690936990774787,
+                    710.1983019611845
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "280": {
+        "frame_number": 280,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    39.70705608155531,
+                    655.127771879124,
+                    62.26058002684313,
+                    694.429845308376
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "281": {
+        "frame_number": 281,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    685.4277632011805,
+                    370.1639093095274,
+                    705.8896196113195,
+                    406.98861754594134
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "282": {
+        "frame_number": 282,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    775.9181598267638,
+                    281.0683589531926,
+                    798.3925091185487,
+                    319.68365520696364
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "283": {
+        "frame_number": 283,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    849.0847040662347,
+                    210.1048031715317,
+                    869.0505498400153,
+                    245.40343657456205
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "284": {
+        "frame_number": 284,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1070.8912226209222,
+                    62.58858307875826,
+                    1090.8570683947028,
+                    97.88721648178861
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "285": {
+        "frame_number": 285,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1313.1284052381097,
+                    -104.42272368393705,
+                    1333.0942510118903,
+                    -69.1240902809067
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "286": {
+        "frame_number": 286,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    1575.7962519177972,
+                    -290.9291018577652,
+                    1595.7620976915778,
+                    -255.63046845473482
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "287": {
+        "frame_number": 287,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "288": {
+        "frame_number": 288,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "289": {
+        "frame_number": 289,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "290": {
+        "frame_number": 290,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "291": {
+        "frame_number": 291,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "292": {
+        "frame_number": 292,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "293": {
+        "frame_number": 293,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    494.4276428222656,
+                    296.4032611846924,
+                    521.26123046875,
+                    344.626220703125
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "294": {
+        "frame_number": 294,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    493.8783416748047,
+                    294.6142416954041,
+                    520.8432159423828,
+                    343.1971596717834
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "295": {
+        "frame_number": 295,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    493.9425476074219,
+                    295.6127237033844,
+                    521.1842224121094,
+                    343.78626311302185
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "296": {
+        "frame_number": 296,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    494.2523010253906,
+                    296.82344758033753,
+                    521.4939758300782,
+                    344.99698698997497
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "297": {
+        "frame_number": 297,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    494.83955078124995,
+                    299.03600251197815,
+                    522.0812255859375,
+                    347.2095419216156
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "298": {
+        "frame_number": 298,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    495.70429687499995,
+                    302.2504190158844,
+                    522.9459716796875,
+                    350.42395842552185
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "299": {
+        "frame_number": 299,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "300": {
+        "frame_number": 300,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "301": {
+        "frame_number": 301,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "302": {
+        "frame_number": 302,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [],
+        "events": [],
+        "players_tactical": {}
+    },
+    "303": {
+        "frame_number": 303,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    983.5862121582031,
+                    350.86439514160156,
+                    1001.2178344726562,
+                    381.30674743652344
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    },
+    "304": {
+        "frame_number": 304,
+        "player_with_ball": -1,
+        "players": [],
+        "ball": [
+            {
+                "id": 1,
+                "position_2d": [
+                    983.5862274169922,
+                    350.86439514160156,
+                    1001.2178497314453,
+                    381.30674743652344
+                ]
+            }
+        ],
+        "events": [],
+        "players_tactical": {}
+    }
+}

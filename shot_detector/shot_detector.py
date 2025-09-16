@@ -88,6 +88,7 @@ class ShotDetector:
                     "successful": successful,
                     "player_id": self.player_in_action,
                     "shot_position": self.shot_start_position,
+                    "start_frame": self.shot_start_frame,
                 }
                 self.ball_positions_in_shot = []
                 self.last_ball_pos = None

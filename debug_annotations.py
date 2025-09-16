@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import time
 import pandas as pd
+import torch
 from utils import save_stub
 from ultralytics import YOLO
 from utils import read_video
@@ -130,7 +131,7 @@ def main(args):
     video_filename = os.path.basename(args.input_video)
     print(f"1. Avvio debug visivo per: {video_filename}")
 
-    output_dir = "debug_output"
+    output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
     print(f"Le immagini di debug verranno salvate in: {output_dir}")
 
@@ -191,8 +192,25 @@ def main(args):
         def convert_bbox(bbox):
             return bbox
 
+    # Risoluzione del device
+    req_device = (args.device or "auto").strip().lower()
+    if req_device == "auto":
+        resolved_device = "cuda" if torch.cuda.is_available() else "cpu"
+    else:
+        resolved_device = args.device
+    print(f"4. Uso del device per YOLO: {resolved_device}")
+
     ball_model = YOLO(BALL_DETECTOR_PATH)
     player_model = YOLO(PLAYER_DETECTOR_PATH)
+    # Prova a spostare i modelli sul device richiesto
+    try:
+        ball_model.to(resolved_device)
+        player_model.to(resolved_device)
+    except Exception as e:
+        print(
+            f"[WARN] Impossibile impostare il device '{resolved_device}' (errore: {e}). Fallback a CPU."
+        )
+        resolved_device = "cpu"
     ball_tracker = BallTracker(
         ball_model,
         imgsz=args.pred_imgsz,
@@ -282,7 +300,10 @@ def main(args):
         clean_for_pred = all_frames[frame_idx]
         t0 = time.time()
         player_results = player_model(
-            clean_for_pred, verbose=False, imgsz=args.pred_imgsz
+            clean_for_pred,
+            verbose=False,
+            imgsz=args.pred_imgsz,
+            device=resolved_device,
         )[0]
         player_classes_ids = [
             k for k, v in player_model.names.items() if "player" in v.lower()
@@ -294,9 +315,12 @@ def main(args):
         ]
         frame = draw_boxes(frame, pred_players, (0, 0, 255), "Pred_Player")
 
-        ball_results = ball_model(clean_for_pred, verbose=False, imgsz=args.pred_imgsz)[
-            0
-        ]
+        ball_results = ball_model(
+            clean_for_pred,
+            verbose=False,
+            imgsz=args.pred_imgsz,
+            device=resolved_device,
+        )[0]
         dt = max(1e-3, time.time() - t0)
         fps = 1.0 / dt
         try:
@@ -368,7 +392,7 @@ def main(args):
         output_path = os.path.join(output_dir, f"frame_{frame_idx:04d}.jpg")
         cv2.imwrite(output_path, frame)
 
-    print("\nAnalisi completata. Controlla le immagini nella cartella '{output_dir}'.")
+    print(f"\nAnalisi completata. Controlla le immagini nella cartella '{output_dir}'.")
 
 
 if __name__ == "__main__":
@@ -383,6 +407,18 @@ if __name__ == "__main__":
         type=str,
         required=True,
         help="Percorso del file di annotazioni COCO JSON.",
+    )
+    parser.add_argument(
+        "--output_dir",
+        type=str,
+        default="debug_output",
+        help="Cartella dove salvare le immagini di debug (default: debug_output)",
+    )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="auto",
+        help="Seleziona il device per i modelli YOLO: 'auto' (default), 'cpu', 'cuda', 'cuda:0', ecc.",
     )
     parser.add_argument(
         "--gt_resize_mode",

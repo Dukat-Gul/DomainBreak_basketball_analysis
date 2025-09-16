@@ -8,9 +8,16 @@ from utils import get_center_of_bbox
 class BallTracksDrawer:
     """
     Classe responsabile per disegnare il tracciamento della palla sui frame del video.
+    Supporta un puntatore a triangolo e, opzionalmente, una scia storica.
     """
 
-    def __init__(self, trail_len: int = 25, trail_color=(0, 165, 255), trail_thickness: int = 2):
+    def __init__(
+        self,
+        trail_len: int = 25,
+        trail_color=(0, 165, 255),
+        trail_thickness: int = 2,
+        enable_trail: bool = True,
+    ):
         self.ball_pointer_color = (
             0,
             255,
@@ -20,6 +27,7 @@ class BallTracksDrawer:
         self.trail_len = int(trail_len)
         self.trail_color = tuple(trail_color)
         self.trail_thickness = int(trail_thickness)
+        self.enable_trail = bool(enable_trail)
         self._trail = deque(maxlen=self.trail_len)
 
     def draw_frame(self, frame, ball_tracks_for_frame):
@@ -35,12 +43,39 @@ class BallTracksDrawer:
         """
         output_frame = frame.copy()
 
-        # Disegna il puntatore per la palla (di solito ha ID 1)
+        # Aggiorna scia con il centro della bbox (se presente)
+        center = None
         for _, ball_data in ball_tracks_for_frame.items():
-            if ball_data.get("bbox"):
-                output_frame = draw_triangle(
-                    output_frame, ball_data["bbox"], self.ball_pointer_color
+            bbox = ball_data.get("bbox")
+            if bbox:
+                cx, cy = get_center_of_bbox(bbox)
+                center = (int(cx), int(cy))
+                # Disegna il puntatore per la palla
+                output_frame = draw_triangle(output_frame, bbox, self.ball_pointer_color)
+                break
+
+        if self.enable_trail:
+            if center is not None:
+                self._trail.append(center)
+            elif self._trail:
+                # opzionale: manteniamo l'ultimo punto per una dissolvenza semplice
+                self._trail.append(self._trail[-1])
+
+            # Disegna la scia (polilinea + piccoli cerchi)
+            if len(self._trail) >= 2:
+                pts = np.array(list(self._trail), dtype=np.int32)
+                cv2.polylines(
+                    output_frame,
+                    [pts],
+                    isClosed=False,
+                    color=self.trail_color,
+                    thickness=self.trail_thickness,
+                    lineType=cv2.LINE_AA,
                 )
+                n = len(pts)
+                for i, (x, y) in enumerate(pts):
+                    r = max(1, int(4 * (i + 1) / n))
+                    cv2.circle(output_frame, (x, y), r, self.trail_color, -1, cv2.LINE_AA)
 
         return output_frame
 
