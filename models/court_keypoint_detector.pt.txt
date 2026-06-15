@@ -1,0 +1,4 @@
+Download the Pretrained Weights
+
+    court_keypoint_detector.pt
+    (https://drive.google.com/file/d/1nGoG-pUkSg4bWAUIeQ8aN6n7O1fOkXU0/view?usp=sharing)
