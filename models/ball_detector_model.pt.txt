@@ -1,0 +1,4 @@
+Download the Pretrained Weights
+
+    ball_detector_model.pt
+    (https://drive.google.com/file/d/1KejdrcEnto2AKjdgdo1U1syr5gODp6EL/view?usp=sharing)
