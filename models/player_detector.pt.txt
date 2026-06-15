@@ -1,0 +1,4 @@
+Download the Pretrained Weights
+
+    player_detector.pt
+    (https://drive.google.com/file/d/1fVBLZtPy9Yu6Tf186oS4siotkioHBLHy/view?usp=sharing)
